@@ -149,6 +149,40 @@
     .btn-cancel { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1.1rem; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; color: var(--text-muted); }
     .btn-salva { background: var(--sky); color: white; border: none; border-radius: 8px; padding: 0.5rem 1.4rem; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; }
     .btn-salva:hover { background: var(--sky-dark); }
+    .btn-salva:disabled { background: #aaa; cursor: not-allowed; }
+
+    /* Tab tipo contenuto nel modal */
+    .contenuto-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .ctab {
+      flex: 1; padding: 0.5rem 0.3rem; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; color: var(--text-muted); text-align: center; transition: all 0.15s;
+    }
+    .ctab.active { background: var(--sky-light); border-color: var(--sky); color: var(--sky-dark); }
+    .contenuto-panel { display: none; }
+    .contenuto-panel.active { display: block; }
+
+    /* Upload area */
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: 8px; padding: 1.2rem; text-align: center;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s; color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .upload-area:hover, .upload-area.dragover { border-color: var(--sky); background: var(--sky-light); }
+    .upload-area input[type=file] { display: none; }
+    .upload-filename { margin-top: 0.5rem; font-weight: 700; font-size: 0.85rem; color: var(--sky-dark); }
+    .upload-progress { margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Testo nel materiale card */
+    .materiale-testo-preview {
+      font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+      background: var(--bg2); border-radius: 6px; padding: 0.5rem 0.7rem; margin-top: 0.2rem;
+      white-space: pre-wrap; max-height: 80px; overflow: hidden; position: relative;
+    }
+    .materiale-testo-preview.espanso { max-height: none; }
+    .btn-espandi { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--sky); cursor: pointer; padding: 0.2rem 0; }
+    .materiale-file-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; font-size: 0.82rem; font-weight: 700; color: var(--green); text-decoration: none; }
+    .materiale-file-link:hover { text-decoration: underline; }
 
     /* NOTE */
     .note-card { background: var(--gold-light); border: 1px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
@@ -221,17 +255,42 @@
       </select>
     </div>
     <div class="form-group">
-      <label>Descrizione</label>
-      <textarea id="f-desc" placeholder="Breve descrizione del materiale..."></textarea>
+      <label>Descrizione breve</label>
+      <input type="text" id="f-desc" placeholder="Una riga di descrizione (opzionale)" />
     </div>
+
     <div class="form-group">
-      <label>Link al file (Google Drive, ecc.)</label>
-      <input type="url" id="f-link" placeholder="https://drive.google.com/..." />
+      <label>Tipo di contenuto *</label>
+      <div class="contenuto-tabs">
+        <button class="ctab active" onclick="setTab('link')" type="button">🔗 Link</button>
+        <button class="ctab" onclick="setTab('testo')" type="button">📝 Testo</button>
+        <button class="ctab" onclick="setTab('file')" type="button">📎 File</button>
+      </div>
+
+      <div class="contenuto-panel active" id="panel-link">
+        <input type="url" id="f-link" placeholder="https://drive.google.com/..." />
+      </div>
+
+      <div class="contenuto-panel" id="panel-testo">
+        <textarea id="f-testo" style="min-height:120px;" placeholder="Scrivi qui il testo completo del materiale (copione, preghiera, istruzioni gioco...)"></textarea>
+      </div>
+
+      <div class="contenuto-panel" id="panel-file">
+        <div class="upload-area" id="upload-area" onclick="document.getElementById('f-file').click()">
+          <div>📎 Clicca per scegliere un file</div>
+          <div style="font-size:0.75rem;margin-top:0.3rem;">PDF, Word, immagini — max 20MB</div>
+          <input type="file" id="f-file" onchange="onFileSelected(this)" />
+          <div class="upload-filename" id="upload-filename"></div>
+        </div>
+        <div class="upload-progress" id="upload-progress"></div>
+      </div>
     </div>
+
     <input type="hidden" id="f-giorno" value="generale" />
+    <input type="hidden" id="f-contenuto-tipo" value="link" />
     <div class="modal-actions">
       <button class="btn-cancel" onclick="chiudiModal()">Annulla</button>
-      <button class="btn-salva" onclick="salvaMateria()">Salva</button>
+      <button class="btn-salva" id="btn-salva" onclick="salvaMateria()">Salva</button>
     </div>
   </div>
 </div>
@@ -405,13 +464,30 @@ function tipoLabel(tipo) {
 }
 
 function renderMaterialeCard(m) {
+  let contenuto = '';
+  if (m.contenutoTipo === 'link' && m.link) {
+    contenuto = `<a class="materiale-link" href="${m.link}" target="_blank">🔗 Apri link</a>`;
+  } else if (m.contenutoTipo === 'file' && m.percorsoFile) {
+    contenuto = `<a class="materiale-file-link" href="${m.percorsoFile}" target="_blank">📎 ${m.nomeFile || 'Scarica file'}</a>`;
+  } else if (m.contenutoTipo === 'testo' && m.testo) {
+    const id = `testo-${m.id}`;
+    contenuto = `<div class="materiale-testo-preview" id="${id}">${m.testo.replace(/</g,'&lt;')}</div>
+    <button class="btn-espandi" onclick="toggleTesto('${id}')">Leggi tutto ▾</button>`;
+  }
   return `<div class="materiale-card" id="mc-${m.id}">
     <button class="btn-elimina" onclick="elimina('${m.id}')" title="Elimina">✕</button>
     <span class="materiale-tipo ${tipoClass(m.tipo)}">${tipoLabel(m.tipo)}</span>
     <span class="materiale-nome">${m.nome}</span>
     ${m.descrizione ? `<span class="materiale-desc">${m.descrizione}</span>` : ''}
-    ${m.link ? `<a class="materiale-link" href="${m.link}" target="_blank">🔗 Apri file</a>` : ''}
+    ${contenuto}
   </div>`;
+}
+
+function toggleTesto(id) {
+  const el = document.getElementById(id);
+  const btn = el.nextElementSibling;
+  if (el.classList.toggle('espanso')) { btn.textContent = 'Riduci ▴'; }
+  else { btn.textContent = 'Leggi tutto ▾'; }
 }
 
 function renderGrid(containerId, items) {
@@ -535,12 +611,31 @@ function showGiornateList() {
 }
 
 // ─── MODAL ──────────────────────────────────────────────
+function setTab(tipo) {
+  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.contenuto-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.ctab[onclick="setTab('${tipo}')"]`).classList.add('active');
+  document.getElementById(`panel-${tipo}`).classList.add('active');
+  document.getElementById('f-contenuto-tipo').value = tipo;
+}
+
+function onFileSelected(input) {
+  const file = input.files[0];
+  document.getElementById('upload-filename').textContent = file ? `✓ ${file.name}` : '';
+}
+
 function apriModal(giorno, tipoDefault) {
   document.getElementById('f-giorno').value = giorno;
   document.getElementById('f-nome').value = '';
   document.getElementById('f-desc').value = '';
   document.getElementById('f-link').value = '';
+  document.getElementById('f-testo').value = '';
+  document.getElementById('f-file').value = '';
+  document.getElementById('upload-filename').textContent = '';
+  document.getElementById('upload-progress').textContent = '';
+  document.getElementById('btn-salva').disabled = false;
   if (tipoDefault) document.getElementById('f-tipo').value = tipoDefault;
+  setTab('link');
   document.getElementById('modal').classList.add('open');
   setTimeout(() => document.getElementById('f-nome').focus(), 100);
 }
@@ -553,13 +648,41 @@ async function salvaMateria() {
   const nome = document.getElementById('f-nome').value.trim();
   const tipo = document.getElementById('f-tipo').value;
   const desc = document.getElementById('f-desc').value.trim();
-  const link = document.getElementById('f-link').value.trim();
   const giorno = document.getElementById('f-giorno').value;
+  const contenutoTipo = document.getElementById('f-contenuto-tipo').value;
   if (!nome) { alert('Il nome è obbligatorio!'); return; }
-  await postMateriale({ nome, tipo, descrizione: desc, link, giorno });
-  await fetchMateriali();
-  aggiornaTutteLeGriglie();
-  chiudiModal();
+
+  const btn = document.getElementById('btn-salva');
+  btn.disabled = true;
+  btn.textContent = 'Salvataggio...';
+
+  try {
+    if (contenutoTipo === 'file') {
+      const fileInput = document.getElementById('f-file');
+      if (!fileInput.files[0]) { alert('Seleziona un file!'); btn.disabled = false; btn.textContent = 'Salva'; return; }
+      const fd = new FormData();
+      fd.append('file', fileInput.files[0]);
+      fd.append('nome', nome);
+      fd.append('tipo', tipo);
+      fd.append('descrizione', desc);
+      fd.append('giorno', giorno);
+      document.getElementById('upload-progress').textContent = 'Caricamento in corso...';
+      const r = await fetch('/api/materiali/upload', { method: 'POST', body: fd });
+      if (!r.ok) throw new Error('Errore upload');
+    } else {
+      const link = contenutoTipo === 'link' ? document.getElementById('f-link').value.trim() : '';
+      const testo = contenutoTipo === 'testo' ? document.getElementById('f-testo').value.trim() : '';
+      await postMateriale({ nome, tipo, descrizione: desc, contenutoTipo, link, testo, giorno });
+    }
+    await fetchMateriali();
+    aggiornaTutteLeGriglie();
+    chiudiModal();
+  } catch(e) {
+    alert('Errore durante il salvataggio. Riprova.');
+    document.getElementById('upload-progress').textContent = '';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Salva';
 }
 
 async function elimina(id) {
