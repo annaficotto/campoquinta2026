@@ -1,755 +1,1330 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campo Scuola 2025 — Materiali</title>
+  <title>Campo Scuola 2026 — Materiali</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
     :root {
-      --gold: #C9A84C; --gold-light: #F7EAC8; --gold-dark: #8A6620;
-      --sky: #3A7FBF; --sky-light: #D6EAF8; --sky-dark: #1A4F7A;
-      --green: #4A8C5C; --green-light: #D5EDE0;
-      --coral: #D4614A; --coral-light: #FAE0DB;
-      --purple: #7B5EA7; --purple-light: #EDE7F6;
-      --bg: #FDFAF4; --bg2: #F2EBD9;
-      --text: #2A2118; --text-muted: #7A6650;
-      --border: rgba(42,33,24,0.12);
-      --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --gold: #C9A84C;
+      --gold-light: #F7EAC8;
+      --gold-dark: #8A6620;
+      --sky: #3A7FBF;
+      --sky-light: #D6EAF8;
+      --sky-dark: #1A4F7A;
+      --green: #4A8C5C;
+      --green-light: #D5EDE0;
+      --coral: #D4614A;
+      --coral-light: #FAE0DB;
+      --purple: #7B5EA7;
+      --purple-light: #EDE7F6;
+      --bg: #FDFAF4;
+      --bg2: #F2EBD9;
+      --text: #2A2118;
+      --text-muted: #7A6650;
+      --border: rgba(42, 33, 24, 0.12);
+      --radius: 14px;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
     header {
       background: linear-gradient(135deg, #2A3F5F 0%, #1A4F7A 60%, #3A7FBF 100%);
-      color: white; padding: 2.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden;
+      color: white;
+      padding: 2.5rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
+
     header::before {
-      content: ''; position: absolute; top: -40px; left: -40px; right: -40px; height: 160px;
-      background: radial-gradient(ellipse, rgba(201,168,76,0.25) 0%, transparent 70%);
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      right: -40px;
+      height: 160px;
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.25) 0%, transparent 70%);
     }
-    .header-cross { font-size: 2rem; opacity: 0.7; margin-bottom: 0.5rem; }
-    header h1 { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 700; line-height: 1.1; margin-bottom: 0.4rem; }
-    header .subtitle { font-size: 1rem; opacity: 0.8; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
-    .date-badge { display: inline-block; background: rgba(201,168,76,0.3); border: 1px solid rgba(201,168,76,0.6); color: #F7EAC8; padding: 0.35rem 1.2rem; border-radius: 999px; font-size: 0.9rem; font-weight: 700; }
 
+    .header-cross {
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+
+    header .subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: rgba(201, 168, 76, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.6);
+      color: #F7EAC8;
+      padding: 0.35rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* NAV */
     nav {
-      background: white; border-bottom: 1px solid var(--border); padding: 0 1rem;
-      display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 1rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
+
     nav a {
-      display: flex; align-items: center; gap: 0.4rem; padding: 0.9rem 1rem;
-      text-decoration: none; color: var(--text-muted); font-weight: 700; font-size: 0.85rem;
-      white-space: nowrap; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
     }
-    nav a:hover { color: var(--text); border-color: var(--gold); }
-    nav a.active { color: var(--sky-dark); border-color: var(--sky); }
 
-    main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-    section { display: none; }
-    section.active { display: block; }
+    nav a:hover {
+      color: var(--text);
+      border-color: var(--gold);
+    }
 
-    .section-title { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .section-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.8rem; }
+    nav a.active {
+      color: var(--sky-dark);
+      border-color: var(--sky);
+    }
 
-    .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    nav a .nav-icon {
+      font-size: 1rem;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* SECTIONS */
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* SECTION HEADER */
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* GIORNATA CARD */
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
     .day-card {
-      background: white; border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 1.2rem 1rem 1rem; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      text-decoration: none; color: var(--text); display: block;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem 1rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
     }
-    .day-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--sky); }
-    .day-num { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.2rem; }
-    .day-date { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--sky-dark); margin-bottom: 0.4rem; }
-    .day-theme { font-size: 0.85rem; font-weight: 600; font-style: italic; }
-    .day-beatitudine { font-size: 0.78rem; color: var(--gold-dark); margin-top: 0.5rem; font-weight: 700; }
-    .badge-count { display: inline-block; background: var(--sky-light); color: var(--sky-dark); font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 999px; margin-top: 0.6rem; }
 
+    .day-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: var(--sky);
+    }
+
+    .day-card .day-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .day-card .day-date {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--sky-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .day-card .day-theme {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .day-card .day-beatitudine {
+      font-size: 0.78rem;
+      color: var(--gold-dark);
+      margin-top: 0.5rem;
+      font-weight: 700;
+    }
+
+    .day-card .badge-count {
+      display: inline-block;
+      background: var(--sky-light);
+      color: var(--sky-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-top: 0.6rem;
+    }
+
+    /* GIORNATA DETTAGLIO */
     .giornata-header {
-      background: linear-gradient(135deg, var(--sky-dark), var(--sky)); color: white;
-      border-radius: var(--radius); padding: 1.5rem 1.8rem; margin-bottom: 1.5rem;
-      display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+      background: linear-gradient(135deg, var(--sky-dark), var(--sky));
+      color: white;
+      border-radius: var(--radius);
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    .gh-date { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; }
-    .gh-beatitudine { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.88rem; font-style: italic; max-width: 340px; line-height: 1.4; }
-    .back-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.4rem 0.9rem; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; color: var(--text-muted); margin-bottom: 1rem; transition: background 0.15s; }
-    .back-btn:hover { background: var(--bg2); }
 
-    .programma { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-    .programma-title { padding: 0.8rem 1.2rem; background: var(--bg2); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
-    .momento { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.2rem; border-bottom: 1px solid var(--border); }
-    .momento:last-child { border-bottom: none; }
-    .momento-ora { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); min-width: 52px; }
-    .momento-icon { font-size: 1.1rem; min-width: 22px; text-align: center; }
-    .momento-label { font-size: 0.9rem; font-weight: 600; }
-    .momento-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
-    .momento.highlight { background: var(--sky-light); }
-    .momento.highlight .momento-label { color: var(--sky-dark); }
+    .giornata-header .gh-date {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
 
-    /* MATERIALI */
-    .materiali-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
-    .materiali-title { font-weight: 800; font-size: 1rem; }
-    .btn-aggiungi {
-      background: var(--sky); color: white; border: none; border-radius: 8px;
-      padding: 0.45rem 1rem; font-family: 'Nunito', sans-serif; font-size: 0.85rem;
-      font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
+    .giornata-header .gh-beatitudine {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.88rem;
+      font-style: italic;
+      max-width: 340px;
+      line-height: 1.4;
+    }
+
+    .back-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
       transition: background 0.15s;
     }
-    .btn-aggiungi:hover { background: var(--sky-dark); }
 
-    .materiali-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+    .back-btn:hover {
+      background: var(--bg2);
+    }
+
+    /* PROGRAMMA GIORNATA */
+    .programma {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .programma-title {
+      padding: 0.8rem 1.2rem;
+      background: var(--bg2);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .momento {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .momento:last-child {
+      border-bottom: none;
+    }
+
+    .momento-ora {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 52px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .momento-icon {
+      font-size: 1.1rem;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    .momento-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .momento-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .momento.highlight {
+      background: var(--sky-light);
+    }
+
+    .momento.highlight .momento-label {
+      color: var(--sky-dark);
+    }
+
+    /* MATERIALI GRID */
+    .materiali-title {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .materiali-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
     .materiale-card {
-      background: white; border: 1px solid var(--border); border-radius: 10px;
-      padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem;
-      transition: box-shadow 0.15s, border-color 0.15s; position: relative;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: box-shadow 0.15s, border-color 0.15s;
     }
-    .materiale-card:hover { box-shadow: var(--shadow); border-color: var(--gold); }
-    .materiale-tipo { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 6px; display: inline-block; width: fit-content; }
-    .tipo-preghiera { background: var(--purple-light); color: var(--purple); }
-    .tipo-scenetta { background: var(--gold-light); color: var(--gold-dark); }
-    .tipo-attivita { background: var(--green-light); color: var(--green); }
-    .tipo-gioco { background: var(--coral-light); color: var(--coral); }
-    .tipo-canto { background: var(--sky-light); color: var(--sky-dark); }
-    .tipo-scheda { background: var(--bg2); color: var(--text-muted); }
-    .materiale-nome { font-weight: 700; font-size: 0.92rem; }
-    .materiale-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
-    .materiale-link { margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--sky); text-decoration: none; padding-top: 0.3rem; }
-    .materiale-link:hover { text-decoration: underline; }
-    .btn-elimina {
-      position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none;
-      cursor: pointer; font-size: 0.9rem; color: #ccc; transition: color 0.15s;
-    }
-    .btn-elimina:hover { color: var(--coral); }
-    .empty-state { color: var(--text-muted); font-style: italic; font-size: 0.88rem; padding: 1rem 0; }
 
-    /* MODAL */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-      z-index: 200; align-items: center; justify-content: center;
+    .materiale-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--gold);
     }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: white; border-radius: var(--radius); padding: 1.8rem; width: 90%; max-width: 460px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-    }
-    .modal h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; margin-bottom: 1.2rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.8rem;
-      font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--text);
-      background: var(--bg); transition: border-color 0.15s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: 2px solid var(--sky); border-color: var(--sky); }
-    .form-group textarea { resize: vertical; min-height: 60px; }
-    .modal-actions { display: flex; gap: 0.8rem; justify-content: flex-end; margin-top: 1.4rem; }
-    .btn-cancel { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1.1rem; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; color: var(--text-muted); }
-    .btn-salva { background: var(--sky); color: white; border: none; border-radius: 8px; padding: 0.5rem 1.4rem; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; }
-    .btn-salva:hover { background: var(--sky-dark); }
-    .btn-salva:disabled { background: #aaa; cursor: not-allowed; }
 
-    /* Tab tipo contenuto nel modal */
-    .contenuto-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-    .ctab {
-      flex: 1; padding: 0.5rem 0.3rem; border: 1px solid var(--border); border-radius: 8px;
-      background: var(--bg); font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700;
-      cursor: pointer; color: var(--text-muted); text-align: center; transition: all 0.15s;
+    .materiale-tipo {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
     }
-    .ctab.active { background: var(--sky-light); border-color: var(--sky); color: var(--sky-dark); }
-    .contenuto-panel { display: none; }
-    .contenuto-panel.active { display: block; }
 
-    /* Upload area */
-    .upload-area {
-      border: 2px dashed var(--border); border-radius: 8px; padding: 1.2rem; text-align: center;
-      cursor: pointer; transition: border-color 0.15s, background 0.15s; color: var(--text-muted);
+    .tipo-preghiera {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .tipo-scenetta {
+      background: var(--gold-light);
+      color: var(--gold-dark);
+    }
+
+    .tipo-attivita {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .tipo-gioco {
+      background: var(--coral-light);
+      color: var(--coral);
+    }
+
+    .tipo-canto {
+      background: var(--sky-light);
+      color: var(--sky-dark);
+    }
+
+    .tipo-scheda {
+      background: var(--bg2);
+      color: var(--text-muted);
+    }
+
+    .materiale-nome {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .materiale-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .materiale-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--sky);
+      text-decoration: none;
+      padding-top: 0.3rem;
+    }
+
+    .materiale-placeholder {
+      font-size: 0.78rem;
+      color: #bbb;
+      font-style: italic;
+    }
+
+    /* NOTE CARD */
+    .note-card {
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .note-card label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .note-card textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      resize: vertical;
+      min-height: 70px;
+      color: var(--text);
+    }
+
+    .note-card textarea:focus {
+      outline: 2px solid var(--gold);
+    }
+
+    /* MATERIALI GENERALI */
+    .cat-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .cat-icon {
+      font-size: 1.4rem;
+    }
+
+    .cat-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* INFO PAGE */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+    }
+
+    .info-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
       font-size: 0.88rem;
     }
-    .upload-area:hover, .upload-area.dragover { border-color: var(--sky); background: var(--sky-light); }
-    .upload-area input[type=file] { display: none; }
-    .upload-filename { margin-top: 0.5rem; font-weight: 700; font-size: 0.85rem; color: var(--sky-dark); }
-    .upload-progress { margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
 
-    /* Testo nel materiale card */
-    .materiale-testo-preview {
-      font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
-      background: var(--bg2); border-radius: 6px; padding: 0.5rem 0.7rem; margin-top: 0.2rem;
-      white-space: pre-wrap; max-height: 80px; overflow: hidden; position: relative;
+    .info-row:last-child {
+      border-bottom: none;
     }
-    .materiale-testo-preview.espanso { max-height: none; }
-    .btn-espandi { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--sky); cursor: pointer; padding: 0.2rem 0; }
-    .materiale-file-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; font-size: 0.82rem; font-weight: 700; color: var(--green); text-decoration: none; }
-    .materiale-file-link:hover { text-decoration: underline; }
 
-    /* NOTE */
-    .note-card { background: var(--gold-light); border: 1px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
-    .note-card label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-dark); margin-bottom: 0.4rem; }
-    .note-card textarea { width: 100%; background: rgba(255,255,255,0.6); border: 1px solid rgba(201,168,76,0.4); border-radius: 8px; padding: 0.6rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.88rem; resize: vertical; min-height: 70px; color: var(--text); }
-    .nota-status { font-size: 0.75rem; color: var(--gold-dark); margin-top: 0.3rem; min-height: 1em; }
+    .info-row .label {
+      color: var(--text-muted);
+    }
 
-    /* CAT SECTION */
-    .cat-section { margin-bottom: 2.5rem; }
-    .cat-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--border); }
-    .cat-icon { font-size: 1.4rem; }
-    .cat-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; flex: 1; }
+    .info-row .val {
+      font-weight: 700;
+    }
 
-    /* INFO */
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .info-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; }
-    .info-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.8rem; }
-    .info-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.35rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
-    .info-row:last-child { border-bottom: none; }
-    .info-row .label { color: var(--text-muted); }
-    .info-row .val { font-weight: 700; }
+    .beatitudini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
 
-    .beatitudini-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
-    .beatitudine-row { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; display: flex; gap: 1rem; align-items: flex-start; }
-    .beat-num { background: var(--gold-light); color: var(--gold-dark); font-weight: 800; font-size: 0.9rem; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .beat-text { font-family: 'Fraunces', serif; font-size: 0.95rem; line-height: 1.5; font-style: italic; }
-    .beat-giorno { margin-left: auto; font-size: 0.75rem; font-weight: 700; color: var(--sky); white-space: nowrap; flex-shrink: 0; }
+    .beatitudine-row {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
 
-    .loading { color: var(--text-muted); font-style: italic; font-size: 0.88rem; }
+    .beat-num {
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      font-weight: 800;
+      font-size: 0.9rem;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .beat-text {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .beat-giorno {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--sky);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 600px) {
-      header h1 { font-size: 1.7rem; }
-      nav a { padding: 0.8rem 0.7rem; font-size: 0.78rem; }
-      .giornata-header { flex-direction: column; }
+      header h1 {
+        font-size: 1.7rem;
+      }
+
+      nav a {
+        padding: 0.8rem 0.7rem;
+        font-size: 0.78rem;
+      }
+
+      .giornata-header {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="header-cross">✝</div>
-  <h1>Campo Scuola 2025</h1>
-  <div class="subtitle">5ª Elementare · Materiali animatori</div>
-  <div class="date-badge">4 – 11 Luglio 2025</div>
-</header>
+  <header>
+    <div class="header-cross">✝</div>
+    <h1>Campo Scuola 2026</h1>
+    <div class="subtitle">5ª Elementare · Materiali animatori</div>
+    <div class="date-badge">4 – 11 Luglio 2026</div>
+  </header>
 
-<nav id="main-nav">
-  <a href="#" class="active" data-section="home" onclick="showSection('home',this);return false;">🏠 Home</a>
-  <a href="#" data-section="giornate" onclick="showSection('giornate',this);return false;">📅 Giornate</a>
-  <a href="#" data-section="materiali" onclick="showSection('materiali',this);return false;">📦 Materiali</a>
-  <a href="#" data-section="info" onclick="showSection('info',this);return false;">ℹ️ Info campo</a>
-</nav>
+  <nav id="main-nav">
+    <a href="#home" class="active" data-section="home" onclick="showSection('home',this)">
+      <span class="nav-icon"><i class="fa-solid fa-house"></i></span> Home
+    </a>
+    <a href="#giornate" data-section="giornate" onclick="showSection('giornate',this)">
+      <span class="nav-icon"><i class="fa-solid fa-calendar"></i></span> Giornate
+    </a>
+    <a href="#materiali" data-section="materiali" onclick="showSection('materiali',this)">
+      <span class="nav-icon"><i class="fa-solid fa-box-archive"></i></span> Materiali
+    </a>
+    <a href="#info" data-section="info" onclick="showSection('info',this)">
+      <span class="nav-icon"><i class="fa-solid fa-circle-info"></i></span> Info campo
+    </a>
+  </nav>
 
-<!-- MODAL AGGIUNGI MATERIALE -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h2>Aggiungi materiale</h2>
-    <div class="form-group">
-      <label>Nome *</label>
-      <input type="text" id="f-nome" placeholder="Es. Copione scenetta Giorno 1" />
-    </div>
-    <div class="form-group">
-      <label>Tipo *</label>
-      <select id="f-tipo">
-        <option value="preghiera">🙏 Preghiera</option>
-        <option value="scenetta">🎭 Scenetta</option>
-        <option value="attivita">✏️ Attività</option>
-        <option value="gioco">⚽ Gioco</option>
-        <option value="canto">🎵 Canto</option>
-        <option value="scheda">📋 Scheda</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Descrizione breve</label>
-      <input type="text" id="f-desc" placeholder="Una riga di descrizione (opzionale)" />
-    </div>
+  <main>
 
-    <div class="form-group">
-      <label>Tipo di contenuto *</label>
-      <div class="contenuto-tabs">
-        <button class="ctab active" onclick="setTab('link')" type="button">🔗 Link</button>
-        <button class="ctab" onclick="setTab('testo')" type="button">📝 Testo</button>
-        <button class="ctab" onclick="setTab('file')" type="button">📎 File</button>
+    <!-- HOME -->
+    <section id="home" class="active">
+      <div style="margin-bottom:2rem;">
+        <p class="section-title">Benvenuti, animatori! 👋</p>
+        <p class="section-desc">Questo sito raccoglie tutti i materiali per il campo scuola. Trovi le giornate con
+          programma, scenette, attività, preghiere e giochi. Aggiungete i link ai file man mano che li preparate.</p>
       </div>
 
-      <div class="contenuto-panel active" id="panel-link">
-        <input type="url" id="f-link" placeholder="https://drive.google.com/..." />
-      </div>
+      <!-- Accesso rapido giornate -->
+      <p style="font-weight:800; margin-bottom:0.8rem;">Accesso rapido alle giornate</p>
+      <div class="day-grid" id="home-days"></div>
 
-      <div class="contenuto-panel" id="panel-testo">
-        <textarea id="f-testo" style="min-height:120px;" placeholder="Scrivi qui il testo completo del materiale (copione, preghiera, istruzioni gioco...)"></textarea>
-      </div>
-
-      <div class="contenuto-panel" id="panel-file">
-        <div class="upload-area" id="upload-area" onclick="document.getElementById('f-file').click()">
-          <div>📎 Clicca per scegliere un file</div>
-          <div style="font-size:0.75rem;margin-top:0.3rem;">PDF, Word, immagini — max 20MB</div>
-          <input type="file" id="f-file" onchange="onFileSelected(this)" />
-          <div class="upload-filename" id="upload-filename"></div>
+      <!-- Promemoria struttura -->
+      <p style="font-weight:800; margin-bottom:0.8rem; margin-top:1rem;">Struttura della giornata</p>
+      <div class="programma">
+        <div class="programma-title">Scaletta tipo</div>
+        <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon"><i
+              class="fa-solid fa-bell"></i></span>
+          <div>
+            <div class="momento-label">Sveglia</div>
+          </div>
         </div>
-        <div class="upload-progress" id="upload-progress"></div>
+        <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon"><i
+              class="fa-solid fa-book-bible"></i></span>
+          <div>
+            <div class="momento-label">Preghiera mattutina</div>
+            <div class="momento-note">Vangelo + presentazione tema del giorno</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon"><i
+              class="fa-solid fa-mug-saucer"></i></span>
+          <div>
+            <div class="momento-label">Colazione</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon"><i
+              class="fa-solid fa-broom"></i></span>
+          <div>
+            <div class="momento-label">Servizi e pulizie</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon"><i
+              class="fa-solid fa-masks-theater"></i></span>
+          <div>
+            <div class="momento-label">Scenetta</div>
+            <div class="momento-note">Capitolo della storia del campo</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon"><i
+              class="fa-solid fa-pencil"></i></span>
+          <div>
+            <div class="momento-label">Attività</div>
+            <div class="momento-note">A tema con la giornata</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon"><i
+              class="fa-solid fa-utensils"></i></span>
+          <div>
+            <div class="momento-label">Pranzo</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">15:30</span><span class="momento-icon"><i
+              class="fa-solid fa-chess"></i></span>
+          <div>
+            <div class="momento-label">Gioco pomeridiano</div>
+            <div class="momento-note">Ludico, divertimento</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">17:00</span><span class="momento-icon"><i
+              class="fa-solid fa-volleyball"></i></span>
+          <div>
+            <div class="momento-label">Tempo libero</div>
+            <div class="momento-note">Calcetto balilla, pallavolo, basket, ping pong, calcio, giochi da tavolo, carte,
+              freccette, etc...</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon"><i
+              class="fa-solid fa-shower"></i></span>
+          <div>
+            <div class="momento-label">Docce</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon"><i
+              class="fa-solid fa-spoon"></i></span>
+          <div>
+            <div class="momento-label">Cena</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">20:15</span><span class="momento-icon"><i
+              class="fa-solid fa-moon"></i></span>
+          <div>
+            <div class="momento-label">Gioco serale</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">21:45</span><span class="momento-icon"><i
+              class="fa-solid fa-cross"></i></span>
+          <div>
+            <div class="momento-label">Preghiera serale</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <input type="hidden" id="f-giorno" value="generale" />
-    <input type="hidden" id="f-contenuto-tipo" value="link" />
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="chiudiModal()">Annulla</button>
-      <button class="btn-salva" id="btn-salva" onclick="salvaMateria()">Salva</button>
-    </div>
-  </div>
-</div>
-
-<main>
-  <!-- HOME -->
-  <section id="home" class="active">
-    <div style="margin-bottom:2rem;">
-      <p class="section-title">Benvenuti, animatori! 👋</p>
-      <p class="section-desc">Questo sito raccoglie tutti i materiali per il campo scuola. Cliccate su una giornata per vedere il programma e aggiungere materiali specifici.</p>
-    </div>
-    <p style="font-weight:800;margin-bottom:0.8rem;">Giornate</p>
-    <div class="day-grid" id="home-days"></div>
-
-    <p style="font-weight:800;margin-bottom:0.8rem;margin-top:1rem;">Struttura della giornata</p>
-    <div class="programma">
-      <div class="programma-title">Scaletta tipo</div>
-      <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon">🌅</span><div><div class="momento-label">Sveglia</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon">🙏</span><div><div class="momento-label">Preghiera mattutina</div><div class="momento-note">Vangelo + presentazione tema del giorno</div></div></div>
-      <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon">🥐</span><div><div class="momento-label">Colazione</div></div></div>
-      <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon">🧹</span><div><div class="momento-label">Servizi e pulizie</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon">🎭</span><div><div class="momento-label">Scenetta</div><div class="momento-note">Capitolo della storia del campo</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon">✏️</span><div><div class="momento-label">Attività</div><div class="momento-note">A tema con la giornata</div></div></div>
-      <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon">🍽️</span><div><div class="momento-label">Pranzo</div></div></div>
-      <div class="momento"><span class="momento-ora">14:30</span><span class="momento-icon">⚽</span><div><div class="momento-label">Gioco pomeridiano</div></div></div>
-      <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon">🚿</span><div><div class="momento-label">Docce e tempo libero</div></div></div>
-      <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon">🍽️</span><div><div class="momento-label">Cena</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">20:30</span><span class="momento-icon">🌙</span><div><div class="momento-label">Gioco serale</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">22:00</span><span class="momento-icon">✨</span><div><div class="momento-label">Preghiera serale</div></div></div>
-    </div>
-  </section>
-
-  <!-- GIORNATE -->
-  <section id="giornate">
-    <div id="giornate-list">
-      <p class="section-title">Giornate</p>
-      <p class="section-desc">Clicca su una giornata per vedere il programma e gestire i materiali.</p>
-      <div class="day-grid" id="giornate-cards"></div>
-    </div>
-    <div id="giornata-detail" style="display:none;">
-      <button class="back-btn" onclick="showGiornateList()">← Tutte le giornate</button>
-      <div id="detail-content"></div>
-    </div>
-  </section>
-
-  <!-- MATERIALI GENERALI -->
-  <section id="materiali">
-    <p class="section-title">Materiali generali</p>
-    <p class="section-desc">Risorse che servono durante tutto il campo, non legate a una singola giornata.</p>
-
-    <div class="cat-section" id="gen-canti">
-      <div class="cat-header">
-        <span class="cat-icon">🎵</span><span class="cat-title">Canti</span>
-        <button class="btn-aggiungi" onclick="apriModal('generale','canto')">+ Aggiungi</button>
+    <!-- GIORNATE -->
+    <section id="giornate">
+      <div id="giornate-list">
+        <p class="section-title">Giornate</p>
+        <p class="section-desc">Clicca su una giornata per vedere il programma e i materiali specifici.</p>
+        <div class="day-grid" id="giornate-cards"></div>
       </div>
-      <div class="materiali-grid" id="grid-generale-canto"><p class="loading">Caricamento...</p></div>
-    </div>
-    <div class="cat-section">
-      <div class="cat-header">
-        <span class="cat-icon">🙏</span><span class="cat-title">Preghiere e liturgia</span>
-        <button class="btn-aggiungi" onclick="apriModal('generale','preghiera')">+ Aggiungi</button>
+      <div id="giornata-detail" style="display:none;">
+        <button class="back-btn" onclick="showGiornateList()">← Tutte le giornate</button>
+        <div id="detail-content"></div>
       </div>
-      <div class="materiali-grid" id="grid-generale-preghiera"><p class="loading">Caricamento...</p></div>
-    </div>
-    <div class="cat-section">
-      <div class="cat-header">
-        <span class="cat-icon">🎭</span><span class="cat-title">Storia / scenette</span>
-        <button class="btn-aggiungi" onclick="apriModal('generale','scenetta')">+ Aggiungi</button>
+    </section>
+
+    <!-- MATERIALI GENERALI -->
+    <section id="materiali">
+      <p class="section-title">Materiali generali</p>
+      <p class="section-desc">Risorse che servono durante tutto il campo, non legate a una singola giornata.</p>
+
+      <div class="cat-section">
+        <div class="cat-header">
+          <span class="cat-icon"><i class="fa-solid fa-music"></i></span>
+          <span class="cat-title">Canti</span>
+        </div>
+        <div class="materiali-grid">
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-canto">Canto</span>
+            <span class="materiale-nome">Canzoniere del campo</span>
+            <span class="materiale-desc">Raccolta di tutti i canti usati durante le preghiere e i momenti di
+              gruppo.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al PDF</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-canto">Canto</span>
+            <span class="materiale-nome">Canto tema del campo</span>
+            <span class="materiale-desc">Il canto principale legato al tema narrativo del campo.</span>
+            <span class="materiale-placeholder">→ Aggiungi link / testo</span>
+          </div>
+          <div class="materiale-card add-card"
+            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi canto</span>
+          </div>
+        </div>
       </div>
-      <div class="materiali-grid" id="grid-generale-scenetta"><p class="loading">Caricamento...</p></div>
-    </div>
-    <div class="cat-section">
-      <div class="cat-header">
-        <span class="cat-icon">⚽</span><span class="cat-title">Giochi</span>
-        <button class="btn-aggiungi" onclick="apriModal('generale','gioco')">+ Aggiungi</button>
+
+      <div class="cat-section">
+        <div class="cat-header">
+          <span class="cat-icon"><i class="fa-solid fa-cross"></i></span>
+          <span class="cat-title">Preghiere e liturgia</span>
+        </div>
+        <div class="materiali-grid">
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-preghiera">Preghiera</span>
+            <span class="materiale-nome">Libretto della preghiera</span>
+            <span class="materiale-desc">Testi per le preghiere mattutine e serali di tutto il campo.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-preghiera">Liturgia</span>
+            <span class="materiale-nome">Brani del Vangelo</span>
+            <span class="materiale-desc">Selezione dei brani evangelici per ogni giornata.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card add-card"
+            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
+          </div>
+        </div>
       </div>
-      <div class="materiali-grid" id="grid-generale-gioco"><p class="loading">Caricamento...</p></div>
-    </div>
-    <div class="cat-section">
-      <div class="cat-header">
-        <span class="cat-icon">📋</span><span class="cat-title">Organizzazione</span>
-        <button class="btn-aggiungi" onclick="apriModal('generale','scheda')">+ Aggiungi</button>
+
+      <div class="cat-section">
+        <div class="cat-header">
+          <span class="cat-icon"><i class="fa-solid fa-masks-theater"></i></span>
+          <span class="cat-title">Storia / scenette</span>
+        </div>
+        <div class="materiali-grid">
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-scenetta">Scenetta</span>
+            <span class="materiale-nome">Copione completo</span>
+            <span class="materiale-desc">Tutti gli episodi della storia in un unico file. (Tema da definire)</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-scenetta">Costumi</span>
+            <span class="materiale-nome">Elenco costumi e oggetti</span>
+            <span class="materiale-desc">Lista di cosa serve per ogni scenetta.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card add-card"
+            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
+          </div>
+        </div>
       </div>
-      <div class="materiali-grid" id="grid-generale-scheda"><p class="loading">Caricamento...</p></div>
-    </div>
 
-    <div class="note-card">
-      <label>📝 Note generali</label>
-      <textarea id="nota-generale" placeholder="Aggiungi qui note, promemoria, cose da comprare..."></textarea>
-      <div class="nota-status" id="nota-generale-status"></div>
-    </div>
-  </section>
-
-  <!-- INFO -->
-  <section id="info">
-    <p class="section-title">Informazioni sul campo</p>
-    <p class="section-desc">Riepilogo logistico e struttura teologica del campo.</p>
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>📍 Logistica</h3>
-        <div class="info-row"><span class="label">Date</span><span class="val">4 – 11 Luglio 2025</span></div>
-        <div class="info-row"><span class="label">Classe</span><span class="val">5ª Elementare</span></div>
-        <div class="info-row"><span class="label">Sede</span><span class="val">Da definire</span></div>
-        <div class="info-row"><span class="label">Durata</span><span class="val">8 giorni</span></div>
+      <div class="cat-section">
+        <div class="cat-header">
+          <span class="cat-icon"><i class="fa-regular fa-futbol"></i></span>
+          <span class="cat-title">Giochi e attività</span>
+        </div>
+        <div class="materiali-grid">
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-gioco">Gioco</span>
+            <span class="materiale-nome">Giochi pomeridiani</span>
+            <span class="materiale-desc">Raccolta di giochi ricreativi per il pomeriggio.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-gioco">Serale</span>
+            <span class="materiale-nome">Giochi serali</span>
+            <span class="materiale-desc">Idee e istruzioni per i giochi serali.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card add-card"
+            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi gioco</span>
+          </div>
+        </div>
       </div>
-      <div class="info-card">
-        <h3>🎭 Tema</h3>
-        <div class="info-row"><span class="label">Tema portante</span><span class="val">Le Beatitudini</span></div>
-        <div class="info-row"><span class="label">Storia</span><span class="val">Da decidere</span></div>
+
+      <div class="cat-section">
+        <div class="cat-header">
+          <span class="cat-icon"><i class="fa-solid fa-clipboard"></i></span>
+          <span class="cat-title">Organizzazione</span>
+        </div>
+        <div class="materiali-grid">
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-scheda">Scheda</span>
+            <span class="materiale-nome">Lista partecipanti</span>
+            <span class="materiale-desc">Elenco bambini con contatti dei genitori e note mediche.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-scheda">Scheda</span>
+            <span class="materiale-nome">Turni animatori</span>
+            <span class="materiale-desc">Rotazione dei turni di guardia notturna e servizi.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card">
+            <span class="materiale-tipo tipo-scheda">Modulo</span>
+            <span class="materiale-nome">Moduli autorizzazione</span>
+            <span class="materiale-desc">Moduli firmati dai genitori.</span>
+            <span class="materiale-placeholder">→ Aggiungi link al file</span>
+          </div>
+          <div class="materiale-card add-card"
+            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <p style="font-weight:800;margin-bottom:0.8rem;">Le otto beatitudini</p>
-    <div class="beatitudini-list" id="beatitudini-list"></div>
-  </section>
-</main>
+    </section>
 
-<script>
-const API = '';  // stesso dominio, nessun prefisso
+    <!-- INFO -->
+    <section id="info">
+      <p class="section-title">Informazioni sul campo</p>
+      <p class="section-desc">Riepilogo logistico e struttura teologica del campo.</p>
 
-const GIORNI = [
-  { data:"4 lug", giorno:"Venerdì",  n:1, beatitudine:"Beati i poveri in spirito, perché di essi è il regno dei cieli.", breve:"Poveri in spirito", colore:"#3A7FBF" },
-  { data:"5 lug", giorno:"Sabato",   n:2, beatitudine:"Beati gli afflitti, perché saranno consolati.", breve:"Gli afflitti", colore:"#7B5EA7" },
-  { data:"6 lug", giorno:"Domenica", n:3, beatitudine:"Beati i miti, perché erediteranno la terra.", breve:"I miti", colore:"#4A8C5C" },
-  { data:"7 lug", giorno:"Lunedì",   n:4, beatitudine:"Beati quelli che hanno fame e sete della giustizia, perché saranno saziati.", breve:"Fame di giustizia", colore:"#C9A84C" },
-  { data:"8 lug", giorno:"Martedì",  n:5, beatitudine:"Beati i misericordiosi, perché troveranno misericordia.", breve:"I misericordiosi", colore:"#D4614A" },
-  { data:"9 lug", giorno:"Mercoledì",n:6, beatitudine:"Beati i puri di cuore, perché vedranno Dio.", breve:"Puri di cuore", colore:"#3A7FBF" },
-  { data:"10 lug",giorno:"Giovedì",  n:7, beatitudine:"Beati gli operatori di pace, perché saranno chiamati figli di Dio.", breve:"Operatori di pace", colore:"#4A8C5C" },
-  { data:"11 lug",giorno:"Venerdì",  n:8, beatitudine:"Beati i perseguitati per la giustizia, perché di essi è il regno dei cieli.", breve:"Perseguitati per giustizia", colore:"#7B5EA7" },
-];
+      <div class="info-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-map-pin"></i> Logistica</h3>
+          <div class="info-row"><span class="label">Date</span><span class="val">4 – 11 Luglio 2026</span></div>
+          <div class="info-row"><span class="label">Classe</span><span class="val">5ª Elementare</span></div>
+          <div class="info-row"><span class="label">Sede</span><span class="val">Casa "Al Cervo" (Molina di
+              Fiemme)</span></div>
+          <div class="info-row"><span class="label">Giorni</span><span class="val">7 giorni</span></div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fa-solid fa-user-group"></i> Staff</h3>
+          <div class="info-row"><span class="label">Capi campo</span><span class="val">Giulio Stevanato, Germana
+              Gallina</span></div>
+          <div class="info-row"><span class="label">Sacerdote</span><span class="val">Don Riccardo Zanchin</span></div>
+          <div class="info-row"><span class="label">Animatori</span><span class="val">Anna Ficotto, Andrea Rigoni,
+              Francesco Favaretto, Carlo Alberto Bordin, ...</span></div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fa-solid fa-masks-theater"></i> Tema</h3>
+          <div class="info-row"><span class="label">Tema portante</span><span class="val">Le Beatitudini</span></div>
+          <div class="info-row"><span class="label">Storia</span><span class="val">Da decidere</span></div>
+          <div class="info-row"><span class="label">Colori campo</span><span class="val">Da definire</span></div>
+        </div>
+      </div>
 
-let tuttiMateriali = [];
-let giornoCorrente = null;
+      <p style="font-weight:800; margin-bottom:0.8rem;">Le otto beatitudini</p>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Mt 5,3-12 — Una beatitudine per ogni
+        giornata del campo</p>
+      <div class="beatitudini-list" id="beatitudini-list"></div>
 
-// ─── API ───────────────────────────────────────────────
-async function fetchMateriali() {
-  const r = await fetch('/api/materiali');
-  tuttiMateriali = await r.json();
-}
+      <div class="note-card" style="margin-top:1rem;">
+        <label><i class="fa-solid fa-note-sticky"></i> Note organizzative generali</label>
+        <textarea id="note-generali"
+          placeholder="Aggiungi qui note, promemoria, cose da comprare, da ricordare..."></textarea>
+      </div>
+    </section>
 
-async function postMateriale(dati) {
-  const r = await fetch('/api/materiali', {
-    method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(dati)
-  });
-  return r.json();
-}
+  </main>
 
-async function deleteMateriale(id) {
-  await fetch(`/api/materiali/${id}`, { method: 'DELETE' });
-}
+  <script>
+    // ── LINK SUI MATERIALI ──────────────────────────────────────────────────
+    // Quando si clicca su un ".materiale-placeholder" si chiede l'URL e lo
+    // si trasforma in un vero link cliccabile.
+    document.addEventListener('click', function (e) {
+      const placeholder = e.target.closest('.materiale-placeholder');
+      if (!placeholder) return;
+      e.stopPropagation();
+      const url = prompt('Inserisci il link al file (es. https://drive.google.com/…):');
+      if (!url || !url.trim()) return;
+      const link = document.createElement('a');
+      link.className = 'materiale-link';
+      link.href = url.trim();
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Apri file';
+      placeholder.replaceWith(link);
+    });
 
-async function fetchNota(contesto) {
-  const r = await fetch(`/api/note/${contesto}`);
-  const d = await r.json();
-  return d.testo;
-}
+    // ── AGGIUNGI MATERIALE ──────────────────────────────────────────────────
+    // Le card tratteggiate "+ Aggiungi …" aprono un mini-form inline.
+    document.addEventListener('click', function (e) {
+      const addCard = e.target.closest('.add-card');
+      if (!addCard) return;
+      e.stopPropagation();
 
-async function saveNota(contesto, testo) {
-  await fetch(`/api/note/${contesto}`, {
-    method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ testo })
-  });
-}
+      // Evita di aprire più form contemporaneamente
+      if (addCard.querySelector('.add-form')) return;
 
-// ─── RENDER ─────────────────────────────────────────────
-function tipoClass(tipo) {
-  return { preghiera:'tipo-preghiera', scenetta:'tipo-scenetta', attivita:'tipo-attivita',
-           gioco:'tipo-gioco', canto:'tipo-canto', scheda:'tipo-scheda' }[tipo] || 'tipo-scheda';
-}
-function tipoLabel(tipo) {
-  return { preghiera:'🙏 Preghiera', scenetta:'🎭 Scenetta', attivita:'✏️ Attività',
-           gioco:'⚽ Gioco', canto:'🎵 Canto', scheda:'📋 Scheda' }[tipo] || tipo;
-}
+      addCard.style.background = 'white';
+      addCard.style.border = '1.5px solid var(--sky)';
+      addCard.innerHTML = `
+        <div class="add-form" style="display:flex;flex-direction:column;gap:0.4rem;">
+          <select style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.5rem;background:var(--bg);">
+            <option value="tipo-canto">Canto</option>
+            <option value="tipo-preghiera">Preghiera</option>
+            <option value="tipo-scenetta">Scenetta</option>
+            <option value="tipo-attivita">Attività</option>
+            <option value="tipo-gioco">Gioco</option>
+            <option value="tipo-scheda">Scheda</option>
+          </select>
+          <input type="text" placeholder="Nome materiale" style="font-family:inherit;font-size:0.85rem;border:1px solid var(--border);border-radius:6px;padding:0.35rem 0.6rem;" />
+          <input type="text" placeholder="Descrizione (opzionale)" style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.6rem;" />
+          <input type="url" placeholder="Link al file (opzionale)" style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.6rem;" />
+          <div style="display:flex;gap:0.4rem;margin-top:0.2rem;">
+            <button onclick="confirmAddCard(this)" style="flex:1;background:var(--sky);color:white;border:none;border-radius:6px;padding:0.35rem;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;">Aggiungi</button>
+            <button onclick="cancelAddCard(this)" style="flex:1;background:var(--bg2);border:none;border-radius:6px;padding:0.35rem;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;color:var(--text-muted);">Annulla</button>
+          </div>
+        </div>`;
+    });
 
-function renderMaterialeCard(m) {
-  let contenuto = '';
-  if (m.contenutoTipo === 'link' && m.link) {
-    contenuto = `<a class="materiale-link" href="${m.link}" target="_blank">🔗 Apri link</a>`;
-  } else if (m.contenutoTipo === 'file' && m.percorsoFile) {
-    contenuto = `<a class="materiale-file-link" href="${m.percorsoFile}" target="_blank">📎 ${m.nomeFile || 'Scarica file'}</a>`;
-  } else if (m.contenutoTipo === 'testo' && m.testo) {
-    const id = `testo-${m.id}`;
-    contenuto = `<div class="materiale-testo-preview" id="${id}">${m.testo.replace(/</g,'&lt;')}</div>
-    <button class="btn-espandi" onclick="toggleTesto('${id}')">Leggi tutto ▾</button>`;
-  }
-  return `<div class="materiale-card" id="mc-${m.id}">
-    <button class="btn-elimina" onclick="elimina('${m.id}')" title="Elimina">✕</button>
-    <span class="materiale-tipo ${tipoClass(m.tipo)}">${tipoLabel(m.tipo)}</span>
-    <span class="materiale-nome">${m.nome}</span>
-    ${m.descrizione ? `<span class="materiale-desc">${m.descrizione}</span>` : ''}
-    ${contenuto}
-  </div>`;
-}
+    function confirmAddCard(btn) {
+      const form = btn.closest('.add-form');
+      const card = btn.closest('.add-card');
+      const grid = card.parentElement;
+      const [sel, nameInput, descInput, urlInput] = form.querySelectorAll('select,input');
+      const name = nameInput.value.trim();
+      if (!name) { nameInput.focus(); return; }
 
-function toggleTesto(id) {
-  const el = document.getElementById(id);
-  const btn = el.nextElementSibling;
-  if (el.classList.toggle('espanso')) { btn.textContent = 'Riduci ▴'; }
-  else { btn.textContent = 'Leggi tutto ▾'; }
-}
+      // Mappa tipo → etichetta leggibile
+      const labels = { 'tipo-canto': 'Canto', 'tipo-preghiera': 'Preghiera', 'tipo-scenetta': 'Scenetta', 'tipo-attivita': 'Attività', 'tipo-gioco': 'Gioco', 'tipo-scheda': 'Scheda' };
+      const tipoClass = sel.value;
+      const tipoLabel = labels[tipoClass] || 'Altro';
 
-function renderGrid(containerId, items) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  if (items.length === 0) {
-    el.innerHTML = '<p class="empty-state">Nessun materiale ancora. Usa il pulsante per aggiungerne uno.</p>';
-  } else {
-    el.innerHTML = items.map(renderMaterialeCard).join('');
-  }
-}
+      const newCard = document.createElement('div');
+      newCard.className = 'materiale-card';
+      newCard.innerHTML = `
+        <span class="materiale-tipo ${tipoClass}">${tipoLabel}</span>
+        <span class="materiale-nome">${name}</span>
+        ${descInput.value.trim() ? `<span class="materiale-desc">${descInput.value.trim()}</span>` : ''}
+        ${urlInput.value.trim()
+          ? `<a class="materiale-link" href="${urlInput.value.trim()}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Apri file</a>`
+          : `<span class="materiale-placeholder">→ Aggiungi link al file</span>`}`;
 
-function aggiornaTutteLeGriglie() {
-  // Materiali generali per tipo
-  ['canto','preghiera','scenetta','gioco','scheda','attivita'].forEach(tipo => {
-    const id = `grid-generale-${tipo}`;
-    if (document.getElementById(id)) {
-      renderGrid(id, tuttiMateriali.filter(m => m.giorno === 'generale' && m.tipo === tipo));
+      grid.insertBefore(newCard, card);
+      // Ripristina card "aggiungi"
+      card.style.background = '';
+      card.style.border = '';
+      card.innerHTML = `<span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>`;
     }
-  });
-  // Se c'è una giornata aperta
-  if (giornoCorrente !== null) {
-    const chiave = `giorno-${giornoCorrente + 1}`;
-    renderGrid(`grid-giorno-${giornoCorrente}`, tuttiMateriali.filter(m => m.giorno === chiave));
-  }
-  // Badge sulle card giornata
-  GIORNI.forEach((g, i) => {
-    const badge = document.getElementById(`badge-${i}`);
-    if (badge) {
-      const n = tuttiMateriali.filter(m => m.giorno === `giorno-${i+1}`).length;
-      badge.textContent = n > 0 ? `${n} materiale${n>1?'i':''}` : 'Nessun materiale';
+
+    function cancelAddCard(btn) {
+      const card = btn.closest('.add-card');
+      card.style.background = '';
+      card.style.border = '';
+      card.innerHTML = `<span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>`;
     }
-  });
-}
 
-// ─── DAY CARDS ──────────────────────────────────────────
-function renderDayCard(g, i) {
-  return `<div class="day-card" onclick="showGiornataDetail(${i})">
-    <div class="day-num">Giorno ${g.n}</div>
-    <div class="day-date">${g.giorno} ${g.data}</div>
-    <div class="day-theme" style="color:${g.colore};">${g.breve}</div>
-    <div class="day-beatitudine">« ${g.beatitudine.substring(0,50)}… »</div>
-    <span class="badge-count" id="badge-${i}">Nessun materiale</span>
-  </div>`;
-}
+    const GIORNI = [
+      { data: "4 lug", giorno: "Venerdì", n: 1, beatitudine: "Beati i poveri in spirito, perché di essi è il regno dei cieli.", breve: "Poveri in spirito", colore: "#3A7FBF" },
+      { data: "5 lug", giorno: "Sabato", n: 2, beatitudine: "Beati gli afflitti, perché saranno consolati.", breve: "Gli afflitti", colore: "#7B5EA7" },
+      { data: "6 lug", giorno: "Domenica", n: 3, beatitudine: "Beati i miti, perché erediteranno la terra.", breve: "I miti", colore: "#4A8C5C" },
+      { data: "7 lug", giorno: "Lunedì", n: 4, beatitudine: "Beati quelli che hanno fame e sete della giustizia, perché saranno saziati.", breve: "Fame di giustizia", colore: "#C9A84C" },
+      { data: "8 lug", giorno: "Martedì", n: 5, beatitudine: "Beati i misericordiosi, perché troveranno misericordia.", breve: "I misericordiosi", colore: "#D4614A" },
+      { data: "9 lug", giorno: "Mercoledì", n: 6, beatitudine: "Beati i puri di cuore, perché vedranno Dio.", breve: "Puri di cuore", colore: "#3A7FBF" },
+      { data: "10 lug", giorno: "Giovedì", n: 7, beatitudine: "Beati gli operatori di pace, perché saranno chiamati figli di Dio.", breve: "Operatori di pace", colore: "#4A8C5C" },
+      { data: "11 lug", giorno: "Venerdì", n: 8, beatitudine: "Beati i perseguitati per la giustizia, perché di essi è il regno dei cieli.", breve: "Perseguitati per giustizia", colore: "#7B5EA7" },
+    ];
 
-function buildCards() {
-  const html = GIORNI.map((g, i) => renderDayCard(g, i)).join('');
-  document.getElementById('home-days').innerHTML = html;
-  document.getElementById('giornate-cards').innerHTML = html;
-}
+    function renderDayCard(g, onclick) {
+      return `<div class="day-card" onclick="${onclick}">
+      <div class="day-num">Giorno ${g.n}</div>
+      <div class="day-date">${g.giorno} ${g.data}</div>
+      <div class="day-theme" style="color:${g.colore};">${g.breve}</div>
+      <div class="day-beatitudine">« ${g.beatitudine.substring(0, 50)}… »</div>
+      <span class="badge-count">Materiali da aggiungere</span>
+    </div>`;
+    }
 
-// ─── GIORNATA DETAIL ────────────────────────────────────
-function showGiornataDetail(idx) {
-  giornoCorrente = idx;
-  const g = GIORNI[idx];
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  document.querySelector('[data-section="giornate"]').classList.add('active');
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.getElementById('giornate').classList.add('active');
-  document.getElementById('giornate-list').style.display = 'none';
-
-  const detail = document.getElementById('giornata-detail');
-  detail.style.display = 'block';
-  document.getElementById('detail-content').innerHTML = `
-    <div class="giornata-header">
-      <div>
-        <div style="font-size:0.8rem;opacity:0.7;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Giorno ${g.n} · ${g.giorno} ${g.data}</div>
-        <div class="gh-date">${g.breve}</div>
+    function buildDayDetail(g) {
+      return `
+      <div class="giornata-header">
+        <div>
+          <div style="font-size:0.8rem;opacity:0.7;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Giorno ${g.n} · ${g.giorno} ${g.data}</div>
+          <div class="gh-date">${g.breve}</div>
+        </div>
+        <div class="gh-beatitudine">« ${g.beatitudine} »</div>
       </div>
-      <div class="gh-beatitudine">« ${g.beatitudine} »</div>
-    </div>
 
-    <div class="programma">
-      <div class="programma-title">Programma del giorno</div>
-      <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon">🌅</span><div><div class="momento-label">Sveglia</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon">🙏</span><div><div class="momento-label">Preghiera mattutina</div><div class="momento-note">Tema: ${g.breve}</div></div></div>
-      <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon">🥐</span><div><div class="momento-label">Colazione</div></div></div>
-      <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon">🧹</span><div><div class="momento-label">Servizi e pulizie</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon">🎭</span><div><div class="momento-label">Scenetta – Episodio ${g.n}</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon">✏️</span><div><div class="momento-label">Attività – ${g.breve}</div></div></div>
-      <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon">🍽️</span><div><div class="momento-label">Pranzo</div></div></div>
-      <div class="momento"><span class="momento-ora">14:30</span><span class="momento-icon">⚽</span><div><div class="momento-label">Gioco pomeridiano</div></div></div>
-      <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon">🚿</span><div><div class="momento-label">Docce e tempo libero</div></div></div>
-      <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon">🍽️</span><div><div class="momento-label">Cena</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">20:30</span><span class="momento-icon">🌙</span><div><div class="momento-label">Gioco serale</div></div></div>
-      <div class="momento highlight"><span class="momento-ora">22:00</span><span class="momento-icon">✨</span><div><div class="momento-label">Preghiera serale</div></div></div>
-    </div>
+      <div class="programma">
+        <div class="programma-title">Scaletta tipo</div>
+        <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon"><i class="fa-solid fa-bell"></i></span>
+          <div>
+            <div class="momento-label">Sveglia</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon"><i class="fa-solid fa-book-bible"></i></span>
+          <div>
+            <div class="momento-label">Preghiera mattutina</div>
+            <div class="momento-note">Vangelo + presentazione tema del giorno</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon"><i class="fa-solid fa-mug-saucer"></i></span>
+          <div>
+            <div class="momento-label">Colazione</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon"><i class="fa-solid fa-broom"></i></span>
+          <div>
+            <div class="momento-label">Servizi e pulizie</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon"><i class="fa-solid fa-masks-theater"></i></span>
+          <div>
+            <div class="momento-label">Scenetta</div>
+            <div class="momento-note">Capitolo della storia del campo</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon"><i class="fa-solid fa-pencil"></i></span>
+          <div>
+            <div class="momento-label">Attività</div>
+            <div class="momento-note">A tema con la giornata</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon"><i class="fa-solid fa-utensils"></i></span>
+          <div>
+            <div class="momento-label">Pranzo</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">15:30</span><span class="momento-icon"><i class="fa-solid fa-chess"></i></span>
+          <div>
+            <div class="momento-label">Gioco pomeridiano</div>
+            <div class="momento-note">Ludico, divertimento</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">17:00</span><span class="momento-icon"><i class="fa-solid fa-volleyball"></i></span>
+          <div>
+            <div class="momento-label">Tempo libero</div>
+            <div class="momento-note">Calcetto balilla, pallavolo, basket, ping pong, calcio, giochi da tavolo, carte, freccette, etc...</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon"><i class="fa-solid fa-shower"></i></span>
+          <div>
+            <div class="momento-label">Docce</div>
+          </div>
+        </div>
+        <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon"><i class="fa-solid fa-spoon"></i></span>
+          <div>
+            <div class="momento-label">Cena</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">20:15</span><span class="momento-icon"><i class="fa-solid fa-moon"></i></span>
+          <div>
+            <div class="momento-label">Gioco serale</div>
+          </div>
+        </div>
+        <div class="momento highlight"><span class="momento-ora">21:45</span><span class="momento-icon"><i class="fa-solid fa-cross"></i></span>
+          <div>
+            <div class="momento-label">Preghiera serale</div>
+          </div>
+        </div>
+      </div>
 
-    <div class="materiali-header">
-      <p class="materiali-title">Materiali – Giorno ${g.n}</p>
-      <button class="btn-aggiungi" onclick="apriModal('giorno-${g.n}')">+ Aggiungi materiale</button>
-    </div>
-    <div class="materiali-grid" id="grid-giorno-${idx}"><p class="loading">Caricamento...</p></div>
+      <p class="materiali-title">Materiali per questa giornata</p>
+      <div class="materiali-grid">
+        <div class="materiale-card">
+          <span class="materiale-tipo tipo-preghiera">Preghiera</span>
+          <span class="materiale-nome">Preghiera mattutina – Giorno ${g.n}</span>
+          <span class="materiale-desc">Testo della preghiera del mattino e del brano del Vangelo.</span>
+          <span class="materiale-placeholder">→ Aggiungi link al file</span>
+        </div>
+        <div class="materiale-card">
+          <span class="materiale-tipo tipo-scenetta">Scenetta</span>
+          <span class="materiale-nome">Copione scenetta – Ep. ${g.n}</span>
+          <span class="materiale-desc">Copione dell'episodio ${g.n} della storia del campo.</span>
+          <span class="materiale-placeholder">→ Aggiungi link al file</span>
+        </div>
+        <div class="materiale-card">
+          <span class="materiale-tipo tipo-attivita">Attività</span>
+          <span class="materiale-nome">Attività – ${g.breve}</span>
+          <span class="materiale-desc">Scheda e istruzioni per l'attività tematica della giornata.</span>
+          <span class="materiale-placeholder">→ Aggiungi link al file</span>
+        </div>
+        <div class="materiale-card">
+          <span class="materiale-tipo tipo-preghiera">Preghiera</span>
+          <span class="materiale-nome">Preghiera serale – Giorno ${g.n}</span>
+          <span class="materiale-desc">Testo della preghiera della sera.</span>
+          <span class="materiale-placeholder">→ Aggiungi link al file</span>
+        </div>
+        <div class="materiale-card add-card" style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
+          <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
+        </div>
+      </div>
 
-    <div class="note-card">
-      <label>📝 Note animatori – Giorno ${g.n}</label>
-      <textarea id="nota-giorno-${idx}" placeholder="Note per questa giornata..."></textarea>
-      <div class="nota-status" id="nota-giorno-${idx}-status"></div>
-    </div>
-  `;
-
-  aggiornaTutteLeGriglie();
-  window.scrollTo(0, 0);
-
-  // Carica nota
-  const notaKey = `giorno-${g.n}`;
-  fetchNota(notaKey).then(testo => {
-    const ta = document.getElementById(`nota-giorno-${idx}`);
-    if (ta) {
-      ta.value = testo;
-      setupNotaAutosave(ta, notaKey, `nota-giorno-${idx}-status`);
+      <div class="note-card">
+        <label><i class="fa-solid fa-note-sticky"></i> Note animatori – Giorno ${g.n}</label>
+        <textarea placeholder="Note specifiche per questa giornata: cose da preparare, variazioni al programma, promemoria..."></textarea>
+      </div>
+    `;
     }
-  });
-}
 
-function showGiornateList() {
-  giornoCorrente = null;
-  document.getElementById('giornate-list').style.display = '';
-  document.getElementById('giornata-detail').style.display = 'none';
-}
-
-// ─── MODAL ──────────────────────────────────────────────
-function setTab(tipo) {
-  document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.contenuto-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`.ctab[onclick="setTab('${tipo}')"]`).classList.add('active');
-  document.getElementById(`panel-${tipo}`).classList.add('active');
-  document.getElementById('f-contenuto-tipo').value = tipo;
-}
-
-function onFileSelected(input) {
-  const file = input.files[0];
-  document.getElementById('upload-filename').textContent = file ? `✓ ${file.name}` : '';
-}
-
-function apriModal(giorno, tipoDefault) {
-  document.getElementById('f-giorno').value = giorno;
-  document.getElementById('f-nome').value = '';
-  document.getElementById('f-desc').value = '';
-  document.getElementById('f-link').value = '';
-  document.getElementById('f-testo').value = '';
-  document.getElementById('f-file').value = '';
-  document.getElementById('upload-filename').textContent = '';
-  document.getElementById('upload-progress').textContent = '';
-  document.getElementById('btn-salva').disabled = false;
-  if (tipoDefault) document.getElementById('f-tipo').value = tipoDefault;
-  setTab('link');
-  document.getElementById('modal').classList.add('open');
-  setTimeout(() => document.getElementById('f-nome').focus(), 100);
-}
-
-function chiudiModal() {
-  document.getElementById('modal').classList.remove('open');
-}
-
-async function salvaMateria() {
-  const nome = document.getElementById('f-nome').value.trim();
-  const tipo = document.getElementById('f-tipo').value;
-  const desc = document.getElementById('f-desc').value.trim();
-  const giorno = document.getElementById('f-giorno').value;
-  const contenutoTipo = document.getElementById('f-contenuto-tipo').value;
-  if (!nome) { alert('Il nome è obbligatorio!'); return; }
-
-  const btn = document.getElementById('btn-salva');
-  btn.disabled = true;
-  btn.textContent = 'Salvataggio...';
-
-  try {
-    if (contenutoTipo === 'file') {
-      const fileInput = document.getElementById('f-file');
-      if (!fileInput.files[0]) { alert('Seleziona un file!'); btn.disabled = false; btn.textContent = 'Salva'; return; }
-      const fd = new FormData();
-      fd.append('file', fileInput.files[0]);
-      fd.append('nome', nome);
-      fd.append('tipo', tipo);
-      fd.append('descrizione', desc);
-      fd.append('giorno', giorno);
-      document.getElementById('upload-progress').textContent = 'Caricamento in corso...';
-      const r = await fetch('/api/materiali/upload', { method: 'POST', body: fd });
-      if (!r.ok) throw new Error('Errore upload');
-    } else {
-      const link = contenutoTipo === 'link' ? document.getElementById('f-link').value.trim() : '';
-      const testo = contenutoTipo === 'testo' ? document.getElementById('f-testo').value.trim() : '';
-      await postMateriale({ nome, tipo, descrizione: desc, contenutoTipo, link, testo, giorno });
+    function buildBeatitudini() {
+      const container = document.getElementById('beatitudini-list');
+      container.innerHTML = GIORNI.map(g => `
+      <div class="beatitudine-row">
+        <div class="beat-num">${g.n}</div>
+        <div class="beat-text">${g.beatitudine}</div>
+        <div class="beat-giorno">${g.giorno} ${g.data}</div>
+      </div>
+    `).join('');
     }
-    await fetchMateriali();
-    aggiornaTutteLeGriglie();
-    chiudiModal();
-  } catch(e) {
-    alert('Errore durante il salvataggio. Riprova.');
-    document.getElementById('upload-progress').textContent = '';
-  }
-  btn.disabled = false;
-  btn.textContent = 'Salva';
-}
 
-async function elimina(id) {
-  if (!confirm('Eliminare questo materiale?')) return;
-  await deleteMateriale(id);
-  tuttiMateriali = tuttiMateriali.filter(m => m.id !== id);
-  aggiornaTutteLeGriglie();
-  const card = document.getElementById(`mc-${id}`);
-  if (card) card.remove();
-}
+    function buildCards() {
+      const homeGrid = document.getElementById('home-days');
+      const giornateGrid = document.getElementById('giornate-cards');
+      homeGrid.innerHTML = GIORNI.map(g =>
+        renderDayCard(g, `showGiornataDetail(${g.n - 1})`)
+      ).join('');
+      giornateGrid.innerHTML = GIORNI.map(g =>
+        renderDayCard(g, `showGiornataDetail(${g.n - 1})`)
+      ).join('');
+    }
 
-// Chiudi modal cliccando fuori
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal')) chiudiModal();
-});
+    // ── NAVIGAZIONE CON HASH ────────────────────────────────────────────────
+    // Hash supportati: #home | #giornate | #materiali | #info | #giornata-N
 
-// ─── NOTE AUTOSAVE ───────────────────────────────────────
-function setupNotaAutosave(ta, chiave, statusId) {
-  let timer;
-  ta.addEventListener('input', () => {
-    clearTimeout(timer);
-    const status = document.getElementById(statusId);
-    if (status) status.textContent = 'Modifica in corso...';
-    timer = setTimeout(async () => {
-      await saveNota(chiave, ta.value);
-      if (status) status.textContent = '✓ Salvato';
-      setTimeout(() => { if (status) status.textContent = ''; }, 2000);
-    }, 1000);
-  });
-}
+    function _activateSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      const navLink = document.querySelector(`[data-section="${id}"]`);
+      if (navLink) navLink.classList.add('active');
+    }
 
-// ─── BEATITUDINI ─────────────────────────────────────────
-function buildBeatitudini() {
-  document.getElementById('beatitudini-list').innerHTML = GIORNI.map(g => `
-    <div class="beatitudine-row">
-      <div class="beat-num">${g.n}</div>
-      <div class="beat-text">${g.beatitudine}</div>
-      <div class="beat-giorno">${g.giorno} ${g.data}</div>
-    </div>
-  `).join('');
-}
+    function showSection(id, el) {
+      location.hash = id;
+      return false;
+    }
 
-// ─── SECTION NAV ─────────────────────────────────────────
-function showSection(id, el) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-  if (id === 'giornate') showGiornateList();
-}
+    function showGiornateList() {
+      location.hash = 'giornate';
+    }
 
-// ─── INIT ────────────────────────────────────────────────
-async function init() {
-  buildCards();
-  buildBeatitudini();
-  await fetchMateriali();
-  aggiornaTutteLeGriglie();
+    function showGiornataDetail(idx) {
+      location.hash = `giornata-${idx + 1}`;
+    }
 
-  // Nota generale
-  const notaGen = document.getElementById('nota-generale');
-  if (notaGen) {
-    notaGen.value = await fetchNota('generale');
-    setupNotaAutosave(notaGen, 'generale', 'nota-generale-status');
-  }
-}
+    function _renderGiornataDetail(idx) {
+      _activateSection('giornate');
+      document.getElementById('giornate-list').style.display = 'none';
+      const detail = document.getElementById('giornata-detail');
+      detail.style.display = 'block';
+      document.getElementById('detail-content').innerHTML = buildDayDetail(GIORNI[idx]);
+      loadNoteForDetail();
+      window.scrollTo(0, 0);
+    }
 
-init();
-</script>
+    function _renderGiornateList() {
+      _activateSection('giornate');
+      document.getElementById('giornate-list').style.display = '';
+      document.getElementById('giornata-detail').style.display = 'none';
+    }
+
+    function navigaHash() {
+      const hash = location.hash.replace('#', '') || 'home';
+      const giornatMatch = hash.match(/^giornata-(\d+)$/);
+      if (giornatMatch) {
+        const idx = parseInt(giornatMatch[1]) - 1;
+        if (GIORNI[idx]) _renderGiornataDetail(idx);
+      } else if (['home', 'giornate', 'materiali', 'info'].includes(hash)) {
+        _activateSection(hash);
+        if (hash === 'giornate') _renderGiornateList();
+      } else {
+        _activateSection('home');
+      }
+    }
+
+    window.addEventListener('hashchange', navigaHash);
+
+    buildCards();
+    buildBeatitudini();
+    navigaHash(); // gestisce hash iniziale (anche link diretti)
+
+    // ── SALVATAGGIO NOTE (API server) ───────────────────────────────────────
+    let saveTimer = null;
+
+    async function caricaNota(contesto, textarea) {
+      try {
+        const res = await fetch(`/api/note/${encodeURIComponent(contesto)}`);
+        const json = await res.json();
+        textarea.value = json.testo || '';
+      } catch (e) { console.warn('Errore caricamento nota:', e); }
+    }
+
+    async function salvaNota(contesto, testo) {
+      try {
+        await fetch(`/api/note/${encodeURIComponent(contesto)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ testo })
+        });
+      } catch (e) { console.warn('Errore salvataggio nota:', e); }
+    }
+
+    function contestoDaTextarea(textarea) {
+      const card = textarea.closest('.note-card');
+      const label = card && card.querySelector('label');
+      if (!label) return null;
+      // usa il testo del label come chiave, es. "note-generali" o "giorno-1"
+      return label.textContent.trim()
+        .replace(/[^\w\s-]/g, '')   // rimuove caratteri speciali/emoji
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    }
+
+    // Carica la nota generali subito
+    const noteGenerali = document.getElementById('note-generali');
+    if (noteGenerali) caricaNota('note-generali', noteGenerali);
+
+    // Salvataggio con debounce su tutte le textarea
+    document.addEventListener('input', function (e) {
+      if (e.target.tagName !== 'TEXTAREA') return;
+      const contesto = e.target.id === 'note-generali'
+        ? 'note-generali'
+        : contestoDaTextarea(e.target);
+      if (!contesto) return;
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => salvaNota(contesto, e.target.value), 600);
+    });
+
+    // Carica la nota quando si apre il dettaglio di una giornata
+    function loadNoteForDetail() {
+      const detail = document.getElementById('detail-content');
+      if (!detail) return;
+      const textarea = detail.querySelector('textarea');
+      if (!textarea) return;
+      const contesto = contestoDaTextarea(textarea);
+      if (contesto) caricaNota(contesto, textarea);
+    }
+  </script>
 </body>
+
 </html>
