@@ -1207,25 +1207,32 @@
       ).join('');
     }
 
-    function showSection(id, el) {
+    // ── NAVIGAZIONE CON HASH ────────────────────────────────────────────────
+    // Hash supportati: #home | #giornate | #materiali | #info | #giornata-N
+
+    function _activateSection(id) {
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      el.classList.add('active');
-      if (id === 'giornate') showGiornateList();
+      const navLink = document.querySelector(`[data-section="${id}"]`);
+      if (navLink) navLink.classList.add('active');
+    }
+
+    function showSection(id, el) {
+      location.hash = id;
       return false;
     }
 
     function showGiornateList() {
-      document.getElementById('giornate-list').style.display = '';
-      document.getElementById('giornata-detail').style.display = 'none';
+      location.hash = 'giornate';
     }
 
     function showGiornataDetail(idx) {
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      document.querySelector('[data-section="giornate"]').classList.add('active');
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById('giornate').classList.add('active');
+      location.hash = `giornata-${idx + 1}`;
+    }
+
+    function _renderGiornataDetail(idx) {
+      _activateSection('giornate');
       document.getElementById('giornate-list').style.display = 'none';
       const detail = document.getElementById('giornata-detail');
       detail.style.display = 'block';
@@ -1234,44 +1241,88 @@
       window.scrollTo(0, 0);
     }
 
-    buildCards();
-    buildBeatitudini();
-
-    // ── SALVATAGGIO NOTE (localStorage) ────────────────────────────────────
-    // Carica la nota generali subito
-    const noteGenerali = document.getElementById('note-generali');
-    if (noteGenerali) {
-      noteGenerali.value = localStorage.getItem('note-generali') || '';
-      noteGenerali.addEventListener('input', () => {
-        localStorage.setItem('note-generali', noteGenerali.value);
-      });
+    function _renderGiornateList() {
+      _activateSection('giornate');
+      document.getElementById('giornate-list').style.display = '';
+      document.getElementById('giornata-detail').style.display = 'none';
     }
 
-    // Per le textarea delle giornate (generate dinamicamente):
-    // salva usando come chiave "note-giornata-N" ricavato dal label
+    function navigaHash() {
+      const hash = location.hash.replace('#', '') || 'home';
+      const giornatMatch = hash.match(/^giornata-(\d+)$/);
+      if (giornatMatch) {
+        const idx = parseInt(giornatMatch[1]) - 1;
+        if (GIORNI[idx]) _renderGiornataDetail(idx);
+      } else if (['home', 'giornate', 'materiali', 'info'].includes(hash)) {
+        _activateSection(hash);
+        if (hash === 'giornate') _renderGiornateList();
+      } else {
+        _activateSection('home');
+      }
+    }
+
+    window.addEventListener('hashchange', navigaHash);
+
+    buildCards();
+    buildBeatitudini();
+    navigaHash(); // gestisce hash iniziale (anche link diretti)
+
+    // ── SALVATAGGIO NOTE (API server) ───────────────────────────────────────
+    let saveTimer = null;
+
+    async function caricaNota(contesto, textarea) {
+      try {
+        const res = await fetch(`/api/note/${encodeURIComponent(contesto)}`);
+        const json = await res.json();
+        textarea.value = json.testo || '';
+      } catch (e) { console.warn('Errore caricamento nota:', e); }
+    }
+
+    async function salvaNota(contesto, testo) {
+      try {
+        await fetch(`/api/note/${encodeURIComponent(contesto)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ testo })
+        });
+      } catch (e) { console.warn('Errore salvataggio nota:', e); }
+    }
+
+    function contestoDaTextarea(textarea) {
+      const card = textarea.closest('.note-card');
+      const label = card && card.querySelector('label');
+      if (!label) return null;
+      // usa il testo del label come chiave, es. "note-generali" o "giorno-1"
+      return label.textContent.trim()
+        .replace(/[^\w\s-]/g, '')   // rimuove caratteri speciali/emoji
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    }
+
+    // Carica la nota generali subito
+    const noteGenerali = document.getElementById('note-generali');
+    if (noteGenerali) caricaNota('note-generali', noteGenerali);
+
+    // Salvataggio con debounce su tutte le textarea
     document.addEventListener('input', function (e) {
       if (e.target.tagName !== 'TEXTAREA') return;
-      if (e.target.id === 'note-generali') return; // già gestita sopra
-      const card = e.target.closest('.note-card');
-      if (!card) return;
-      const label = card.querySelector('label');
-      if (!label) return;
-      const key = 'note:' + label.textContent.trim().replace(/\s+/g, '-');
-      localStorage.setItem(key, e.target.value);
+      const contesto = e.target.id === 'note-generali'
+        ? 'note-generali'
+        : contestoDaTextarea(e.target);
+      if (!contesto) return;
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => salvaNota(contesto, e.target.value), 600);
     });
 
-    // Quando si apre il dettaglio di una giornata, ripristina la nota salvata
-    const _origBuildDayDetail = buildDayDetail;
+    // Carica la nota quando si apre il dettaglio di una giornata
     function loadNoteForDetail() {
       const detail = document.getElementById('detail-content');
       if (!detail) return;
       const textarea = detail.querySelector('textarea');
-      const card = textarea && textarea.closest('.note-card');
-      const label = card && card.querySelector('label');
-      if (label) {
-        const key = 'note:' + label.textContent.trim().replace(/\s+/g, '-');
-        textarea.value = localStorage.getItem(key) || '';
-      }
+      if (!textarea) return;
+      const contesto = contestoDaTextarea(textarea);
+      if (contesto) caricaNota(contesto, textarea);
     }
   </script>
 </body>
