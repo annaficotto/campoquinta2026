@@ -1,1330 +1,1604 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campo Scuola 2026 — Materiali</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <style>
-    :root {
-      --gold: #C9A84C;
-      --gold-light: #F7EAC8;
-      --gold-dark: #8A6620;
-      --sky: #3A7FBF;
-      --sky-light: #D6EAF8;
-      --sky-dark: #1A4F7A;
-      --green: #4A8C5C;
-      --green-light: #D5EDE0;
-      --coral: #D4614A;
-      --coral-light: #FAE0DB;
-      --purple: #7B5EA7;
-      --purple-light: #EDE7F6;
-      --bg: #FDFAF4;
-      --bg2: #F2EBD9;
-      --text: #2A2118;
-      --text-muted: #7A6650;
-      --border: rgba(42, 33, 24, 0.12);
-      --radius: 14px;
-      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #2A3F5F 0%, #1A4F7A 60%, #3A7FBF 100%);
-      color: white;
-      padding: 2.5rem 2rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: -40px;
-      left: -40px;
-      right: -40px;
-      height: 160px;
-      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.25) 0%, transparent 70%);
-    }
-
-    .header-cross {
-      font-size: 2rem;
-      letter-spacing: 0.05em;
-      opacity: 0.7;
-      margin-bottom: 0.5rem;
-    }
-
-    header h1 {
-      font-family: 'Fraunces', serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-    }
-
-    header .subtitle {
-      font-size: 1rem;
-      opacity: 0.8;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .date-badge {
-      display: inline-block;
-      background: rgba(201, 168, 76, 0.3);
-      border: 1px solid rgba(201, 168, 76, 0.6);
-      color: #F7EAC8;
-      padding: 0.35rem 1.2rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    /* NAV */
-    nav {
-      background: white;
-      border-bottom: 1px solid var(--border);
-      padding: 0 1rem;
-      display: flex;
-      gap: 0;
-      overflow-x: auto;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    }
-
-    nav a {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.9rem 1rem;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      border-bottom: 3px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--gold);
-    }
-
-    nav a.active {
-      color: var(--sky-dark);
-      border-color: var(--sky);
-    }
-
-    nav a .nav-icon {
-      font-size: 1rem;
-    }
-
-    /* MAIN */
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    /* SECTIONS */
-    section {
-      display: none;
-    }
-
-    section.active {
-      display: block;
-    }
-
-    /* SECTION HEADER */
-    .section-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      color: var(--text);
-    }
-
-    .section-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-    }
-
-    /* GIORNATA CARD */
-    .day-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .day-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem 1rem 1rem;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      text-decoration: none;
-      color: var(--text);
-      display: block;
-    }
-
-    .day-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: var(--sky);
-    }
-
-    .day-card .day-num {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .day-card .day-date {
-      font-family: 'Fraunces', serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--sky-dark);
-      margin-bottom: 0.4rem;
-    }
-
-    .day-card .day-theme {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-
-    .day-card .day-beatitudine {
-      font-size: 0.78rem;
-      color: var(--gold-dark);
-      margin-top: 0.5rem;
-      font-weight: 700;
-    }
-
-    .day-card .badge-count {
-      display: inline-block;
-      background: var(--sky-light);
-      color: var(--sky-dark);
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      margin-top: 0.6rem;
-    }
-
-    /* GIORNATA DETTAGLIO */
-    .giornata-header {
-      background: linear-gradient(135deg, var(--sky-dark), var(--sky));
-      color: white;
-      border-radius: var(--radius);
-      padding: 1.5rem 1.8rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .giornata-header .gh-date {
-      font-family: 'Fraunces', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-
-    .giornata-header .gh-beatitudine {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      font-size: 0.88rem;
-      font-style: italic;
-      max-width: 340px;
-      line-height: 1.4;
-    }
-
-    .back-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.4rem 0.9rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      transition: background 0.15s;
-    }
-
-    .back-btn:hover {
-      background: var(--bg2);
-    }
-
-    /* PROGRAMMA GIORNATA */
-    .programma {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-
-    .programma-title {
-      padding: 0.8rem 1.2rem;
-      background: var(--bg2);
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .momento {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.7rem 1.2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .momento:last-child {
-      border-bottom: none;
-    }
-
-    .momento-ora {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      min-width: 52px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .momento-icon {
-      font-size: 1.1rem;
-      min-width: 22px;
-      text-align: center;
-    }
-
-    .momento-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .momento-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.1rem;
-    }
-
-    .momento.highlight {
-      background: var(--sky-light);
-    }
-
-    .momento.highlight .momento-label {
-      color: var(--sky-dark);
-    }
-
-    /* MATERIALI GRID */
-    .materiali-title {
-      font-weight: 800;
-      font-size: 1rem;
-      margin-bottom: 0.8rem;
-      color: var(--text);
-    }
-
-    .materiali-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-
-    .materiale-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      transition: box-shadow 0.15s, border-color 0.15s;
-    }
-
-    .materiale-card:hover {
-      box-shadow: var(--shadow);
-      border-color: var(--gold);
-    }
-
-    .materiale-tipo {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      display: inline-block;
-      width: fit-content;
-    }
-
-    .tipo-preghiera {
-      background: var(--purple-light);
-      color: var(--purple);
-    }
-
-    .tipo-scenetta {
-      background: var(--gold-light);
-      color: var(--gold-dark);
-    }
-
-    .tipo-attivita {
-      background: var(--green-light);
-      color: var(--green);
-    }
-
-    .tipo-gioco {
-      background: var(--coral-light);
-      color: var(--coral);
-    }
-
-    .tipo-canto {
-      background: var(--sky-light);
-      color: var(--sky-dark);
-    }
-
-    .tipo-scheda {
-      background: var(--bg2);
-      color: var(--text-muted);
-    }
-
-    .materiale-nome {
-      font-weight: 700;
-      font-size: 0.92rem;
-    }
-
-    .materiale-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .materiale-link {
-      margin-top: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--sky);
-      text-decoration: none;
-      padding-top: 0.3rem;
-    }
-
-    .materiale-placeholder {
-      font-size: 0.78rem;
-      color: #bbb;
-      font-style: italic;
-    }
-
-    /* NOTE CARD */
-    .note-card {
-      background: var(--gold-light);
-      border: 1px solid var(--gold);
-      border-radius: var(--radius);
-      padding: 1rem 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .note-card label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gold-dark);
-      margin-bottom: 0.4rem;
-    }
-
-    .note-card textarea {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      border-radius: 8px;
-      padding: 0.6rem 0.8rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.88rem;
-      resize: vertical;
-      min-height: 70px;
-      color: var(--text);
-    }
-
-    .note-card textarea:focus {
-      outline: 2px solid var(--gold);
-    }
-
-    /* MATERIALI GENERALI */
-    .cat-section {
-      margin-bottom: 2.5rem;
-    }
-
-    .cat-header {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    .cat-icon {
-      font-size: 1.4rem;
-    }
-
-    .cat-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    /* INFO PAGE */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .info-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem;
-    }
-
-    .info-card h3 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.88rem;
-    }
-
-    .info-row:last-child {
-      border-bottom: none;
-    }
-
-    .info-row .label {
-      color: var(--text-muted);
-    }
-
-    .info-row .val {
-      font-weight: 700;
-    }
-
-    .beatitudini-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-    }
-
-    .beatitudine-row {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.8rem 1rem;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-
-    .beat-num {
-      background: var(--gold-light);
-      color: var(--gold-dark);
-      font-weight: 800;
-      font-size: 0.9rem;
-      min-width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .beat-text {
-      font-family: 'Fraunces', serif;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    .beat-giorno {
-      margin-left: auto;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--sky);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.7rem;
-      }
-
-      nav a {
-        padding: 0.8rem 0.7rem;
-        font-size: 0.78rem;
-      }
-
-      .giornata-header {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campo Scuola 2026 — Animatori</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:    #2D6A4F;
+  --verde-l:  #52B788;
+  --verde-xl: #D8F3DC;
+  --cielo:    #48CAE4;
+  --beige:    #F8F4EC;
+  --sabbia:   #E9C46A;
+  --terra:    #8B5E3C;
+  --inchiostro: #1A1A2E;
+  --grigio:   #6B7280;
+  --bianco:   #FFFFFF;
+  --sidebar-w: 260px;
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--beige);
+  color: var(--inchiostro);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--verde);
+  color: var(--bianco);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.sidebar-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.sidebar-sub {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.beatitudine-ticker {
+  background: rgba(255,255,255,0.1);
+  padding: 10px 16px;
+  font-size: 0.75rem;
+  font-style: italic;
+  opacity: 0.85;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  line-height: 1.5;
+}
+
+nav { flex: 1; padding: 12px 0; }
+
+.nav-section-label {
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  padding: 16px 20px 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 0;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(255,255,255,0.1); }
+.nav-item.active {
+  background: rgba(255,255,255,0.18);
+  border-left-color: var(--sabbia);
+  color: var(--bianco);
+}
+.nav-item .icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+.nav-sub { padding-left: 50px; font-size: 0.8rem; opacity: 0.8; }
+.nav-sub .nav-item { padding: 6px 16px 6px 0; font-size: 0.8rem; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: var(--bianco);
+  border-bottom: 1px solid #E5E7EB;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+.topbar-date {
+  font-size: 0.8rem;
+  color: var(--grigio);
+}
+
+.content {
+  padding: 32px;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* ── SEZIONI ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bianco);
+  border-radius: var(--radius);
+  border: 1px solid #E9ECEF;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--verde);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .badge {
+  background: var(--verde-xl);
+  color: var(--verde);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* ── BEATITUDINE PILL ── */
+.beati-pill {
+  background: linear-gradient(135deg, var(--verde-xl), #B7E4C7);
+  border-left: 4px solid var(--verde-l);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--verde);
+}
+
+/* ── PROGRAMMA ORARIO ── */
+.orario-list { list-style: none; }
+.orario-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--verde-xl);
+  align-items: start;
+  font-size: 0.88rem;
+}
+.orario-item:last-child { border-bottom: none; }
+.orario-time {
+  font-weight: 600;
+  color: var(--verde);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  padding-top: 1px;
+}
+.orario-desc { line-height: 1.5; }
+.orario-highlight {
+  background: var(--sabbia);
+  color: var(--terra);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ── NOTE ── */
+.note-area {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  resize: vertical;
+  background: var(--beige);
+  transition: border-color 0.2s;
+}
+.note-area:focus { outline: none; border-color: var(--verde-l); }
+.note-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  align-items: center;
+}
+.btn {
+  padding: 7px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 500;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--verde); color: var(--bianco); }
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost { background: transparent; color: var(--grigio); border: 1px solid #D1D5DB; }
+.btn-ghost:hover { background: #F3F4F6; }
+.note-saved { font-size: 0.78rem; color: var(--verde-l); margin-left: 4px; display: none; }
+
+/* ── SQUADRE ── */
+.squadre-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.squadra-card {
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 2px solid transparent;
+}
+.squadra-gialla { background: #FFFBEB; border-color: var(--sabbia); }
+.squadra-blu    { background: #EFF6FF; border-color: #93C5FD; }
+.squadra-rosa   { background: #FDF2F8; border-color: #F9A8D4; }
+
+.squadra-nome {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.squadra-tema {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+.animatori-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grigio);
+  margin-bottom: 6px;
+}
+.animatore-chip {
+  display: inline-block;
+  background: rgba(0,0,0,0.06);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  margin: 2px 2px 2px 0;
+}
+
+.ragazzi-list { list-style: none; margin-top: 12px; }
+.ragazzo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.85rem;
+}
+.ragazzo-item:last-child { border-bottom: none; }
+.ragazzo-num {
+  font-size: 0.7rem;
+  color: var(--grigio);
+  width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── PREGHIERE / CANTI ── */
+.preghiera-block {
+  background: #F0FFF4;
+  border-left: 4px solid var(--verde-l);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+.canto-block {
+  background: #FEF9C3;
+  border-left: 4px solid var(--sabbia);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  white-space: pre-wrap;
+}
+.canto-ritornello {
+  font-weight: 600;
+  color: var(--terra);
+}
+
+/* ── ATTIVITÀ ── */
+.attivita-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.attivita-icon {
+  width: 38px; height: 38px;
+  background: var(--verde-xl);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.attivita-nome {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+.attivita-giorno {
+  font-size: 0.73rem;
+  color: var(--grigio);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.attivita-desc {
+  font-size: 0.87rem;
+  line-height: 1.65;
+  color: #374151;
+}
+.attivita-desc p { margin-bottom: 8px; }
+
+/* ── LUCIANO ── */
+.luciano-quote {
+  background: linear-gradient(135deg, #F0FFF4, var(--beige));
+  border: 1px solid var(--verde-xl);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 12px 0;
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--verde);
+}
+.luciano-quote::before { content: '"'; font-size: 2rem; opacity: 0.3; line-height: 0; vertical-align: -12px; margin-right: 4px; }
+
+/* ── GIOCHI TAG ── */
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.tag-verde { background: var(--verde-xl); color: var(--verde); }
+.tag-giallo { background: #FEF9C3; color: #854D0E; }
+.tag-cielo { background: #E0F2FE; color: #0C4A6E; }
+
+/* ── TABS GIORNI ── */
+.days-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.day-tab {
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid #D1D5DB;
+  background: var(--bianco);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  color: var(--grigio);
+}
+.day-tab:hover { border-color: var(--verde-l); color: var(--verde); }
+.day-tab.active {
+  background: var(--verde);
+  color: var(--bianco);
+  border-color: var(--verde);
+}
+
+.day-content { display: none; }
+.day-content.active { display: block; }
+
+/* ── MATERIALE LIST ── */
+.materiale-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.materiale-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  background: var(--bianco);
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+}
+.materiale-item::before { content: '📦'; font-size: 0.85rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-260px); transition: transform 0.25s; width: 260px; }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .content { padding: 20px 16px; }
+  .squadre-grid { grid-template-columns: 1fr; }
+  .topbar { padding: 12px 16px; }
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--inchiostro);
+  padding: 4px;
+}
+@media (max-width: 768px) { .hamburger { display: block; } }
+
+/* ── SCROLL ── */
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <div class="header-cross">✝</div>
-    <h1>Campo Scuola 2026</h1>
-    <div class="subtitle">5ª Elementare · Materiali animatori</div>
-    <div class="date-badge">4 – 11 Luglio 2026</div>
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">⛰️ Campo Scuola 2026</div>
+    <div class="sidebar-sub">Felice se… — Staff interno</div>
+  </div>
+  <div class="beatitudine-ticker" id="beatitudine-ticker">
+    Beati i poveri in spirito, perché di essi è il regno dei cieli.
+  </div>
+  <nav>
+    <div class="nav-section-label">Panoramica</div>
+    <div class="nav-item active" data-section="home"><span class="icon">🏠</span> Home</div>
+    <div class="nav-item" data-section="squadre"><span class="icon">👥</span> Squadre & Staff</div>
+    <div class="nav-item" data-section="luciano"><span class="icon">✨</span> Chi è Luciano</div>
+
+    <div class="nav-section-label">Programma</div>
+    <div class="nav-item" data-section="programma"><span class="icon">📅</span> Programma giornaliero</div>
+    <div class="nav-item" data-section="attivita"><span class="icon">🎯</span> Attività</div>
+    <div class="nav-item" data-section="giochi"><span class="icon">🎮</span> Giochi</div>
+    <div class="nav-item" data-section="serate"><span class="icon">🌙</span> Serate</div>
+    <div class="nav-item" data-section="materiale"><span class="icon">🎒</span> Materiale</div>
+
+    <div class="nav-section-label">Liturgia</div>
+    <div class="nav-item" data-section="preghiere"><span class="icon">🙏</span> Preghiere</div>
+    <div class="nav-item" data-section="canti"><span class="icon">🎵</span> Canti</div>
+    <div class="nav-item" data-section="beatitudini"><span class="icon">📖</span> Beatitudini</div>
+
+    <div class="nav-section-label">Note animatori</div>
+    <div class="nav-item" data-section="note"><span class="icon">📝</span> Note condivise</div>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <header class="topbar">
+    <button class="hamburger" id="hamburger">☰</button>
+    <span class="topbar-title" id="topbar-title">Home</span>
+    <span class="topbar-date" id="topbar-date"></span>
   </header>
 
-  <nav id="main-nav">
-    <a href="#home" class="active" data-section="home" onclick="showSection('home',this)">
-      <span class="nav-icon"><i class="fa-solid fa-house"></i></span> Home
-    </a>
-    <a href="#giornate" data-section="giornate" onclick="showSection('giornate',this)">
-      <span class="nav-icon"><i class="fa-solid fa-calendar"></i></span> Giornate
-    </a>
-    <a href="#materiali" data-section="materiali" onclick="showSection('materiali',this)">
-      <span class="nav-icon"><i class="fa-solid fa-box-archive"></i></span> Materiali
-    </a>
-    <a href="#info" data-section="info" onclick="showSection('info',this)">
-      <span class="nav-icon"><i class="fa-solid fa-circle-info"></i></span> Info campo
-    </a>
-  </nav>
-
-  <main>
+  <div class="content">
 
     <!-- HOME -->
-    <section id="home" class="active">
-      <div style="margin-bottom:2rem;">
-        <p class="section-title">Benvenuti, animatori! 👋</p>
-        <p class="section-desc">Questo sito raccoglie tutti i materiali per il campo scuola. Trovi le giornate con
-          programma, scenette, attività, preghiere e giochi. Aggiungete i link ai file man mano che li preparate.</p>
+    <section class="section active" id="section-home">
+      <div class="card">
+        <div class="card-title">🏕️ Benvenuti, animatori! <span class="badge">4–11 luglio 2026</span></div>
+        <p style="font-size:0.9rem;line-height:1.7;color:#374151">
+          Siete il cuore di questa settimana. Questo sito è il vostro strumento interno: programma giornaliero, testi di preghiere e canti, descrizione di attività, giochi e serate, lista materiale, squadre e spazio note condivise.
+        </p>
       </div>
 
-      <!-- Accesso rapido giornate -->
-      <p style="font-weight:800; margin-bottom:0.8rem;">Accesso rapido alle giornate</p>
-      <div class="day-grid" id="home-days"></div>
+      <div class="card">
+        <div class="card-title">⛪ Staff del campo</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;font-size:0.87rem">
+          <div><strong>Sacerdote</strong><br>Don Riccardo Zanchin</div>
+          <div><strong>Coop. pastorale</strong><br>Germana Gallina</div>
+          <div><strong>Capo campo</strong><br>Giulio Stevanato</div>
+          <div><strong>Altro personale</strong><br>Sandra Gambaro</div>
+          <div><strong>Cuochi</strong><br>Leonardo Brunetti<br>Alessandro Meggiorini</div>
+          <div><strong>Animatori</strong><br>Carlo Alberto Bordin<br>Francesco Favaretto<br>Anna Ficotto<br>Martina Necchio<br>Andrea Rigoni<br>Alice Rizzuto</div>
+        </div>
+      </div>
 
-      <!-- Promemoria struttura -->
-      <p style="font-weight:800; margin-bottom:0.8rem; margin-top:1rem;">Struttura della giornata</p>
-      <div class="programma">
-        <div class="programma-title">Scaletta tipo</div>
-        <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon"><i
-              class="fa-solid fa-bell"></i></span>
-          <div>
-            <div class="momento-label">Sveglia</div>
-          </div>
+      <div class="card">
+        <div class="card-title">📋 Regole del campo</div>
+        <div class="beati-pill">0. Questo vi comando: amatevi gli uni gli altri. (Gv 15,17)</div>
+        <ol style="padding-left:20px;font-size:0.87rem;line-height:2">
+          <li>Togliere le scarpe ai piani superiori</li>
+          <li>Quando gli animatori alzano il dito → silenzio</li>
+          <li>Al coprifuoco si dorme!</li>
+          <li>Non escludere MAI nessuno</li>
+          <li>Non dire parolacce — usare "grazie", "scusa", "per favore"</li>
+          <li>Non correre in casa</li>
+          <li>Lavarsi i denti dopo i pasti</li>
+          <li>Farsi la doccia (per davvero!)</li>
+          <li>Non sprecare cibo, acqua, luce</li>
+          <li>Tenere in ordine la camera</li>
+          <li>Portare rispetto verso tutti</li>
+          <li>Non entrare in cucina; non uscire mai sulla strada</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SQUADRE -->
+    <section class="section" id="section-squadre">
+      <div class="squadre-grid">
+        <div class="squadra-card squadra-gialla">
+          <div class="squadra-nome" style="color:#92400E">🟡 Squadra Gialla</div>
+          <div class="squadra-tema">Sorriso</div>
+          <div class="animatori-label">Animatori</div>
+          <span class="animatore-chip">Carlo Alberto</span><span class="animatore-chip">Alice</span>
+          <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
+          <ul class="ragazzi-list">
+            <li class="ragazzo-item"><span class="ragazzo-num">1</span>Bonasia Simone</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">2</span>Stevanato Giacomo</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">3</span>Bianchetto Giada</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">4</span>Vianello Riccardo</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">5</span>Furlan Daria</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">6</span>Prodan Victor</li>
+          </ul>
         </div>
-        <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon"><i
-              class="fa-solid fa-book-bible"></i></span>
-          <div>
-            <div class="momento-label">Preghiera mattutina</div>
-            <div class="momento-note">Vangelo + presentazione tema del giorno</div>
-          </div>
+        <div class="squadra-card squadra-blu">
+          <div class="squadra-nome" style="color:#1E3A5F">🔵 Squadra Blu</div>
+          <div class="squadra-tema">Montagna</div>
+          <div class="animatori-label">Animatori</div>
+          <span class="animatore-chip">Anna</span><span class="animatore-chip">Andrea</span>
+          <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
+          <ul class="ragazzi-list">
+            <li class="ragazzo-item"><span class="ragazzo-num">1</span>Boesso Melissa</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">2</span>Cattarin Alessio</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">3</span>Veronese Juan Carlos</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">4</span>Zennaro Noah</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">5</span>Di Franco Maria</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">6</span>Hamdi Adam</li>
+          </ul>
         </div>
-        <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon"><i
-              class="fa-solid fa-mug-saucer"></i></span>
-          <div>
-            <div class="momento-label">Colazione</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon"><i
-              class="fa-solid fa-broom"></i></span>
-          <div>
-            <div class="momento-label">Servizi e pulizie</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon"><i
-              class="fa-solid fa-masks-theater"></i></span>
-          <div>
-            <div class="momento-label">Scenetta</div>
-            <div class="momento-note">Capitolo della storia del campo</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon"><i
-              class="fa-solid fa-pencil"></i></span>
-          <div>
-            <div class="momento-label">Attività</div>
-            <div class="momento-note">A tema con la giornata</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon"><i
-              class="fa-solid fa-utensils"></i></span>
-          <div>
-            <div class="momento-label">Pranzo</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">15:30</span><span class="momento-icon"><i
-              class="fa-solid fa-chess"></i></span>
-          <div>
-            <div class="momento-label">Gioco pomeridiano</div>
-            <div class="momento-note">Ludico, divertimento</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">17:00</span><span class="momento-icon"><i
-              class="fa-solid fa-volleyball"></i></span>
-          <div>
-            <div class="momento-label">Tempo libero</div>
-            <div class="momento-note">Calcetto balilla, pallavolo, basket, ping pong, calcio, giochi da tavolo, carte,
-              freccette, etc...</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon"><i
-              class="fa-solid fa-shower"></i></span>
-          <div>
-            <div class="momento-label">Docce</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon"><i
-              class="fa-solid fa-spoon"></i></span>
-          <div>
-            <div class="momento-label">Cena</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">20:15</span><span class="momento-icon"><i
-              class="fa-solid fa-moon"></i></span>
-          <div>
-            <div class="momento-label">Gioco serale</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">21:45</span><span class="momento-icon"><i
-              class="fa-solid fa-cross"></i></span>
-          <div>
-            <div class="momento-label">Preghiera serale</div>
-          </div>
+        <div class="squadra-card squadra-rosa">
+          <div class="squadra-nome" style="color:#831843">🌸 Squadra Rosa</div>
+          <div class="squadra-tema">Umiltà</div>
+          <div class="animatori-label">Animatori</div>
+          <span class="animatore-chip">Francesco</span><span class="animatore-chip">Martina</span>
+          <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
+          <ul class="ragazzi-list">
+            <li class="ragazzo-item"><span class="ragazzo-num">1</span>De Ponte Michael</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">2</span>Lazzari Jacopo</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">3</span>Saccon Miriam</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">4</span>Gjolekaj Irissa</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">5</span>Enea Gabriel</li>
+            <li class="ragazzo-item"><span class="ragazzo-num">6</span>Pereu Jardan Valeria</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- GIORNATE -->
-    <section id="giornate">
-      <div id="giornate-list">
-        <p class="section-title">Giornate</p>
-        <p class="section-desc">Clicca su una giornata per vedere il programma e i materiali specifici.</p>
-        <div class="day-grid" id="giornate-cards"></div>
-      </div>
-      <div id="giornata-detail" style="display:none;">
-        <button class="back-btn" onclick="showGiornateList()">← Tutte le giornate</button>
-        <div id="detail-content"></div>
-      </div>
-    </section>
-
-    <!-- MATERIALI GENERALI -->
-    <section id="materiali">
-      <p class="section-title">Materiali generali</p>
-      <p class="section-desc">Risorse che servono durante tutto il campo, non legate a una singola giornata.</p>
-
-      <div class="cat-section">
-        <div class="cat-header">
-          <span class="cat-icon"><i class="fa-solid fa-music"></i></span>
-          <span class="cat-title">Canti</span>
-        </div>
-        <div class="materiali-grid">
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-canto">Canto</span>
-            <span class="materiale-nome">Canzoniere del campo</span>
-            <span class="materiale-desc">Raccolta di tutti i canti usati durante le preghiere e i momenti di
-              gruppo.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al PDF</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-canto">Canto</span>
-            <span class="materiale-nome">Canto tema del campo</span>
-            <span class="materiale-desc">Il canto principale legato al tema narrativo del campo.</span>
-            <span class="materiale-placeholder">→ Aggiungi link / testo</span>
-          </div>
-          <div class="materiale-card add-card"
-            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi canto</span>
-          </div>
-        </div>
+    <!-- LUCIANO -->
+    <section class="section" id="section-luciano">
+      <div class="card">
+        <div class="card-title">✨ Chi era Luciano Bottan</div>
+        <p style="font-size:0.9rem;line-height:1.7;margin-bottom:16px">Luciano Bottan nasce a Treviso nel 1965. A 20 anni entra nel <em>Gruppone Missionario</em>. Mosso dal desiderio di "dare la sua vita per gli altri", decide di partire per il Ciad come missionario laico della diocesi di Treviso. Il <strong>20 ottobre 2000</strong> perde la vita in un incidente in macchina proprio in Ciad.</p>
+        <p style="font-size:0.9rem;line-height:1.7">Era alto, brizzolato, con un incredibile sorriso sul volto — un sorriso vero, buono, che accoglie senza nascondere nulla.</p>
       </div>
 
-      <div class="cat-section">
-        <div class="cat-header">
-          <span class="cat-icon"><i class="fa-solid fa-cross"></i></span>
-          <span class="cat-title">Preghiere e liturgia</span>
-        </div>
-        <div class="materiali-grid">
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-preghiera">Preghiera</span>
-            <span class="materiale-nome">Libretto della preghiera</span>
-            <span class="materiale-desc">Testi per le preghiere mattutine e serali di tutto il campo.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-preghiera">Liturgia</span>
-            <span class="materiale-nome">Brani del Vangelo</span>
-            <span class="materiale-desc">Selezione dei brani evangelici per ogni giornata.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card add-card"
-            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cat-section">
-        <div class="cat-header">
-          <span class="cat-icon"><i class="fa-solid fa-masks-theater"></i></span>
-          <span class="cat-title">Storia / scenette</span>
-        </div>
-        <div class="materiali-grid">
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-scenetta">Scenetta</span>
-            <span class="materiale-nome">Copione completo</span>
-            <span class="materiale-desc">Tutti gli episodi della storia in un unico file. (Tema da definire)</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-scenetta">Costumi</span>
-            <span class="materiale-nome">Elenco costumi e oggetti</span>
-            <span class="materiale-desc">Lista di cosa serve per ogni scenetta.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card add-card"
-            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cat-section">
-        <div class="cat-header">
-          <span class="cat-icon"><i class="fa-regular fa-futbol"></i></span>
-          <span class="cat-title">Giochi e attività</span>
-        </div>
-        <div class="materiali-grid">
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-gioco">Gioco</span>
-            <span class="materiale-nome">Giochi pomeridiani</span>
-            <span class="materiale-desc">Raccolta di giochi ricreativi per il pomeriggio.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-gioco">Serale</span>
-            <span class="materiale-nome">Giochi serali</span>
-            <span class="materiale-desc">Idee e istruzioni per i giochi serali.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card add-card"
-            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi gioco</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cat-section">
-        <div class="cat-header">
-          <span class="cat-icon"><i class="fa-solid fa-clipboard"></i></span>
-          <span class="cat-title">Organizzazione</span>
-        </div>
-        <div class="materiali-grid">
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-scheda">Scheda</span>
-            <span class="materiale-nome">Lista partecipanti</span>
-            <span class="materiale-desc">Elenco bambini con contatti dei genitori e note mediche.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-scheda">Scheda</span>
-            <span class="materiale-nome">Turni animatori</span>
-            <span class="materiale-desc">Rotazione dei turni di guardia notturna e servizi.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card">
-            <span class="materiale-tipo tipo-scheda">Modulo</span>
-            <span class="materiale-nome">Moduli autorizzazione</span>
-            <span class="materiale-desc">Moduli firmati dai genitori.</span>
-            <span class="materiale-placeholder">→ Aggiungi link al file</span>
-          </div>
-          <div class="materiale-card add-card"
-            style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-            <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
-          </div>
+      <div class="card">
+        <div class="card-title">📔 I 7 segreti (dal suo diario)</div>
+        <div style="display:grid;gap:12px">
+          <div class="luciano-quote">L'umiltà. Essere umile vuol dire dare valore a tutte le cose, dalle più piccole alle più grandi. Essere umili vuol dire capire il senso vero della vita: vivi sempre con umiltà e amerai la tua vita e ogni vita. Non voler essere sempre al primo posto.</div>
+          <div class="luciano-quote">La montagna. La montagna è una meta da raggiungere. Più cammini, più sarai stanco ma felice. Vai in montagna e impara a fare silenzio, ad ascoltare, a guardare… Scoprirai come ogni cosa è bella e capirai tante cose nascoste nel tuo cuore.</div>
+          <div class="luciano-quote">I poveri vicini e lontani. Riconosci che anche tu sei povero e allora amerai i poveri e, amando i poveri, amerai te stesso molto di più.</div>
+          <div class="luciano-quote">Il sorriso. Sorridi per dire sì alla vita, sorridi per trasformare questo mondo in un paradiso.</div>
+          <div class="luciano-quote">Il lavoro. Ogni lavoro è importante: non ci sono lavori di serie A o di serie B. Ogni lavoro serve per sentirci utili e per sognare un mondo migliore.</div>
+          <div class="luciano-quote">La fede. Non mettere te al centro della tua vita, ma lascia il primo posto a Dio: sarai felice per sempre.</div>
         </div>
       </div>
     </section>
 
-    <!-- INFO -->
-    <section id="info">
-      <p class="section-title">Informazioni sul campo</p>
-      <p class="section-desc">Riepilogo logistico e struttura teologica del campo.</p>
+    <!-- PROGRAMMA -->
+    <section class="section" id="section-programma">
+      <div class="days-tabs">
+        <button class="day-tab active" data-day="sab">Sab 4/7</button>
+        <button class="day-tab" data-day="dom">Dom 5/7</button>
+        <button class="day-tab" data-day="lun">Lun 6/7</button>
+        <button class="day-tab" data-day="mar">Mar 7/7</button>
+        <button class="day-tab" data-day="mer">Mer 8/7</button>
+        <button class="day-tab" data-day="gio">Gio 9/7</button>
+        <button class="day-tab" data-day="ven">Ven 10/7</button>
+        <button class="day-tab" data-day="sab2">Sab 11/7</button>
+      </div>
 
-      <div class="info-grid">
-        <div class="info-card">
-          <h3><i class="fa-solid fa-map-pin"></i> Logistica</h3>
-          <div class="info-row"><span class="label">Date</span><span class="val">4 – 11 Luglio 2026</span></div>
-          <div class="info-row"><span class="label">Classe</span><span class="val">5ª Elementare</span></div>
-          <div class="info-row"><span class="label">Sede</span><span class="val">Casa "Al Cervo" (Molina di
-              Fiemme)</span></div>
-          <div class="info-row"><span class="label">Giorni</span><span class="val">7 giorni</span></div>
+      <!-- SAB 4 -->
+      <div class="day-content active" id="day-sab">
+        <div class="beati-pill">📌 Tema: Presentazione del campo e di Luciano Bottan</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Ritrovo al piazzale della stazione di Spinea</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Partenza in autobus — assegnazione stanze durante il viaggio</span></li>
+            <li class="orario-item"><span class="orario-time">12:30</span><span class="orario-desc">Arrivo alla Casa "Al Cervo". Due animatori salgono subito ai piani e mettono bigliettini colorati + braccialetti nelle stanze assegnate</span></li>
+            <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo — presentazione staff e ruota dei servizi <span class="orario-highlight">⚠️ 3 animatori preparano caccia al tesoro subito dopo</span></span></li>
+          </ul>
         </div>
-        <div class="info-card">
-          <h3><i class="fa-solid fa-user-group"></i> Staff</h3>
-          <div class="info-row"><span class="label">Capi campo</span><span class="val">Giulio Stevanato, Germana
-              Gallina</span></div>
-          <div class="info-row"><span class="label">Sacerdote</span><span class="val">Don Riccardo Zanchin</span></div>
-          <div class="info-row"><span class="label">Animatori</span><span class="val">Anna Ficotto, Andrea Rigoni,
-              Francesco Favaretto, Carlo Alberto Bordin, ...</span></div>
+        <div class="card">
+          <div class="card-title">☀️ Pomeriggio</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi, sistemazione camere</span></li>
+            <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Ritrovo in giardino: tema della fiducia (portare oggetti in valigia che non potevano portare)</span></li>
+            <li class="orario-item"><span class="orario-time">15:30</span><span class="orario-desc">Presentazione animatori con oggetto personale; comunicazione coppie e squadre</span></li>
+            <li class="orario-item"><span class="orario-time">16:00</span><span class="orario-desc">Caccia al tesoro delle regole 🎯</span></li>
+            <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span></li>
+            <li class="orario-item"><span class="orario-time">17:00</span><span class="orario-desc">Presentazione tema campo scuola e di Luciano Bottan — consegna libretto personale preghiera<br><em>Ascoltare "La canzone di Luciano"</em></span></li>
+            <li class="orario-item"><span class="orario-time">18:00</span><span class="orario-desc">Messa (squadra in servizio) — tempo libero per gli altri</span></li>
+            <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+            <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo libero</span></li>
+          </ul>
         </div>
-        <div class="info-card">
-          <h3><i class="fa-solid fa-masks-theater"></i> Tema</h3>
-          <div class="info-row"><span class="label">Tema portante</span><span class="val">Le Beatitudini</span></div>
-          <div class="info-row"><span class="label">Storia</span><span class="val">Da decidere</span></div>
-          <div class="info-row"><span class="label">Colori campo</span><span class="val">Da definire</span></div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Giochi di conoscenza 🎮</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">Preghiera serale in cappella — leggere pag. 5 libretto, attaccare la scritta "Amatevi gli uni gli altri"</span></li>
+            <li class="orario-item"><span class="orario-time">23:00</span><span class="orario-desc">A letto</span></li>
+          </ul>
         </div>
       </div>
 
-      <p style="font-weight:800; margin-bottom:0.8rem;">Le otto beatitudini</p>
-      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Mt 5,3-12 — Una beatitudine per ogni
-        giornata del campo</p>
-      <div class="beatitudini-list" id="beatitudini-list"></div>
+      <!-- DOM 5 -->
+      <div class="day-content" id="day-dom">
+        <div class="beati-pill">📖 "Beati i poveri in spirito, perché di essi è il regno dei cieli." — Tema: L'umiltà</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia ragazzi</span></li>
+            <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio muscolare</span></li>
+            <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Preghiera in cappella</span></li>
+            <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi</span></li>
+            <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta</span></li>
+            <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: <strong>Un pezzo del puzzle</strong> 🧩</span></li>
+            <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">☀️ Pomeriggio</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span></li>
+            <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco: Roverino 🏅</span></li>
+            <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span></li>
+            <li class="orario-item"><span class="orario-time">17:15</span><span class="orario-desc">Docce</span></li>
+            <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per tutti</span></li>
+            <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+            <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo libero</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Serata: Lupus in Fabula 🐺</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale — consegnare semi da piantare in casseruola con terra</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
 
-      <div class="note-card" style="margin-top:1rem;">
-        <label><i class="fa-solid fa-note-sticky"></i> Note organizzative generali</label>
-        <textarea id="note-generali"
-          placeholder="Aggiungi qui note, promemoria, cose da comprare, da ricordare..."></textarea>
+      <!-- LUN 6 -->
+      <div class="day-content" id="day-lun">
+        <div class="beati-pill">📖 "Beati i miti, perché erediteranno la terra." — Tema: La montagna</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia ragazzi</span></li>
+            <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio muscolare</span></li>
+            <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Preghiera in cappella</span></li>
+            <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span></li>
+            <li class="orario-item"><span class="orario-time">—</span><span class="orario-desc">Scenetta Cenerentola — poi <strong>Camminata in montagna</strong> 🥾</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">☀️ Pomeriggio</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda — andare al torrente e raccogliere <strong>un sasso ciascuno</strong> 🪨</span></li>
+            <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo libero</span></li>
+            <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa (squadra in servizio)</span></li>
+            <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+            <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo libero</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Film: Oceania 🌊</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale — consegnare cuore di carta: scrivere pensiero gentile a chi è stato poco considerato</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MAR 7 -->
+      <div class="day-content" id="day-mar">
+        <div class="beati-pill">📖 "Beati gli afflitti, perché saranno consolati." — Tema: I poveri vicini e lontani</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia ragazzi</span></li>
+            <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio muscolare + preghiera in cappella + colazione</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi — 2 animatori allestiscono gli stand</span></li>
+            <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta del brutto anatroccolo</span></li>
+            <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: <strong>Il buon samaritano in gioco</strong> ❤️</span></li>
+            <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">☀️ Pomeriggio</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span></li>
+            <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco pomeridiano</span></li>
+            <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span></li>
+            <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo libero</span></li>
+            <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa (squadra in servizio)</span></li>
+            <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Gioco horror 👻</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale — lumini a forma di cuore sotto la Croce</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MER 8 -->
+      <div class="day-content" id="day-mer">
+        <div class="beati-pill">📖 "Beati gli operatori di pace, perché saranno chiamati figli di Dio." — Tema: Il sorriso</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">07:45–08:30</span><span class="orario-desc">Sveglia, risveglio muscolare, preghiera, colazione</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi</span></li>
+            <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta</span></li>
+            <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività (da definire) 😊</span></li>
+            <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Campo's Got Talent 🎤</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale — riflessione sul sorriso — il capo campo invita ad abbracciarsi</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- GIO 9 -->
+      <div class="day-content" id="day-gio">
+        <div class="beati-pill">📖 "Beati quelli che hanno fame e sete della giustizia, perché saranno saziati." — Tema: Il lavoro</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">07:45–08:30</span><span class="orario-desc">Sveglia, risveglio muscolare, preghiera, colazione</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi — 2 animatori allestiscono gli stand per "Costruiamo il futuro"</span></li>
+            <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta Robin Hood</span></li>
+            <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: <strong>Costruiamo il futuro</strong> 🏗️</span></li>
+            <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Cena con delitto: Il mistero della stanza chiusa 🔍</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VEN 10 -->
+      <div class="day-content" id="day-ven">
+        <div class="beati-pill">📖 "Beati i misericordiosi, perché troveranno misericordia." — Tema: La fede</div>
+        <div class="card">
+          <div class="card-title">🌅 Mattina</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera animatori</span></li>
+            <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi — allestimento</span></li>
+            <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta Pinocchio</span></li>
+            <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: <strong>Deserto</strong> 🏜️ (responsabile: Don Riccardo, Germana, Giulio)</span></li>
+            <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">☀️ Pomeriggio</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco: Diamanti 💎</span></li>
+            <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span></li>
+            <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo libero</span></li>
+            <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa</span></li>
+            <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Sera — Falò finale</div>
+          <ul class="orario-list">
+            <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Falò 🔥</span></li>
+            <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera a tre cori attorno al fuoco — ogni ragazzo legge la parola sul proprio sasso e lo mette in cerchio</span></li>
+            <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SAB 11 -->
+      <div class="day-content" id="day-sab2">
+        <div class="card">
+          <div class="card-title">🏠 Sabato 11 luglio — Rientro</div>
+          <p style="font-size:0.9rem;color:#374151;line-height:1.7">Giornata di rientro. Sistemazione bagagli, pulizia stanze, saluti e partenza verso Spinea.</p>
+        </div>
       </div>
     </section>
 
-  </main>
+    <!-- ATTIVITÀ -->
+    <section class="section" id="section-attivita">
+      <div class="card">
+        <div class="attivita-header">
+          <div class="attivita-icon">🧩</div>
+          <div><div class="attivita-nome">Un pezzo del puzzle</div><div class="attivita-giorno">Domenica — Responsabile: da definire</div></div>
+        </div>
+        <div class="beati-pill">Umiltà — Beati i poveri in spirito</div>
+        <div class="attivita-desc">
+          <p>I ragazzi divisi in squadre completano un puzzle ognuna al proprio tavolo. Gli animatori osservano chi vuole fare tutto da solo e chi collabora.</p>
+          <p>Dopo il puzzle si legge l'estratto dal libretto <em>"Gli otto segreti"</em>: <em>"Forse ognuno di noi è una piccola parte di un grande puzzle e quel pezzettino deve fare la sua parte, solo quella e nient'altro di più. Insieme agli altri e con gli altri… solo allora il puzzle sarà completo."</em></p>
+          <p><strong>Domande sui fogli:</strong> 1) Sei umile? Perché sì/no? 2) In quali situazioni fai fatica a lasciare spazio? 3) Cosa fare per non mettersi sempre al primo posto? 4) Cosa puoi imparare dagli altri?</p>
+          <p><strong>Chiusura:</strong> ogni ragazzo scrive su un post-it un'azione concreta per vivere l'umiltà. Cartellone: <em>"Ognuno è un pezzo importante del puzzle."</em> Raccogliere i fogli (con nome/cognome) e portarli in cappella.</p>
+        </div>
+      </div>
 
-  <script>
-    // ── LINK SUI MATERIALI ──────────────────────────────────────────────────
-    // Quando si clicca su un ".materiale-placeholder" si chiede l'URL e lo
-    // si trasforma in un vero link cliccabile.
-    document.addEventListener('click', function (e) {
-      const placeholder = e.target.closest('.materiale-placeholder');
-      if (!placeholder) return;
-      e.stopPropagation();
-      const url = prompt('Inserisci il link al file (es. https://drive.google.com/…):');
-      if (!url || !url.trim()) return;
-      const link = document.createElement('a');
-      link.className = 'materiale-link';
-      link.href = url.trim();
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Apri file';
-      placeholder.replaceWith(link);
+      <div class="card">
+        <div class="attivita-header">
+          <div class="attivita-icon">❤️</div>
+          <div><div class="attivita-nome">Il buon samaritano in gioco</div><div class="attivita-giorno">Martedì — Responsabile: da definire</div></div>
+        </div>
+        <div class="beati-pill">Afflitti — Beati gli afflitti perché saranno consolati</div>
+        <div class="attivita-desc">
+          <p>Le squadre ruotano tra 4 stand, ognuno con un "afflitto" (interpretato da un animatore). Il compito è aiutarlo concretamente <em>e</em> trovare qualcosa in più dal cuore.</p>
+          <p><strong>Stand 1 — L'anziano (voce da "vecchietto"):</strong> "Sono sempre solo… sto cercando le mie carte da gioco, mi aiutate?" Le carte sono nascoste nello stand.</p>
+          <p><strong>Stand 2 — Il disabile (solo labiale):</strong> seduto su sedia con coperta. Cartello: "Non posso camminare né parlare. Interpretate il labiale." Dice lentamente: <em>"Mi sono caduti gli occhiali… potete prendermeli?"</em></p>
+          <p><strong>Stand 3 — Il senza fissa dimora:</strong> disteso su cartone con coperta vecchia. Cartello "Fate la carità. Ho fame." Disponibili: panino, soldi, coperta pulita, abiti. Nessuna richiesta esplicita — i ragazzi decidono loro.</p>
+          <p><strong>Stand 4 — La profuga (Fatima):</strong> piccola aula con banco, quaderni, colori. Animatrice con hijab: <em>"Mio nome Fatima… io scappata da Siria… vorrei fare amicizia con voi."</em></p>
+          <p>Ogni "afflitto" classifica le squadre dal 3° al 1° posto. Alla fine il capo campo guida la riflessione.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="attivita-header">
+          <div class="attivita-icon">🏗️</div>
+          <div><div class="attivita-nome">Costruiamo il futuro</div><div class="attivita-giorno">Giovedì — Responsabile: da definire</div></div>
+        </div>
+        <div class="beati-pill">Fame e sete della giustizia</div>
+        <div class="attivita-desc">
+          <p>Ogni squadra progetta qualcosa per la città (parco, chiesa, palazzo…) — ecosostenibile e utile alla comunità. 10 minuti di progettazione, poi si va in giro dai personaggi.</p>
+          <p><strong>Valute:</strong> Monete del Sacrificio (MS) e Punti Cittadinanza Attiva (PCA). Ogni squadra nomina un contabile. Max 3 visite a personaggio, mai due volte di fila allo stesso.</p>
+          <p><strong>Personaggi:</strong></p>
+          <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+            <li><strong>Municipio</strong> — fino a 10 domande sulla città; 1 PCA per risposta esatta</li>
+            <li><strong>Ingegnere</strong> — valuta il progetto, assegna 1–5 PCA; costo visita: 2 MS</li>
+            <li><strong>Ufficio di Collocamento</strong> — lavoro fisico (es. 10 flessioni) = 5 MS; lavoro di ragioneria = 5 MS</li>
+            <li><strong>Onlus/Volontariato</strong> — offerta 2 MS → 4 PCA; portare vestiti → 5 MS; conversione 4 PCA → 2 MS</li>
+            <li><strong>Spacciatore</strong> — offre 20 MS in cambio di 5 PCA. Conviene? I ragazzi decidono.</li>
+            <li><strong>Banca</strong> — si depositano MS e PCA; ogni 15 min si aggiunge 1 PCA + 1 MS ai risparmi</li>
+            <li><strong>Emporio</strong> — vende materiale per costruire il progetto in cambio di MS e PCA</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="attivita-header">
+          <div class="attivita-icon">🏜️</div>
+          <div><div class="attivita-nome">Deserto</div><div class="attivita-giorno">Venerdì — Responsabile: Don Riccardo, Germana, Giulio</div></div>
+        </div>
+        <div class="beati-pill">La fede — Beati i misericordiosi</div>
+        <div class="attivita-desc">
+          <p>Attività spirituale di silenzio e riflessione. Dettagli da definire con Don Riccardo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIOCHI -->
+    <section class="section" id="section-giochi">
+      <div class="card">
+        <div class="card-title">🎯 Caccia alle regole del campo <span class="badge">Sabato</span></div>
+        <span class="tag tag-verde">Responsabile: Anna</span>
+        <div class="attivita-desc" style="margin-top:12px">
+          <p>I ragazzi si dividono in squadre. Ogni squadra riceve il primo indizio dagli animatori. Una volta trovato il luogo, raccolgono il bigliettino colorato (del colore della squadra) con la prima regola.</p>
+          <p>Gli animatori verificano che il numero della regola corrisponda al numero dell'indizio, poi danno il secondo indizio. Due squadre non hanno mai la stessa regola nello stesso posto.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏅 Roverino <span class="badge">Domenica</span></div>
+        <span class="tag tag-verde">Responsabile: Carlo Alberto</span>
+        <div class="attivita-desc" style="margin-top:12px">
+          <p>I ragazzi si passano un anello di corda cercando di segnare infilando il roverino in un palo o facendolo arrivare al ricevitore della propria squadra.</p>
+          <p>Chi ha il roverino può fare max 3 passi e tenerlo pochi secondi, poi deve passarlo o tirare. No contatti fisici sul portatore. Vince la squadra con più punti.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💎 Diamanti <span class="badge">Venerdì</span></div>
+        <span class="tag tag-giallo">Responsabile: da definire</span>
+        <div class="attivita-desc" style="margin-top:12px">
+          <p>Dettagli da definire.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERATE -->
+    <section class="section" id="section-serate">
+      <div class="card">
+        <div class="card-title">🎭 Giochi di conoscenza <span class="badge">Sabato</span></div>
+        <ol style="padding-left:20px;font-size:0.87rem;line-height:2">
+          <li>Mi piacciono tutti quelli che…</li>
+          <li>Battichiama</li>
+          <li>Gioco dei semi (carte)</li>
+          <li>1 limone mezzo limone, 2 limoni mezzo limone…</li>
+          <li>Simon dice</li>
+          <li>Reazione a catena</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🐺 Lupus in Fabula <span class="badge">Domenica</span></div>
+        <span class="tag tag-verde">Responsabile: Andrea, Carlo Alberto</span>
+        <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Dettagli da completare.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎤 Campo's Got Talent <span class="badge">Mercoledì</span></div>
+        <span class="tag tag-giallo">Responsabile: da definire</span>
+        <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Dettagli da completare.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 Cena con delitto <span class="badge">Giovedì</span></div>
+        <span class="tag tag-verde">Responsabile: Andrea</span>
+        <div class="attivita-desc" style="margin-top:12px">
+          <p><strong>Trama:</strong> Francesco (ereditiero milionario) invita quattro persone a cena: Anna (figlia), Carlo (fratello), Alice (cognata), Martina (medico). Durante la notte viene trovato morto — stanza chiusa dall'interno, chiave sul comodino, finestra chiusa.</p>
+          <p><strong>Personaggi:</strong> Anna (animatrice), Carlo (animatore), Alice (animatrice), Martina (animatrice), Andrea = il detective. I ragazzi raccolgono indizi e interrogano i sospettati.</p>
+          <p><strong>Soluzione:</strong> <em>Alice (la cognata)</em>. Movente: Francesco aveva scoperto la sua relazione segreta e il furto di denaro dall'azienda. Metodo: veleno a effetto ritardato versato nel bicchiere durante la cena.</p>
+          <p><strong>Indizi chiave:</strong> ricevuta dello stesso farmaco nella stanza di Alice; assegno con firma falsificata; lettera a Carlo "Dobbiamo parlare urgentemente di tua moglie."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔥 Falò <span class="badge">Venerdì</span></div>
+        <span class="tag tag-verde">Responsabile: Giulio</span>
+        <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Ogni ragazzo legge la parola sul sasso e lo posiziona in cerchio attorno al fuoco. Preghiera finale a tre cori.</p>
+      </div>
+    </section>
+
+    <!-- MATERIALE -->
+    <section class="section" id="section-materiale">
+      <div class="card">
+        <div class="card-title">🎒 Lista materiale completa</div>
+        <div class="materiale-grid">
+          <div class="materiale-item">Braccialetti (gialli, blu, rosa)</div>
+          <div class="materiale-item">Bigliettini colorati per squadre</div>
+          <div class="materiale-item">Oggetti presentazione animatori</div>
+          <div class="materiale-item">Materiale caccia al tesoro</div>
+          <div class="materiale-item">1 copia soluzioni caccia</div>
+          <div class="materiale-item">4 copie regole da tagliare</div>
+          <div class="materiale-item">Carte da gioco francesi</div>
+          <div class="materiale-item">4 puzzle</div>
+          <div class="materiale-item">Post-it</div>
+          <div class="materiale-item">Semini piante</div>
+          <div class="materiale-item">Sagome di carta (cuori)</div>
+          <div class="materiale-item">Bastone (stand anziano)</div>
+          <div class="materiale-item">Vestiti / occhiali disabile</div>
+          <div class="materiale-item">Coperta stand disabile</div>
+          <div class="materiale-item">Cartello labiale</div>
+          <div class="materiale-item">Vestiti senza fissa dimora</div>
+          <div class="materiale-item">Cartone + coperta vecchia</div>
+          <div class="materiale-item">Cartello "Fate la carità"</div>
+          <div class="materiale-item">Panino, soldi, coperta pulita</div>
+          <div class="materiale-item">Abiti per stand</div>
+          <div class="materiale-item">Vestiti profuga + hijab</div>
+          <div class="materiale-item">Banco, quaderni, libri, penne</div>
+          <div class="materiale-item">30 lumini</div>
+          <div class="materiale-item">Chiave stanza</div>
+          <div class="materiale-item">Scalpi</div>
+          <div class="materiale-item">Diamanti (pennarelli)</div>
+          <div class="materiale-item">Monete del Sacrificio (MS)</div>
+          <div class="materiale-item">Punti Cittadinanza (PCA)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGHIERE -->
+    <section class="section" id="section-preghiere">
+      <div class="days-tabs" id="preghiere-tabs">
+        <button class="day-tab active" data-pregh="sab">Sabato</button>
+        <button class="day-tab" data-pregh="dom">Domenica</button>
+        <button class="day-tab" data-pregh="lun">Lunedì</button>
+        <button class="day-tab" data-pregh="mar">Martedì</button>
+        <button class="day-tab" data-pregh="mer">Mercoledì</button>
+        <button class="day-tab" data-pregh="gio">Giovedì</button>
+        <button class="day-tab" data-pregh="ven">Venerdì</button>
+      </div>
+
+      <div class="day-content active" id="pregh-sab">
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Sabato</div>
+          <div class="preghiera-block">Gesù, accompagna con la tua presenza
+questo nostro campo estivo:
+apri le nostre orecchie alla tua Parola
+e i nostri occhi alla bellezza
+della natura intorno a noi,
+ma anche alla "bellezza" di tutti coloro
+che abbiamo vicino;
+aiutaci a vivere in amicizia e fraternità,
+per far scoprire agli altri le nostre qualità,
+ma anche per comprendere quelle degli altri
+e imparare così da loro cose nuove
+e modi diversi di pensare.
+Fa che questo campo, con l'aiuto di tutti,
+sia un'occasione meravigliosa
+per scoprire qual è la vera felicità!
+Amen.</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-dom">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Domenica</div>
+          <div class="preghiera-block">Ti adoro mio Dio,
+e ti amo con tutto il cuore.
+Ti ringrazio di avermi creato,
+fatto cristiano e conservato in questa notte.
+Ti offro le azioni della giornata:
+fa' che siano tutte secondo la tua santa volontà
+per la maggior tua gloria.
+Preservami dal peccato e da ogni male.
+La tua grazia sia sempre con me
+e con tutti i miei cari.
+Amen.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Domenica</div>
+          <div class="preghiera-block">Gesù,
+oggi ho provato cose nuove,
+alcune facili, altre difficili.
+Dammi il coraggio
+di non tirarmi indietro,
+di giocare, cantare e pregare
+con tutto il cuore.
+Domani aiutami a fare
+un passo in più.</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-lun">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Lunedì</div>
+          <div class="preghiera-block">Signore, tu ci affidi il giorno, ogni giorno.
+Lo deponi nelle nostre mani affinché noi
+lo rendiamo bello, utile, ricco.
+Signore, ogni giorno è un dono
+che Tu ci fai per la nostra gioia.
+Tu non hai bisogno di niente
+perché non potresti essere più grande,
+perché non potresti essere più felice.
+Signore, aiutaci a conquistare la nostra gioia,
+perché ogni momento possiamo lodarti,
+perché ogni giorno possiamo ringraziarti.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Lunedì</div>
+          <div class="preghiera-block">Padre dei cieli,
+con profondo stupore guardo incantato
+i fiori, i campi, il mare,
+il sole, la luna, le stelle…
+L'uomo, così piccolo, è il signore del creato.
+Nella tua bontà a lui affidi le forze della terra
+per vincere i mali che ancora soffre.
+Ti ringraziamo, Padre buono,
+per il tuo dono più grande:
+Gesù, nostro fratello.</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-mar">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Martedì</div>
+          <div class="preghiera-block">Signore, resta con me in questo giorno.
+Custodisci le mie mani
+perché non si allunghino per fare il male,
+ma sempre per aiutare.
+Custodisci i miei piedi
+perché mi portino incontro alle necessità degli altri.
+Custodisci la mia bocca perché dica solo il bene
+e le mie orecchie perché non perdano tempo
+ad ascoltare parole vuote e false,
+ma siano pronte ad accogliere la tua Parola
+per compiere anche oggi la tua volontà.
+Amen.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Martedì</div>
+          <div class="preghiera-block">Grazie, Gesù, per chi oggi mi ha consolato e,
+così facendo, mi ha reso felice.
+Grazie anche per la felicità che ho provato
+quando io, con il tuo aiuto,
+sono riuscito a consolare gli altri.
+Grazie perché in Te
+posso sempre trovare consolazione!</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-mer">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Mercoledì</div>
+          <div class="preghiera-block">Ti ringrazio, Padre,
+per questo nuovo giorno.
+Aiutami a viverlo in amicizia
+con te e con il prossimo.
+Donami la forza per affrontare
+gli impegni che mi aspettano.
+Aiutami a condividere la gioia
+e a superare le difficoltà.
+Amen.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Mercoledì</div>
+          <div class="preghiera-block">Gesù, insegnaci a donarci agli altri
+con semplicità e gioia.
+Fa' che il nostro sorriso sia un segno di amicizia,
+capace di far sentire tutti accolti e voluti bene.
+Aiutaci a condividere il nostro tempo,
+ad aiutare chi ha bisogno
+e a portare un po' della tua felicità
+a chi incontriamo ogni giorno,
+seminando la pace come Tu ci hai insegnato.</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-gio">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Giovedì</div>
+          <div class="preghiera-block">Gesù, oggi, come ogni giorno,
+con i compagni di campo, con gli amici,
+con gli animatori e i capi-campo,
+con coloro che semplicemente incontrerò,
+tu busserai alla mia porta.
+Aiutami a riconoscere la tua voce,
+e ad aprirti sempre,
+così che tu possa entrare nella mia vita
+e restare con me.
+Amen.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Preghiera della sera — Giovedì</div>
+          <div class="preghiera-block">Signore, questa sera penso a cosa ho fatto oggi:
+quando ho sorriso, quando ho aiutato, ma anche
+quando ho fatto fatica a voler bene agli altri.
+Perdona i miei sbagli, fa' crescere il mio cuore,
+e domani aiutami ad essere migliore.</div>
+        </div>
+      </div>
+
+      <div class="day-content" id="pregh-ven">
+        <div class="card">
+          <div class="card-title">🌅 Preghiera del mattino — Venerdì</div>
+          <div class="preghiera-block">All'inizio del giorno accetta, o Padre, la nostra offerta.
+Ti offriamo il nostro gioco, il nostro lavoro,
+il nostro impegno, i nostri pensieri buoni,
+le nostre azioni di questa giornata.
+Aiutaci a costruire il tuo Regno di giustizia,
+d'amore e di pace
+con i nostri piccoli gesti quotidiani
+perché anche noi, nel nostro piccolo,
+possiamo contribuire a realizzare con la nostra vita
+il tuo Vangelo.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">🔥 Preghiera del falò — Venerdì sera</div>
+          <div class="preghiera-block">Signore Gesù, questa sera, sotto le stelle e attorno a
+questo fuoco, con il cuore pieno di emozioni, ci
+fermiamo un momento per dirti GRAZIE.
+
+Gesù, spesso mi ricordo di parlare con Te solo quando
+mi serve qualcosa, ma oggi voglio farlo in modo
+diverso: semplicemente per dirti grazie.
+
+Grazie per questi giorni di campo, per tutto quello che
+ho vissuto, anche quello che non mi aspettavo.
+
+Grazie per gli amici, quelli che conoscevo già e quelli
+nuovi con cui ho condiviso questi giorni.
+Grazie per i sorrisi, le risate, le chiacchiere, le corse, le
+sfide e anche i momenti più difficili.
+
+Signore, ti affido questo campo. Fa' che non vada
+perso dentro me, ma resti un tesoro vivo nel cuore.
+Proteggi la mia "famiglia del campo": i miei amici,
+vecchi e nuovi, gli animatori Carlo Alberto, Francesco,
+Anna, Martina, Andrea e Alice, il capo campo Giulio,
+don Riccardo, Germana, Sandra e i cuochi Leonardo,
+Aldo e Alessandro.
+
+Fa' che possa ricordarmi ogni giorno di essere felice
+davvero come ci ha insegnato Luciano, che è un
+esempio di vita per tutti noi.
+
+Resta con noi, Signore, anche quando torneremo a
+casa.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CANTI -->
+    <section class="section" id="section-canti">
+      <div class="card">
+        <div class="card-title">🎵 La canzone di Luciano</div>
+        <div class="canto-block">Fa' Signore
+che io riesca a consumare
+la mia vita per gli altri
+come Tu hai fatto per me.
+
+<span class="canto-ritornello">Che non debba mai dir di no ma sempre
+un sì con un sorriso sulle labbra.
+Fa che il mio dir di sì sia sempre per la gloria Tua,
+fa che abbia sempre sete di Te, Signore.</span>
+
+Fa' Signore che la Tua volontà
+sia sempre più chiara verso me
+e il mio cuore si allarghi sempre più all'amore.
+Fa Signore che io abbia sempre bisogno di Te
+in ogni istante.
+
+Così che tu venga subito
+nell'aiutarmi a rialzare persone cadute
+e a confortare persone in crisi
+e a rasserenare cuori ansiosi
+e a risanare i malati morali
+e a sorridere a tutti con il Tuo volto.
+
+Fa' Signore che il mio arrivo sia in paradiso.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 È bello lodarti</div>
+        <div class="canto-block"><span class="canto-ritornello">È bello cantare il tuo amore,
+è bello lodare il tuo nome,
+è bello cantare il tuo amore,
+è bello lodarti, Signore,
+è bello cantare a Te!</span>
+
+Tu che sei l'amore infinito,
+che neppure il cielo può contenere,
+ti sei fatto uomo,
+Tu sei venuto qui
+ad abitare in mezzo a noi, allora… Rit.
+
+Tu che conti tutte le stelle
+e le chiami ad una ad una per nome,
+da mille sentieri
+ci hai radunati qui
+e ci hai chiamati figli tuoi, allora… Rit.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 Resta accanto a me</div>
+        <div class="canto-block"><span class="canto-ritornello">Ora vado sulla mia strada
+con l'amore tuo che mi guida,
+oh Signore ovunque io vada
+resta accanto a me.
+Io ti prego, stammi vicino
+ogni passo del mio cammino,
+ogni notte, ogni mattino
+resta accanto a me.</span>
+
+Il tuo sguardo puro sia luce per me
+e la tua parola sia voce per me.
+Che io trovi il senso del mio andare solo in Te,
+nel tuo fedele amare il mio perché.
+
+Fa' che chi mi guarda non veda che Te.
+Fa' che chi mi ascolta non senta che Te,
+e chi pensa a me, fa' che nel cuore pensi a Te,
+e trovi quell'amore che hai dato a me.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 Camminerò</div>
+        <div class="canto-block"><span class="canto-ritornello">Camminerò, camminerò
+nella tua strada, Signor.
+Dammi la mano, voglio restar
+per sempre insieme a Te.</span>
+
+Quando ero solo, solo e stanco nel mondo,
+quando non c'era l'amor,
+tante persone vidi intorno a me:
+sentivo cantare così.
+
+Io non capivo ma rimasi a sentire,
+quando io vidi il Signor:
+Lui mi chiamava, chiamava anche me,
+e la mia risposta si alzò.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 Ti ringrazio mio Signore</div>
+        <div class="canto-block">Amatevi l'un l'altro come lui ha amato noi,
+e siate per sempre suoi amici;
+e quello che farete al più piccolo tra voi,
+credete, l'avrete fatto a lui.
+
+<span class="canto-ritornello">Ti ringrazio, mio Signore,
+non ho più paura, perché,
+con la mia mano nella mano degli amici miei,
+cammino tra la gente della mia città,
+e non mi sento più solo;
+non sento la stanchezza e guardo dritto avanti a me,
+perché sulla mia strada ci sei tu.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 Acqua siamo noi</div>
+        <div class="canto-block">Acqua siamo noi, dall'antica sorgente veniamo,
+fiumi siamo noi se i ruscelli si mettono insieme,
+mari siamo noi se i torrenti si danno la mano,
+vita nuova c'è se Gesù è in mezzo a noi.
+
+<span class="canto-ritornello">E allora diamoci la mano
+e tutti insieme camminiamo
+ed un oceano di pace nascerà.
+E l'egoismo cancelliamo,
+un cuore limpido sentiamo
+è Dio che bagna del suo amor l'umanità.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎵 Ecco quel che abbiamo</div>
+        <div class="canto-block">Ecco quel che abbiamo,
+nulla ci appartiene ormai.
+Ecco i frutti della terra,
+che tu moltiplicherai.
+Ecco queste mani,
+puoi usarle se lo vuoi,
+per dividere nel mondo
+il pane che tu hai dato a noi.
+
+Sulle strade il vento
+da lontano porterà
+il profumo del frumento
+che tutti avvolgerà.
+E sarà l'amore
+che il raccolto spartirà
+e il miracolo del pane in terra
+si ripeterà.</div>
+      </div>
+    </section>
+
+    <!-- BEATITUDINI -->
+    <section class="section" id="section-beatitudini">
+      <div class="card">
+        <div class="card-title">📖 Discorso della montagna — Mt 5,1-12a</div>
+        <p style="font-size:0.9rem;line-height:1.7;margin-bottom:16px;color:#374151">Vedendo le folle, Gesù salì sulla montagna e, messosi a sedere, gli si avvicinarono i suoi discepoli. Prendendo allora la parola, li ammaestrava dicendo:</p>
+        <div style="display:grid;gap:10px">
+          <div class="beati-pill" style="background:linear-gradient(135deg,#DBEAFE,#EFF6FF);border-color:#93C5FD;color:#1E3A5F"><strong>Beati i poveri in spirito,</strong> perché di essi è il regno dei cieli. <em style="font-size:0.8rem;opacity:0.7">→ Domenica: Umiltà</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#D1FAE5,#ECFDF5);border-color:#6EE7B7;color:#064E3B"><strong>Beati gli afflitti,</strong> perché saranno consolati. <em style="font-size:0.8rem;opacity:0.7">→ Martedì: Poveri</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#FEF3C7,#FFFBEB);border-color:#FCD34D;color:#78350F"><strong>Beati i miti,</strong> perché erediteranno la terra. <em style="font-size:0.8rem;opacity:0.7">→ Lunedì: Montagna</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#FCE7F3,#FDF2F8);border-color:#F9A8D4;color:#831843"><strong>Beati quelli che hanno fame e sete della giustizia,</strong> perché saranno saziati. <em style="font-size:0.8rem;opacity:0.7">→ Giovedì: Lavoro</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#EDE9FE,#F5F3FF);border-color:#C4B5FD;color:#4C1D95"><strong>Beati i misericordiosi,</strong> perché troveranno misericordia. <em style="font-size:0.8rem;opacity:0.7">→ Venerdì: Fede</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#CCFBF1,#F0FDFA);border-color:#5EEAD4;color:#134E4A"><strong>Beati i puri di cuore,</strong> perché vedranno Dio.</div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#FFF7ED,#FFFBEB);border-color:#FCA5A5;color:#7F1D1D"><strong>Beati gli operatori di pace,</strong> perché saranno chiamati figli di Dio. <em style="font-size:0.8rem;opacity:0.7">→ Mercoledì: Sorriso</em></div>
+          <div class="beati-pill" style="background:linear-gradient(135deg,#F0FDF4,#D8F3DC);border-color:#86EFAC;color:#14532D"><strong>Beati i perseguitati per causa della giustizia,</strong> perché di essi è il regno dei cieli.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTE -->
+    <section class="section" id="section-note">
+      <div class="card">
+        <div class="card-title">📝 Note condivise per giornata</div>
+        <p style="font-size:0.85rem;color:var(--grigio);margin-bottom:16px">Le note vengono salvate sul server e sono visibili a tutti gli animatori.</p>
+        <div id="note-container"></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+// ── NAVIGATION ──
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('.section');
+
+const sectionTitles = {
+  home: 'Home',
+  squadre: 'Squadre & Staff',
+  luciano: 'Chi è Luciano',
+  programma: 'Programma giornaliero',
+  attivita: 'Attività',
+  giochi: 'Giochi',
+  serate: 'Serate',
+  materiale: 'Materiale',
+  preghiere: 'Preghiere',
+  canti: 'Canti',
+  beatitudini: 'Beatitudini',
+  note: 'Note condivise'
+};
+
+function showSection(name) {
+  sections.forEach(s => s.classList.remove('active'));
+  navItems.forEach(i => i.classList.remove('active'));
+  const target = document.getElementById('section-' + name);
+  if (target) target.classList.add('active');
+  const navTarget = document.querySelector(`.nav-item[data-section="${name}"]`);
+  if (navTarget) navTarget.classList.add('active');
+  document.getElementById('topbar-title').textContent = sectionTitles[name] || name;
+  if (name === 'note') loadNotes();
+}
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    showSection(item.dataset.section);
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+// ── DAY TABS (programma) ──
+document.querySelectorAll('[data-day]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-day]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.day-content').forEach(d => {
+      if (!d.id.startsWith('pregh-')) d.classList.remove('active');
     });
+    btn.classList.add('active');
+    const target = document.getElementById('day-' + btn.dataset.day);
+    if (target) target.classList.add('active');
+  });
+});
 
-    // ── AGGIUNGI MATERIALE ──────────────────────────────────────────────────
-    // Le card tratteggiate "+ Aggiungi …" aprono un mini-form inline.
-    document.addEventListener('click', function (e) {
-      const addCard = e.target.closest('.add-card');
-      if (!addCard) return;
-      e.stopPropagation();
+// ── DAY TABS (preghiere) ──
+document.querySelectorAll('[data-pregh]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-pregh]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('[id^="pregh-"]').forEach(d => d.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('pregh-' + btn.dataset.pregh);
+    if (target) target.classList.add('active');
+  });
+});
 
-      // Evita di aprire più form contemporaneamente
-      if (addCard.querySelector('.add-form')) return;
+// ── DATE ──
+const days = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+const months = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const now = new Date();
+document.getElementById('topbar-date').textContent =
+  days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
 
-      addCard.style.background = 'white';
-      addCard.style.border = '1.5px solid var(--sky)';
-      addCard.innerHTML = `
-        <div class="add-form" style="display:flex;flex-direction:column;gap:0.4rem;">
-          <select style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.5rem;background:var(--bg);">
-            <option value="tipo-canto">Canto</option>
-            <option value="tipo-preghiera">Preghiera</option>
-            <option value="tipo-scenetta">Scenetta</option>
-            <option value="tipo-attivita">Attività</option>
-            <option value="tipo-gioco">Gioco</option>
-            <option value="tipo-scheda">Scheda</option>
-          </select>
-          <input type="text" placeholder="Nome materiale" style="font-family:inherit;font-size:0.85rem;border:1px solid var(--border);border-radius:6px;padding:0.35rem 0.6rem;" />
-          <input type="text" placeholder="Descrizione (opzionale)" style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.6rem;" />
-          <input type="url" placeholder="Link al file (opzionale)" style="font-family:inherit;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.6rem;" />
-          <div style="display:flex;gap:0.4rem;margin-top:0.2rem;">
-            <button onclick="confirmAddCard(this)" style="flex:1;background:var(--sky);color:white;border:none;border-radius:6px;padding:0.35rem;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;">Aggiungi</button>
-            <button onclick="cancelAddCard(this)" style="flex:1;background:var(--bg2);border:none;border-radius:6px;padding:0.35rem;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;color:var(--text-muted);">Annulla</button>
-          </div>
-        </div>`;
-    });
+// ── BEATITUDINE DEL GIORNO nel ticker ──
+const beatitudini = [
+  'Beati i poveri in spirito, perché di essi è il regno dei cieli.',
+  'Beati gli afflitti, perché saranno consolati.',
+  'Beati i miti, perché erediteranno la terra.',
+  'Beati quelli che hanno fame e sete della giustizia, perché saranno saziati.',
+  'Beati i misericordiosi, perché troveranno misericordia.',
+  'Beati i puri di cuore, perché vedranno Dio.',
+  'Beati gli operatori di pace, perché saranno chiamati figli di Dio.',
+  'Beati i perseguitati per causa della giustizia, perché di essi è il regno dei cieli.',
+];
+// Associa giorno del campo (4–10 luglio = 0–6)
+const campoDayMap = {4:0, 5:1, 6:2, 7:3, 8:4, 9:5, 10:6};
+const dayOfMonth = now.getDate();
+const campoIdx = campoDayMap[dayOfMonth] !== undefined ? campoDayMap[dayOfMonth] : (now.getDay() % beatitudini.length);
+document.getElementById('beatitudine-ticker').textContent = beatitudini[campoIdx];
 
-    function confirmAddCard(btn) {
-      const form = btn.closest('.add-form');
-      const card = btn.closest('.add-card');
-      const grid = card.parentElement;
-      const [sel, nameInput, descInput, urlInput] = form.querySelectorAll('select,input');
-      const name = nameInput.value.trim();
-      if (!name) { nameInput.focus(); return; }
+// ── NOTE ──
+const NOTE_KEYS = [
+  {key:'note-sab', label:'Sabato 4/7'},
+  {key:'note-dom', label:'Domenica 5/7'},
+  {key:'note-lun', label:'Lunedì 6/7'},
+  {key:'note-mar', label:'Martedì 7/7'},
+  {key:'note-mer', label:'Mercoledì 8/7'},
+  {key:'note-gio', label:'Giovedì 9/7'},
+  {key:'note-ven', label:'Venerdì 10/7'},
+  {key:'note-generale', label:'Note generali'},
+];
 
-      // Mappa tipo → etichetta leggibile
-      const labels = { 'tipo-canto': 'Canto', 'tipo-preghiera': 'Preghiera', 'tipo-scenetta': 'Scenetta', 'tipo-attivita': 'Attività', 'tipo-gioco': 'Gioco', 'tipo-scheda': 'Scheda' };
-      const tipoClass = sel.value;
-      const tipoLabel = labels[tipoClass] || 'Altro';
+async function loadNotes() {
+  let notes = {};
+  try { const r = await fetch('/api/notes'); notes = await r.json(); } catch {}
+  const container = document.getElementById('note-container');
+  container.innerHTML = '';
+  NOTE_KEYS.forEach(({key, label}) => {
+    const saved = notes[key] || {};
+    const div = document.createElement('div');
+    div.style.marginBottom = '20px';
+    div.innerHTML = `
+      <div style="font-weight:600;font-size:0.88rem;margin-bottom:6px;color:var(--verde)">${label}</div>
+      <textarea class="note-area" id="ta-${key}" placeholder="Scrivi qui le note per ${label}…">${saved.text || ''}</textarea>
+      <div class="note-actions">
+        <button class="btn btn-primary" onclick="saveNote('${key}')">Salva</button>
+        <button class="btn btn-ghost" onclick="clearNote('${key}')">Cancella</button>
+        <span class="note-saved" id="saved-${key}">✓ Salvato</span>
+        ${saved.updatedAt ? `<span style="font-size:0.72rem;color:var(--grigio);margin-left:auto">Aggiornato: ${new Date(saved.updatedAt).toLocaleString('it-IT')}</span>` : ''}
+      </div>`;
+    container.appendChild(div);
+  });
+}
 
-      const newCard = document.createElement('div');
-      newCard.className = 'materiale-card';
-      newCard.innerHTML = `
-        <span class="materiale-tipo ${tipoClass}">${tipoLabel}</span>
-        <span class="materiale-nome">${name}</span>
-        ${descInput.value.trim() ? `<span class="materiale-desc">${descInput.value.trim()}</span>` : ''}
-        ${urlInput.value.trim()
-          ? `<a class="materiale-link" href="${urlInput.value.trim()}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Apri file</a>`
-          : `<span class="materiale-placeholder">→ Aggiungi link al file</span>`}`;
+async function saveNote(key) {
+  const text = document.getElementById('ta-' + key).value;
+  try {
+    await fetch('/api/notes/' + key, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text}) });
+    const el = document.getElementById('saved-' + key);
+    el.style.display = 'inline';
+    setTimeout(() => { el.style.display = 'none'; }, 2000);
+  } catch { alert('Errore nel salvataggio'); }
+}
 
-      grid.insertBefore(newCard, card);
-      // Ripristina card "aggiungi"
-      card.style.background = '';
-      card.style.border = '';
-      card.innerHTML = `<span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>`;
-    }
-
-    function cancelAddCard(btn) {
-      const card = btn.closest('.add-card');
-      card.style.background = '';
-      card.style.border = '';
-      card.innerHTML = `<span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>`;
-    }
-
-    const GIORNI = [
-      { data: "4 lug", giorno: "Venerdì", n: 1, beatitudine: "Beati i poveri in spirito, perché di essi è il regno dei cieli.", breve: "Poveri in spirito", colore: "#3A7FBF" },
-      { data: "5 lug", giorno: "Sabato", n: 2, beatitudine: "Beati gli afflitti, perché saranno consolati.", breve: "Gli afflitti", colore: "#7B5EA7" },
-      { data: "6 lug", giorno: "Domenica", n: 3, beatitudine: "Beati i miti, perché erediteranno la terra.", breve: "I miti", colore: "#4A8C5C" },
-      { data: "7 lug", giorno: "Lunedì", n: 4, beatitudine: "Beati quelli che hanno fame e sete della giustizia, perché saranno saziati.", breve: "Fame di giustizia", colore: "#C9A84C" },
-      { data: "8 lug", giorno: "Martedì", n: 5, beatitudine: "Beati i misericordiosi, perché troveranno misericordia.", breve: "I misericordiosi", colore: "#D4614A" },
-      { data: "9 lug", giorno: "Mercoledì", n: 6, beatitudine: "Beati i puri di cuore, perché vedranno Dio.", breve: "Puri di cuore", colore: "#3A7FBF" },
-      { data: "10 lug", giorno: "Giovedì", n: 7, beatitudine: "Beati gli operatori di pace, perché saranno chiamati figli di Dio.", breve: "Operatori di pace", colore: "#4A8C5C" },
-      { data: "11 lug", giorno: "Venerdì", n: 8, beatitudine: "Beati i perseguitati per la giustizia, perché di essi è il regno dei cieli.", breve: "Perseguitati per giustizia", colore: "#7B5EA7" },
-    ];
-
-    function renderDayCard(g, onclick) {
-      return `<div class="day-card" onclick="${onclick}">
-      <div class="day-num">Giorno ${g.n}</div>
-      <div class="day-date">${g.giorno} ${g.data}</div>
-      <div class="day-theme" style="color:${g.colore};">${g.breve}</div>
-      <div class="day-beatitudine">« ${g.beatitudine.substring(0, 50)}… »</div>
-      <span class="badge-count">Materiali da aggiungere</span>
-    </div>`;
-    }
-
-    function buildDayDetail(g) {
-      return `
-      <div class="giornata-header">
-        <div>
-          <div style="font-size:0.8rem;opacity:0.7;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">Giorno ${g.n} · ${g.giorno} ${g.data}</div>
-          <div class="gh-date">${g.breve}</div>
-        </div>
-        <div class="gh-beatitudine">« ${g.beatitudine} »</div>
-      </div>
-
-      <div class="programma">
-        <div class="programma-title">Scaletta tipo</div>
-        <div class="momento"><span class="momento-ora">7:00</span><span class="momento-icon"><i class="fa-solid fa-bell"></i></span>
-          <div>
-            <div class="momento-label">Sveglia</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">7:30</span><span class="momento-icon"><i class="fa-solid fa-book-bible"></i></span>
-          <div>
-            <div class="momento-label">Preghiera mattutina</div>
-            <div class="momento-note">Vangelo + presentazione tema del giorno</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">8:00</span><span class="momento-icon"><i class="fa-solid fa-mug-saucer"></i></span>
-          <div>
-            <div class="momento-label">Colazione</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">8:30</span><span class="momento-icon"><i class="fa-solid fa-broom"></i></span>
-          <div>
-            <div class="momento-label">Servizi e pulizie</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">9:30</span><span class="momento-icon"><i class="fa-solid fa-masks-theater"></i></span>
-          <div>
-            <div class="momento-label">Scenetta</div>
-            <div class="momento-note">Capitolo della storia del campo</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">10:30</span><span class="momento-icon"><i class="fa-solid fa-pencil"></i></span>
-          <div>
-            <div class="momento-label">Attività</div>
-            <div class="momento-note">A tema con la giornata</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">12:30</span><span class="momento-icon"><i class="fa-solid fa-utensils"></i></span>
-          <div>
-            <div class="momento-label">Pranzo</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">15:30</span><span class="momento-icon"><i class="fa-solid fa-chess"></i></span>
-          <div>
-            <div class="momento-label">Gioco pomeridiano</div>
-            <div class="momento-note">Ludico, divertimento</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">17:00</span><span class="momento-icon"><i class="fa-solid fa-volleyball"></i></span>
-          <div>
-            <div class="momento-label">Tempo libero</div>
-            <div class="momento-note">Calcetto balilla, pallavolo, basket, ping pong, calcio, giochi da tavolo, carte, freccette, etc...</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">16:30</span><span class="momento-icon"><i class="fa-solid fa-shower"></i></span>
-          <div>
-            <div class="momento-label">Docce</div>
-          </div>
-        </div>
-        <div class="momento"><span class="momento-ora">19:00</span><span class="momento-icon"><i class="fa-solid fa-spoon"></i></span>
-          <div>
-            <div class="momento-label">Cena</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">20:15</span><span class="momento-icon"><i class="fa-solid fa-moon"></i></span>
-          <div>
-            <div class="momento-label">Gioco serale</div>
-          </div>
-        </div>
-        <div class="momento highlight"><span class="momento-ora">21:45</span><span class="momento-icon"><i class="fa-solid fa-cross"></i></span>
-          <div>
-            <div class="momento-label">Preghiera serale</div>
-          </div>
-        </div>
-      </div>
-
-      <p class="materiali-title">Materiali per questa giornata</p>
-      <div class="materiali-grid">
-        <div class="materiale-card">
-          <span class="materiale-tipo tipo-preghiera">Preghiera</span>
-          <span class="materiale-nome">Preghiera mattutina – Giorno ${g.n}</span>
-          <span class="materiale-desc">Testo della preghiera del mattino e del brano del Vangelo.</span>
-          <span class="materiale-placeholder">→ Aggiungi link al file</span>
-        </div>
-        <div class="materiale-card">
-          <span class="materiale-tipo tipo-scenetta">Scenetta</span>
-          <span class="materiale-nome">Copione scenetta – Ep. ${g.n}</span>
-          <span class="materiale-desc">Copione dell'episodio ${g.n} della storia del campo.</span>
-          <span class="materiale-placeholder">→ Aggiungi link al file</span>
-        </div>
-        <div class="materiale-card">
-          <span class="materiale-tipo tipo-attivita">Attività</span>
-          <span class="materiale-nome">Attività – ${g.breve}</span>
-          <span class="materiale-desc">Scheda e istruzioni per l'attività tematica della giornata.</span>
-          <span class="materiale-placeholder">→ Aggiungi link al file</span>
-        </div>
-        <div class="materiale-card">
-          <span class="materiale-tipo tipo-preghiera">Preghiera</span>
-          <span class="materiale-nome">Preghiera serale – Giorno ${g.n}</span>
-          <span class="materiale-desc">Testo della preghiera della sera.</span>
-          <span class="materiale-placeholder">→ Aggiungi link al file</span>
-        </div>
-        <div class="materiale-card add-card" style="border: 1.5px dashed var(--border); background: var(--bg); cursor:pointer;">
-          <span style="color:#ccc; font-style:italic; font-size:0.85rem;">+ Aggiungi materiale</span>
-        </div>
-      </div>
-
-      <div class="note-card">
-        <label><i class="fa-solid fa-note-sticky"></i> Note animatori – Giorno ${g.n}</label>
-        <textarea placeholder="Note specifiche per questa giornata: cose da preparare, variazioni al programma, promemoria..."></textarea>
-      </div>
-    `;
-    }
-
-    function buildBeatitudini() {
-      const container = document.getElementById('beatitudini-list');
-      container.innerHTML = GIORNI.map(g => `
-      <div class="beatitudine-row">
-        <div class="beat-num">${g.n}</div>
-        <div class="beat-text">${g.beatitudine}</div>
-        <div class="beat-giorno">${g.giorno} ${g.data}</div>
-      </div>
-    `).join('');
-    }
-
-    function buildCards() {
-      const homeGrid = document.getElementById('home-days');
-      const giornateGrid = document.getElementById('giornate-cards');
-      homeGrid.innerHTML = GIORNI.map(g =>
-        renderDayCard(g, `showGiornataDetail(${g.n - 1})`)
-      ).join('');
-      giornateGrid.innerHTML = GIORNI.map(g =>
-        renderDayCard(g, `showGiornataDetail(${g.n - 1})`)
-      ).join('');
-    }
-
-    // ── NAVIGAZIONE CON HASH ────────────────────────────────────────────────
-    // Hash supportati: #home | #giornate | #materiali | #info | #giornata-N
-
-    function _activateSection(id) {
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      const navLink = document.querySelector(`[data-section="${id}"]`);
-      if (navLink) navLink.classList.add('active');
-    }
-
-    function showSection(id, el) {
-      location.hash = id;
-      return false;
-    }
-
-    function showGiornateList() {
-      location.hash = 'giornate';
-    }
-
-    function showGiornataDetail(idx) {
-      location.hash = `giornata-${idx + 1}`;
-    }
-
-    function _renderGiornataDetail(idx) {
-      _activateSection('giornate');
-      document.getElementById('giornate-list').style.display = 'none';
-      const detail = document.getElementById('giornata-detail');
-      detail.style.display = 'block';
-      document.getElementById('detail-content').innerHTML = buildDayDetail(GIORNI[idx]);
-      loadNoteForDetail();
-      window.scrollTo(0, 0);
-    }
-
-    function _renderGiornateList() {
-      _activateSection('giornate');
-      document.getElementById('giornate-list').style.display = '';
-      document.getElementById('giornata-detail').style.display = 'none';
-    }
-
-    function navigaHash() {
-      const hash = location.hash.replace('#', '') || 'home';
-      const giornatMatch = hash.match(/^giornata-(\d+)$/);
-      if (giornatMatch) {
-        const idx = parseInt(giornatMatch[1]) - 1;
-        if (GIORNI[idx]) _renderGiornataDetail(idx);
-      } else if (['home', 'giornate', 'materiali', 'info'].includes(hash)) {
-        _activateSection(hash);
-        if (hash === 'giornate') _renderGiornateList();
-      } else {
-        _activateSection('home');
-      }
-    }
-
-    window.addEventListener('hashchange', navigaHash);
-
-    buildCards();
-    buildBeatitudini();
-    navigaHash(); // gestisce hash iniziale (anche link diretti)
-
-    // ── SALVATAGGIO NOTE (API server) ───────────────────────────────────────
-    let saveTimer = null;
-
-    async function caricaNota(contesto, textarea) {
-      try {
-        const res = await fetch(`/api/note/${encodeURIComponent(contesto)}`);
-        const json = await res.json();
-        textarea.value = json.testo || '';
-      } catch (e) { console.warn('Errore caricamento nota:', e); }
-    }
-
-    async function salvaNota(contesto, testo) {
-      try {
-        await fetch(`/api/note/${encodeURIComponent(contesto)}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ testo })
-        });
-      } catch (e) { console.warn('Errore salvataggio nota:', e); }
-    }
-
-    function contestoDaTextarea(textarea) {
-      const card = textarea.closest('.note-card');
-      const label = card && card.querySelector('label');
-      if (!label) return null;
-      // usa il testo del label come chiave, es. "note-generali" o "giorno-1"
-      return label.textContent.trim()
-        .replace(/[^\w\s-]/g, '')   // rimuove caratteri speciali/emoji
-        .trim()
-        .replace(/\s+/g, '-')
-        .toLowerCase();
-    }
-
-    // Carica la nota generali subito
-    const noteGenerali = document.getElementById('note-generali');
-    if (noteGenerali) caricaNota('note-generali', noteGenerali);
-
-    // Salvataggio con debounce su tutte le textarea
-    document.addEventListener('input', function (e) {
-      if (e.target.tagName !== 'TEXTAREA') return;
-      const contesto = e.target.id === 'note-generali'
-        ? 'note-generali'
-        : contestoDaTextarea(e.target);
-      if (!contesto) return;
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => salvaNota(contesto, e.target.value), 600);
-    });
-
-    // Carica la nota quando si apre il dettaglio di una giornata
-    function loadNoteForDetail() {
-      const detail = document.getElementById('detail-content');
-      if (!detail) return;
-      const textarea = detail.querySelector('textarea');
-      if (!textarea) return;
-      const contesto = contestoDaTextarea(textarea);
-      if (contesto) caricaNota(contesto, textarea);
-    }
-  </script>
+async function clearNote(key) {
+  if (!confirm('Cancellare le note per questa giornata?')) return;
+  await fetch('/api/notes/' + key, {method:'DELETE'});
+  document.getElementById('ta-' + key).value = '';
+}
+</script>
 </body>
-
 </html>
