@@ -9,7 +9,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    /* ── variabili e reset (identico a prima) ── */
     :root {
       --verde: #2D6A4F;
       --verde-l: #52B788;
@@ -54,6 +56,7 @@
       bottom: 0;
       z-index: 100;
       overflow-y: auto;
+      transition: transform 0.25s ease;
     }
 
     .sidebar-header {
@@ -147,6 +150,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: margin-left 0.25s ease;
     }
 
     .topbar {
@@ -175,7 +179,7 @@
 
     .content {
       padding: 32px;
-      max-width: 900px;
+      max-width: 1050px;
       width: 100%;
     }
 
@@ -606,24 +610,57 @@
     }
 
     .materiale-item::before {
-      content: '📦';
+      content: '\f49e';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
       font-size: 0.85rem;
+      color: var(--verde);
+    }
+
+    /* ── SCENETTE ── */
+    .scena-block {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 12px 0;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      font-family: 'Inter', monospace;
+    }
+
+    .scena-block strong {
+      color: var(--verde);
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      :root {
-        --sidebar-w: 0px;
-      }
-
       #sidebar {
-        transform: translateX(-260px);
-        transition: transform 0.25s;
-        width: 260px;
+        transform: translateX(-100%);
+        width: 280px;
+        transition: transform 0.3s ease;
       }
 
       #sidebar.open {
         transform: translateX(0);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        display: flex !important;
+      }
+
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .sidebar-overlay.active {
+        display: block !important;
       }
 
       #main {
@@ -641,25 +678,24 @@
       .topbar {
         padding: 12px 16px;
       }
+
+      .hamburger {
+        display: block !important;
+      }
     }
 
     .hamburger {
       display: none;
       background: none;
       border: none;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       cursor: pointer;
       color: var(--inchiostro);
-      padding: 4px;
+      padding: 8px 12px;
+      line-height: 1;
+      z-index: 60;
     }
 
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-    }
-
-    /* ── SCROLL ── */
     #sidebar::-webkit-scrollbar {
       width: 4px;
     }
@@ -672,54 +708,91 @@
       background: rgba(255, 255, 255, 0.2);
       border-radius: 4px;
     }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 99;
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+    }
+
+    @media (min-width: 769px) {
+      .sidebar-overlay {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- Overlay per mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <!-- SIDEBAR -->
   <aside id="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-title">⛰️ Campo Scuola 2026</div>
+      <div class="sidebar-title"><i class="fa-solid fa-mountain-sun"></i> Campo Scuola 2026</div>
       <div class="sidebar-sub">Felice se… — Staff interno</div>
     </div>
     <nav>
       <div class="nav-section-label">Panoramica</div>
-      <div class="nav-item active" data-section="home"><span class="icon">🏠</span> Home</div>
-      <div class="nav-item" data-section="squadre"><span class="icon">👥</span> Squadre & Staff</div>
-      <div class="nav-item" data-section="luciano"><span class="icon">✨</span> Chi è Luciano</div>
+      <div class="nav-item active" data-section="home"><span class="icon"><i class="fa-solid fa-house"></i></span> Home
+      </div>
+      <div class="nav-item" data-section="squadre"><span class="icon"><i class="fa-solid fa-user-group"></i></span>
+        Squadre & Staff</div>
+      <div class="nav-item" data-section="luciano"><span class="icon"><i class="fa-solid fa-star"></i></span> Chi è
+        Luciano</div>
 
       <div class="nav-section-label">Programma</div>
-      <div class="nav-item" data-section="programma"><span class="icon">📅</span> Programma giornaliero</div>
-      <div class="nav-item" data-section="attivita"><span class="icon">🎯</span> Attività</div>
-      <div class="nav-item" data-section="giochi"><span class="icon">🎮</span> Giochi</div>
-      <div class="nav-item" data-section="serate"><span class="icon">🌙</span> Serate</div>
-      <div class="nav-item" data-section="materiale"><span class="icon">🎒</span> Materiale</div>
+      <div class="nav-item" data-section="programma"><span class="icon"><i class="fa-solid fa-calendar"></i></span>
+        Programma giornaliero</div>
+      <div class="nav-item" data-section="attivita"><span class="icon"><i class="fa-solid fa-bullseye"></i></span>
+        Attività</div>
+      <div class="nav-item" data-section="giochi"><span class="icon"><i class="fa-solid fa-gamepad"></i></span> Giochi
+      </div>
+      <div class="nav-item" data-section="serate"><span class="icon"><i class="fa-solid fa-moon"></i></span> Serate
+      </div>
+      <div class="nav-item" data-section="scenette"><span class="icon"><i class="fa-solid fa-masks-theater"></i></span>
+        Scenette</div>
+      <div class="nav-item" data-section="materiale"><span class="icon"><i class="fa-solid fa-box-archive"></i></span>
+        Materiale</div>
 
       <div class="nav-section-label">Liturgia</div>
-      <div class="nav-item" data-section="preghiere"><span class="icon">🙏</span> Preghiere</div>
-      <div class="nav-item" data-section="canti"><span class="icon">🎵</span> Canti</div>
-      <div class="nav-item" data-section="beatitudini"><span class="icon">📖</span> Beatitudini</div>
+      <div class="nav-item" data-section="preghiere"><span class="icon"><i class="fa-solid fa-cross"></i></span>
+        Preghiere</div>
+      <div class="nav-item" data-section="canti"><span class="icon"><i class="fa-solid fa-music"></i></span> Canti</div>
+      <div class="nav-item" data-section="beatitudini"><span class="icon"><i class="fa-solid fa-book-open"></i></span>
+        Beatitudini</div>
 
       <div class="nav-section-label">Note animatori</div>
-      <div class="nav-item" data-section="note"><span class="icon">📝</span> Note condivise</div>
+      <div class="nav-item" data-section="note"><span class="icon"><i class="fa-solid fa-note-sticky"></i></span> Note
+        condivise</div>
     </nav>
   </aside>
 
   <!-- MAIN -->
   <div id="main">
     <header class="topbar">
-      <button class="hamburger" id="hamburger">☰</button>
+      <button class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></button>
       <span class="topbar-title" id="topbar-title">Home</span>
       <span class="topbar-date" id="topbar-date"></span>
     </header>
 
     <div class="content">
 
-      <!-- HOME -->
+      <!-- ─────────────── HOME ─────────────── -->
       <section class="section active" id="section-home">
         <div class="card">
-          <div class="card-title">🏕️ Benvenuti, animatori! <span class="badge">4–11 luglio 2026</span></div>
+          <div class="card-title">Benvenuti, animatori! <span class="badge">4–11 luglio 2026</span></div>
           <p style="font-size:0.9rem;line-height:1.7;color:#374151">
             Siete il cuore di questa settimana. Questo sito è il vostro strumento interno: programma giornaliero, testi
             di preghiere e canti, descrizione di attività, giochi e serate, lista materiale, squadre e spazio note
@@ -728,47 +801,50 @@
         </div>
 
         <div class="card">
-          <div class="card-title">⛪ Staff del campo</div>
+          <div class="card-title"><i class="fa-solid fa-user-group"></i> Staff del campo</div>
           <div
             style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;font-size:0.87rem">
             <div><strong>Sacerdote</strong><br>Don Riccardo Zanchin</div>
             <div><strong>Coop. pastorale</strong><br>Germana Gallina</div>
             <div><strong>Capo campo</strong><br>Giulio Stevanato</div>
             <div><strong>Altro personale</strong><br>Sandra Gambaro</div>
-            <div><strong>Cuochi</strong><br>Leonardo Brunetti<br>Alessandro Meggiorini</div>
+            <div><strong>Cuochi</strong><br>Leonardo Brunetti<br>Alessandro Meggiorini<br>Aldo</div>
             <div><strong>Animatori</strong><br>Carlo Alberto Bordin<br>Francesco Favaretto<br>Anna Ficotto<br>Martina
               Necchio<br>Andrea Rigoni<br>Alice Rizzuto</div>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-title">📋 Regole del campo</div>
+          <div class="card-title"><i class="fa-solid fa-list"></i> Regole del campo</div>
           <div class="beati-pill">0. Questo vi comando: amatevi gli uni gli altri. (Gv 15,17)</div>
           <ol style="padding-left:20px;font-size:0.87rem;line-height:2">
-            <li>Togliere le scarpe ai piani superiori</li>
-            <li>Quando gli animatori alzano il dito → silenzio</li>
-            <li>Al coprifuoco si dorme!</li>
-            <li>Non escludere MAI nessuno</li>
-            <li>Non dire parolacce — usare "grazie", "scusa", "per favore"</li>
-            <li>Non correre in casa</li>
-            <li>Lavarsi i denti dopo i pasti</li>
-            <li>Farsi la doccia (per davvero!)</li>
-            <li>Non sprecare cibo, acqua, luce</li>
-            <li>Tenere in ordine la camera</li>
-            <li>Portare rispetto verso tutti</li>
-            <li>Non entrare in cucina; non uscire mai sulla strada</li>
+            <li>Togliere le scarpe quando si va ai piani superiori;</li>
+            <li>Quando gli animatori o gli adulti alzano il dito si fa silenzio;</li>
+            <li>Quando gli animatori danno il coprifuoco si dorme!!;</li>
+            <li>Non escludere MAI nessuno;</li>
+            <li>Non dire parolacce e usare un linguaggio gentile (non sono vietate le parole "grazie", "scusa" e "per
+              favore");</li>
+            <li>Non correre in casa;</li>
+            <li>Lavarsi i denti dopo i pasti;</li>
+            <li>Farsi la doccia (per davvero!);</li>
+            <li>Non sprecare cibo, acqua e luce;</li>
+            <li>Tenere in ordine la camera;</li>
+            <li>Portare rispetto verso tutti;</li>
+            <li>Non entrare in cucina e non uscire mai sulla strada, per nessun motivo.</li>
           </ol>
         </div>
       </section>
 
-      <!-- SQUADRE -->
+      <!-- ─────────────── SQUADRE & STAFF ─────────────── -->
       <section class="section" id="section-squadre">
         <div class="squadre-grid">
           <div class="squadra-card squadra-gialla">
-            <div class="squadra-nome" style="color:#92400E">🟡 Squadra Gialla</div>
+            <div class="squadra-nome" style="color:#92400E"><i class="fa-solid fa-circle"
+                style="color:rgb(255,212,59);"></i>
+              Squadra Gialla</div>
             <div class="squadra-tema">Sorriso</div>
             <div class="animatori-label">Animatori</div>
-            <span class="animatore-chip">Carlo Alberto</span><span class="animatore-chip">Alice</span>
+            <span class="animatore-chip">Carlo Alberto Bordin</span><span class="animatore-chip">Alice Rizzuto</span>
             <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
             <ul class="ragazzi-list">
               <li class="ragazzo-item"><span class="ragazzo-num">1</span>Bonasia Simone</li>
@@ -777,13 +853,16 @@
               <li class="ragazzo-item"><span class="ragazzo-num">4</span>Vianello Riccardo</li>
               <li class="ragazzo-item"><span class="ragazzo-num">5</span>Furlan Daria</li>
               <li class="ragazzo-item"><span class="ragazzo-num">6</span>Prodan Victor</li>
+              <li class="ragazzo-item"><span class="ragazzo-num">7</span>Bobbo Noemi</li>
             </ul>
           </div>
           <div class="squadra-card squadra-blu">
-            <div class="squadra-nome" style="color:#1E3A5F">🔵 Squadra Blu</div>
+            <div class="squadra-nome" style="color:#1E3A5F"><i class="fa-solid fa-circle"
+                style="color:rgb(43,123,187);"></i>
+              Squadra Blu</div>
             <div class="squadra-tema">Montagna</div>
             <div class="animatori-label">Animatori</div>
-            <span class="animatore-chip">Anna</span><span class="animatore-chip">Andrea</span>
+            <span class="animatore-chip">Anna Ficotto</span><span class="animatore-chip">Andrea Rigoni</span>
             <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
             <ul class="ragazzi-list">
               <li class="ragazzo-item"><span class="ragazzo-num">1</span>Boesso Melissa</li>
@@ -795,10 +874,12 @@
             </ul>
           </div>
           <div class="squadra-card squadra-rosa">
-            <div class="squadra-nome" style="color:#831843">🌸 Squadra Rosa</div>
+            <div class="squadra-nome" style="color:#831843"><i class="fa-solid fa-circle"
+                style="color:rgb(230,40,121);"></i>
+              Squadra Rosa</div>
             <div class="squadra-tema">Umiltà</div>
             <div class="animatori-label">Animatori</div>
-            <span class="animatore-chip">Francesco</span><span class="animatore-chip">Martina</span>
+            <span class="animatore-chip">Francesco Favaretto</span><span class="animatore-chip">Martina Necchio</span>
             <div class="animatori-label" style="margin-top:12px">Ragazzi</div>
             <ul class="ragazzi-list">
               <li class="ragazzo-item"><span class="ragazzo-num">1</span>De Ponte Michael</li>
@@ -812,40 +893,86 @@
         </div>
       </section>
 
-      <!-- LUCIANO -->
+      <!-- ─────────────── LUCIANO ─────────────── -->
       <section class="section" id="section-luciano">
         <div class="card">
-          <div class="card-title">✨ Chi era Luciano Bottan</div>
-          <p style="font-size:0.9rem;line-height:1.7;margin-bottom:16px">Luciano Bottan nasce a Treviso nel 1965. A 20
-            anni entra nel <em>Gruppone Missionario</em>. Mosso dal desiderio di "dare la sua vita per gli altri",
-            decide di partire per il Ciad come missionario laico della diocesi di Treviso. Il <strong>20 ottobre
-              2000</strong> perde la vita in un incidente in macchina proprio in Ciad.</p>
-          <p style="font-size:0.9rem;line-height:1.7">Era alto, brizzolato, con un incredibile sorriso sul volto — un
-            sorriso vero, buono, che accoglie senza nascondere nulla.</p>
+          <div class="card-title"><i class="fa-solid fa-sparkles"></i> Chi era Luciano Bottan</div>
+          <p style="font-size:0.9rem;line-height:1.7;margin-bottom:16px">
+            Luciano Bottan nasce a Treviso nel 1965. A 20 anni entra nel <em>Gruppone Missionario</em> (fino a poco
+            tempo
+            fa c'era anche a Spinea). Mosso dal desiderio di "dare la sua vita per gli altri", aiutare i più poveri,
+            decide di partire per il Ciad, un Paese in Africa, come missionario laico della diocesi di Treviso. Il
+            <strong>20 ottobre 2000</strong> perde la vita in un incidente in macchina proprio in Ciad. Dal suo diario,
+            che è la sua eredità per tutti noi, è stato preso il testo della canzone che abbiamo ascoltato.
+          </p>
+          <p style="font-size:0.9rem;line-height:1.7">
+            Era un ragazzo alto, brizzolato, con un incredibile sorriso sul volto. Un sorriso di quelli veri, buoni. Un
+            sorriso che ti accoglie, un sorriso che non vuole nascondere nulla, ma che vuole portare gioia. Un sorriso
+            che vale più di mille parole e di mille scuse.
+          </p>
         </div>
 
         <div class="card">
-          <div class="card-title">📔 I 7 segreti (dal suo diario)</div>
+          <div class="card-title"><i class="fa-solid fa-book-bookmark"></i> I 7 segreti di Luciano</div>
           <div style="display:grid;gap:12px">
-            <div class="luciano-quote">L'umiltà. Essere umile vuol dire dare valore a tutte le cose, dalle più piccole
-              alle più grandi. Essere umili vuol dire capire il senso vero della vita: vivi sempre con umiltà e amerai
-              la tua vita e ogni vita. Non voler essere sempre al primo posto.</div>
-            <div class="luciano-quote">La montagna. La montagna è una meta da raggiungere. Più cammini, più sarai stanco
-              ma felice. Vai in montagna e impara a fare silenzio, ad ascoltare, a guardare… Scoprirai come ogni cosa è
-              bella e capirai tante cose nascoste nel tuo cuore.</div>
-            <div class="luciano-quote">I poveri vicini e lontani. Riconosci che anche tu sei povero e allora amerai i
-              poveri e, amando i poveri, amerai te stesso molto di più.</div>
-            <div class="luciano-quote">Il sorriso. Sorridi per dire sì alla vita, sorridi per trasformare questo mondo
-              in un paradiso.</div>
-            <div class="luciano-quote">Il lavoro. Ogni lavoro è importante: non ci sono lavori di serie A o di serie B.
-              Ogni lavoro serve per sentirci utili e per sognare un mondo migliore.</div>
-            <div class="luciano-quote">La fede. Non mettere te al centro della tua vita, ma lascia il primo posto a Dio:
-              sarai felice per sempre.</div>
+            <div class="luciano-quote"><strong>L'umiltà.</strong> È una parola strana, che sentiamo spesso ma
+              difficilmente possiamo riconoscerla nel mondo di oggi, sembra quasi sparita. Umiltà deriva dalla parola
+              latina humus, che significa terra. L'umile è colui che sa di essere nato dalla terra e non si crede
+              superman! Diceva Luciano: «Insegnami l'arte di essere umile. Voglio imparare l'umiltà, eliminando la
+              presunzione e l'arroganza». E scriveva ancora: «Si arriva vicino a Te, Signore, con molta umiltà e
+              franchezza. Dammi il coraggio della vera umiltà davanti a Te e al prossimo. Imparare a essere umili non è
+              cosa da poco. Piantami, come se io fossi un granello di senape, come Tu mi vuoi e che dia frutti per la
+              tua Gloria». Infine, nel Gruppone si dice che «Siamo piccoli e pieni di limiti, ma questo non è un motivo
+              per commiserarci. È solo da qui che possiamo partire con gioia ed entusiasmo per cambiare noi stessi e il
+              mondo fiduciosi che dove non arriveremo noi, qualcuno arriverà».</div>
+
+            <div class="luciano-quote"><strong>La montagna.</strong> Luciano camminava e scalava le montagne per essere
+              più vicino al cielo. E cammin facendo incontrava prati, fiori, alberi, animali, rocce, laghi, torrenti.
+              Incontrava l'umiltà nella fatica e nel sudore della salita, la gioia per la cima raggiunta, l'allegria
+              della discesa, l'armonia di sentirsi parte di un tutto e racchiudeva tutte queste cose nel cuore, come
+              perle preziose. Andare in montagna "per davvero" vuol dire arrivare fino ai piedi della montagna in auto e
+              poi camminare, camminare, camminare sapendo qual è la meta, il luogo in alto che bisogna raggiungere.
+            </div>
+
+            <div class="luciano-quote"><strong>I poveri vicini e lontani.</strong> Luciano camminava e scalava le
+              montagne per essere più vicino al cielo. E cammin facendo incontrava prati, fiori, alberi, animali, rocce,
+              laghi, torrenti. Incontrava il sole e la pioggia, la neve e il ghiaccio, il vento, temporali e arcobaleni,
+              albe e tramonti dai mille colori, le voci del bosco e il silenzio dei pascoli e poi contemplava la cima
+              più alta. Incontrava l'umiltà nella fatica e nel sudore della salita, la gioia per la cima raggiunta,
+              l'allegria della discesa, l'armonia di sentirsi parte di un tutto e racchiudeva tutte queste cose nel
+              cuore, come perle preziose. Incontrava gli amici che con lui condividevano questo segreto o i nuovi amici
+              che la montagna generosamente gli regalava.</div>
+
+            <div class="luciano-quote"><strong>Il sorriso.</strong> Luciano sapeva ridere, ma non come quelle persone
+              che
+              ridono a bocca aperta o per prendere in giro gli altri, non come quelli che sghignazzano per niente, non
+              come quelli che ridono se gli altri stanno male. No, niente di tutto questo! In lui e sul suo viso tutto
+              rideva e sorrideva. Pensate che Luciano amava così tanto la vita da sorridere sempre, anche nei momenti
+              difficili. Diceva: "Che non debba mai dir di no, ma sempre un sì con un sorriso sulle labbra". Luciano
+              soprattutto ci insegna, oggi, che quando si impara a sorridere davvero non si sorride solo con le labbra,
+              ma si sorride con il cuore.</div>
+
+            <div class="luciano-quote"><strong>Il lavoro.</strong> Sapete da dove deriva la parola lavoro? Deriva dalla
+              parola latina <em>làbor</em>, che significa <em>fare fatica</em>. Anche Luciano ha lavorato per tanti
+              anni,
+              addirittura c'è stato un periodo in cui di giorno lavorava e la sera, dopo essere stato a scuola,
+              studiava. Lavorava sempre con il sorriso ed era davvero instancabile. I compagni lo sentivano uno di loro,
+              semplice e puntuale.</div>
+
+            <div class="luciano-quote"><strong>La fede.</strong> Il motore che portava avanti la sua vita era il suo
+              credere in Dio. Pensa che parlava a Dio come un innamorato parla alla sua ragazza. Diceva: «Fa' che abbia
+              sempre sete di te Signore, voglio impregnarmi di Te. Tu stai costruendo la tua casa in me. Ti lascio fare,
+              ma nello stesso tempo faccio fatica a lasciarti fare. Nei momenti di scoraggiamento, dammi Tu la forza di
+              fermarmi e pregare per attingere alla Tua fonte, per poi ripartire con più luce e più slancio. Io non ce
+              la
+              faccio più, per piacere aiutami Tu. Ho voglia di tenerezza, di un Tuo bacio, di sentirmi sicuro, di
+              incontrare Te, Signore. Mi sento prendere per mano da Te e questo mi dà fiducia. Fa' che abbia sempre sete
+              di Te, Signore. Voglio dare la mia vita a Te, perché Tu la dia agli altri».</div>
           </div>
         </div>
       </section>
 
-      <!-- PROGRAMMA -->
+      <!-- ─────────────── PROGRAMMA GIORNALIERO ─────────────── -->
       <section class="section" id="section-programma">
         <div class="days-tabs">
           <button class="day-tab active" data-day="sab">Sab 4/7</button>
@@ -858,66 +985,82 @@
           <button class="day-tab" data-day="sab2">Sab 11/7</button>
         </div>
 
-        <!-- SAB 4 -->
+        <!-- SABATO 4 LUGLIO -->
         <div class="day-content active" id="day-sab">
-          <div class="beati-pill">📌 Tema: Presentazione del campo e di Luciano Bottan</div>
+          <div class="beati-pill"><i class="fa-solid fa-thumbtack"></i> 1° giorno - sabato 4 luglio 2026 — Arrivo alla
+            casa "Al cervo" e attività di accoglienza. Presentazione del tema del campo scuola e di Luciano Bottan.
+          </div>
           <div class="card">
-            <div class="card-title">🌅 Mattina</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Ritrovo al
+              <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Ritrovo staff al
                   piazzale della stazione di Spinea</span></li>
-              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Partenza in
-                  autobus — assegnazione stanze durante il viaggio</span></li>
-              <li class="orario-item"><span class="orario-time">12:30</span><span class="orario-desc">Arrivo alla Casa
-                  "Al Cervo". Due animatori salgono subito ai piani e mettono bigliettini colorati + braccialetti nelle
-                  stanze assegnate</span></li>
-              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo —
-                  presentazione staff e ruota dei servizi <span class="orario-highlight">⚠️ 3 animatori preparano caccia
-                    al tesoro subito dopo</span></span></li>
+              <li class="orario-item"><span class="orario-time">08:45</span><span class="orario-desc">Ritrovo ragazzi al
+                  piazzale della stazione di Spinea</span></li>
+              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Partenza dal
+                  piazzale della stazione di Spinea (in autobus si assegnano le stanze)</span></li>
+              <li class="orario-item"><span class="orario-time">12:30</span><span class="orario-desc">Arrivo alla casa
+                  "Al
+                  cervo", accoglienza; due animatori vanno subito ai piani superiori e mettono, secondo le stanze fatte
+                  in autobus, dei bigliettini con i nomi dei ragazzi appositamente stampati su carta colorata del colore
+                  della squadra nelle loro stanze assieme al braccialetto colorato (di gomma); successivamente gli
+                  animatori chiamano una ad una le stanze e i ragazzi posano le valige</span></li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo,
+                  presentazione dello staff e presentazione della ruota dei servizi. Subito dopo il pranzo tre animatori
+                  preparano la caccia al tesoro (ci si può alzare da tavola solo dopo l'ok degli animatori che preparano
+                  il gioco). Decidere se i ragazzi devono sedersi a squadre oppure liberamente.</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">☀️ Pomeriggio</div>
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi,
-                  sistemazione camere</span></li>
+                  sistemazione nelle camere</span></li>
               <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Ritrovo in
-                  giardino: tema della fiducia (portare oggetti in valigia che non potevano portare)</span></li>
+                  giardino: presentazione del tema della fiducia (chiedere di portare giù cose che i ragazzi hanno messo
+                  in valigia pur sapendo di non poterle portare)</span></li>
               <li class="orario-item"><span class="orario-time">15:30</span><span class="orario-desc">Presentazione
-                  animatori con oggetto personale; comunicazione coppie e squadre</span></li>
-              <li class="orario-item"><span class="orario-time">16:00</span><span class="orario-desc">Caccia al tesoro
-                  delle regole 🎯</span></li>
+                  degli
+                  animatori (ognuno porta una o più cose che lo rappresentano); si comunicano le coppie degli animatori
+                  e l'associazione alle squadre</span></li>
+              <li class="orario-item"><span class="orario-time">16:00</span><span class="orario-desc">I ragazzi si
+                  dividono in squadre e gli animatori consegnano il primo biglietto per la caccia al tesoro delle
+                  regole.</span></li>
               <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
               </li>
-              <li class="orario-item"><span class="orario-time">17:00</span><span class="orario-desc">Presentazione tema
-                  campo scuola e di Luciano Bottan — consegna libretto personale preghiera<br><em>Ascoltare "La canzone
-                    di Luciano"</em></span></li>
-              <li class="orario-item"><span class="orario-time">18:00</span><span class="orario-desc">Messa (squadra in
-                  servizio) — tempo libero per gli altri</span></li>
+              <li class="orario-item"><span class="orario-time">17:00</span><span class="orario-desc">Presentazione del
+                  tema del campo scuola e di Luciano Bottan; consegna del libretto personale della preghiera</span></li>
+              <li class="orario-item"><span class="orario-time">18:00</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
               <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
               <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo
                   libero</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Sera</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Giochi di
-                  conoscenza 🎮</span></li>
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Giochi vari di
+                  conoscenza</span></li>
               <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">Preghiera serale
-                  in cappella — leggere pag. 5 libretto, attaccare la scritta "Amatevi gli uni gli altri"</span></li>
+                  in
+                  cappella. Leggere pagina 5 del libretto delle preghiere. Attaccare al cartellone delle regole la
+                  scritta "Amatevi gli uni gli altri come io vi ho amato". Far rispondere, poi, alle domande a pagina 4
+                  del libretto delle preghiere. Don Riccardo spiega la prima parte del discorso della montagna, quella
+                  in cui Gesù e i suoi discepoli salgono sul monte. Recitiamo insieme la preghiera della sera.</span>
+              </li>
               <li class="orario-item"><span class="orario-time">23:00</span><span class="orario-desc">A letto</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- DOM 5 -->
+        <!-- DOMENICA 5 LUGLIO -->
         <div class="day-content" id="day-dom">
-          <div class="beati-pill">📖 "Beati i poveri in spirito, perché di essi è il regno dei cieli." — Tema: L'umiltà
-          </div>
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 2° giorno - domenica 5 luglio 2026 — L'umiltà.
+            Beati i poveri in spirito, perché di essi è il regno dei cieli.</div>
           <div class="card">
-            <div class="card-title">🌅 Mattina</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
                   animatori</span></li>
@@ -933,18 +1076,20 @@
               </li>
               <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta</span>
               </li>
-              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività:
-                  <strong>Un pezzo del puzzle</strong> 🧩</span></li>
-              <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: Un pezzo
+                  del puzzle — i ragazzi completano un puzzle per capire come ognuno contribuisca al risultato finale.
+                  Segue una breve riflessione sull'umiltà con un brano e alcune domande. Concludono scrivendo un impegno
+                  concreto da condividere e appendere su un cartellone.</span></li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">☀️ Pomeriggio</div>
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span>
               </li>
-              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco: Roverino
-                  🏅</span></li>
+              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Roverino</span>
+              </li>
               <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
               </li>
               <li class="orario-item"><span class="orario-time">17:15</span><span class="orario-desc">Docce</span></li>
@@ -956,23 +1101,34 @@
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Sera</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Serata: Lupus in
-                  Fabula 🐺</span></li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale —
-                  consegnare semi da piantare in casseruola con terra</span></li>
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Lupus in
+                  Fabula</span></li>
+              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale
+                  in
+                  cappella. Un ragazzo della squadra in servizio di preghiera legge il segreto dell'umiltà. Don Riccardo
+                  fa scrivere nello spazio vuoto nel libretto delle preghiere delle riflessioni personali con delle
+                  domande-guida, ad esempio "Mi capita di pensare di essere migliore degli altri? In quali situazioni?
+                  Riesco ad accettare i miei limiti? So chiedere aiuto? So lasciare spazio anche agli altri? ..." Un
+                  ragazzo della squadra in servizio di preghiera legge pagina 9 del libretto. A ciascun animato vengono
+                  consegnati dei semi che verranno piantati ognuno in un bicchiere. Tutti noi proveniamo dalla terra,
+                  noi
+                  siamo polvere, e ci compensiamo gli uni con gli altri perché siamo una cosa sola, agli occhi di Dio
+                  siamo tutti suoi figli, tutti fratelli. Anche noi possiamo seminare l'Amore. Recitiamo insieme la
+                  preghiera della sera.</span></li>
               <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- LUN 6 -->
+        <!-- LUNEDÌ 6 LUGLIO -->
         <div class="day-content" id="day-lun">
-          <div class="beati-pill">📖 "Beati i miti, perché erediteranno la terra." — Tema: La montagna</div>
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 3° giorno - lunedì 6 luglio 2026 — Camminata (la
+            montagna). Beati i miti, perché erediteranno la terra.</div>
           <div class="card">
-            <div class="card-title">🌅 Mattina</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
                   animatori</span></li>
@@ -984,427 +1140,1107 @@
                   cappella</span></li>
               <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span>
               </li>
-              <li class="orario-item"><span class="orario-time">—</span><span class="orario-desc">Scenetta Cenerentola —
-                  poi <strong>Camminata in montagna</strong> 🥾</span></li>
+              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Preghiera per la
+                  strada</span></li>
+              <li class="orario-item"><span class="orario-time">12:30</span><span class="orario-desc">Scenetta
+                  Cenerentola</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">☀️ Pomeriggio</div>
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda — andare
-                  al torrente e raccogliere <strong>un sasso ciascuno</strong> 🪨</span></li>
+              <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda, poi
+                  andare
+                  al torrente e raccogliere un sasso ciascuno</span></li>
               <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo
                   libero</span></li>
-              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa (squadra in
-                  servizio)</span></li>
+              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
               <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
               <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo
                   libero</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Sera</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Film: Oceania
-                  🌊</span></li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale —
-                  consegnare cuore di carta: scrivere pensiero gentile a chi è stato poco considerato</span></li>
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Film
+                  Oceania</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale
+                  in
+                  cappella. Un ragazzo della squadra in servizio di preghiera legge il segreto della montagna. Don
+                  Riccardo fa scrivere nello spazio vuoto nel libretto delle preghiere delle riflessioni personali con
+                  delle domande-guida. La montagna può anche rappresentare dei nostri ostacoli, delle nostre difficoltà:
+                  alle volte per superarle dobbiamo staccarci e non avere fretta, rispettare i nostri tempi e quelli di
+                  chi ci sta accanto. Apriamo i nostri cuori per mettere dentro un po' di cuore dell'altro. Consegnare a
+                  tutti un cuore di carta. Ognuno scrive un pensiero gentile a chi abbiamo considerato poco, a chi non
+                  abbiamo dato retta durante il campo. Recitiamo insieme la preghiera della sera.</span></li>
               <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- MAR 7 -->
+        <!-- MARTEDÌ 7 LUGLIO -->
         <div class="day-content" id="day-mar">
-          <div class="beati-pill">📖 "Beati gli afflitti, perché saranno consolati." — Tema: I poveri vicini e lontani
-          </div>
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 4° giorno - martedì 7 luglio 2026 — I poveri
+            vicini e i poveri lontani. Beati gli afflitti perché saranno consolati.</div>
           <div class="card">
-            <div class="card-title">🌅 Mattina</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
                   animatori</span></li>
               <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia
                   ragazzi</span></li>
               <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio
-                  muscolare + preghiera in cappella + colazione</span></li>
-              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi — 2
-                  animatori allestiscono gli stand</span></li>
+                  muscolare</span></li>
+              <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Preghiera in
+                  cappella</span></li>
+              <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi; un paio
+                  di
+                  animatori allestiscono gli stand per l'attività</span></li>
               <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta del
-                  brutto anatroccolo</span></li>
-              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività:
-                  <strong>Il buon samaritano in gioco</strong> ❤️</span></li>
-              <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
+                  brutto
+                  anatroccolo</span></li>
+              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: Il buon
+                  samaritano in gioco — ogni squadra passa a rotazione in 4 stand, dove trova un "afflitto" da
+                  consolare. Oltre ad aiutarlo, ogni squadra deve trovare un gesto o una parola in più che venga dal
+                  cuore. Alla fine ogni afflitto classifica le squadre: vince chi ha saputo consolare meglio.</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">☀️ Pomeriggio</div>
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span>
               </li>
-              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco
-                  pomeridiano</span></li>
+              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Outbreak (gioco
+                  zombie)</span></li>
               <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
               </li>
               <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo
                   libero</span></li>
-              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa (squadra in
-                  servizio)</span></li>
+              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
               <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+              <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo
+                  libero</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Sera</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Gioco horror
-                  👻</span></li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale —
-                  lumini a forma di cuore sotto la Croce</span></li>
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Pubblicità</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale
+                  in
+                  cappella. Un ragazzo della squadra in servizio di preghiera legge il segreto dei poveri. Don Riccardo
+                  fa scrivere nello spazio vuoto nel libretto delle preghiere delle riflessioni personali con delle
+                  domande-guida, ad esempio "Quali sono le persone che secondo te sono povere e che conosci o che
+                  incontri per strada e non conosci? Quali sono le tue povertà? (Ad esempio: sono solo, non ho amici,
+                  nessuno mi capisce, non sono come gli altri mi vorrebbero...)" Diamo a tutti un lumino a testa.
+                  Accendiamo per prima la candela del don o di un animatore che ne accenderà altre, e così tutti
+                  portiamo
+                  la luce agli altri. Un ragazzo della squadra in servizio di preghiera legge pagina 15 del libretto.
+                  Uno alla volta mettiamo i lumini per terra sotto alla Croce, in modo da formare un cuore. Recitiamo
+                  insieme la preghiera della sera.</span></li>
               <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- MER 8 -->
+        <!-- MERCOLEDÌ 8 LUGLIO -->
         <div class="day-content" id="day-mer">
-          <div class="beati-pill">📖 "Beati gli operatori di pace, perché saranno chiamati figli di Dio." — Tema: Il
-            sorriso</div>
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 5° giorno - mercoledì 8 luglio 2026 — Il
+            sorriso.
+            Beati gli operatori di pace, perché saranno chiamati figli di Dio.</div>
           <div class="card">
-            <div class="card-title">🌅 Mattina</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
             <ul class="orario-list">
               <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
                   animatori</span></li>
-              <li class="orario-item"><span class="orario-time">07:45–08:30</span><span class="orario-desc">Sveglia,
-                  risveglio muscolare, preghiera, colazione</span></li>
+              <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia
+                  ragazzi</span></li>
+              <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio
+                  muscolare</span></li>
+              <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Preghiera in
+                  cappella</span></li>
+              <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span>
+              </li>
               <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi</span>
               </li>
-              <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta</span>
+              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: Il
+                  sorriso della pace</span></li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span>
               </li>
-              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività (da
-                  definire) 😊</span></li>
-              <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-title">🌙 Sera</div>
-            <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Campo's Got Talent
-                  🎤</span></li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale —
-                  riflessione sul sorriso — il capo campo invita ad abbracciarsi</span></li>
-              <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
+              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Sarabanda</span>
               </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- GIO 9 -->
-        <div class="day-content" id="day-gio">
-          <div class="beati-pill">📖 "Beati quelli che hanno fame e sete della giustizia, perché saranno saziati." —
-            Tema: Il lavoro</div>
-          <div class="card">
-            <div class="card-title">🌅 Mattina</div>
-            <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
-                  animatori</span></li>
-              <li class="orario-item"><span class="orario-time">07:45–08:30</span><span class="orario-desc">Sveglia,
-                  risveglio muscolare, preghiera, colazione</span></li>
-              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi — 2
-                  animatori allestiscono gli stand per "Costruiamo il futuro"</span></li>
-              <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta Robin
-                  Hood</span></li>
-              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività:
-                  <strong>Costruiamo il futuro</strong> 🏗️</span></li>
-              <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-title">🌙 Sera</div>
-            <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Cena con delitto:
-                  Il mistero della stanza chiusa 🔍</span></li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera
-                  serale</span></li>
-              <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- VEN 10 -->
-        <div class="day-content" id="day-ven">
-          <div class="beati-pill">📖 "Beati i misericordiosi, perché troveranno misericordia." — Tema: La fede</div>
-          <div class="card">
-            <div class="card-title">🌅 Mattina</div>
-            <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
-                  animatori</span></li>
-              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi —
-                  allestimento</span></li>
-              <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta
-                  Pinocchio</span></li>
-              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività:
-                  <strong>Deserto</strong> 🏜️ (responsabile: Don Riccardo, Germana, Giulio)</span></li>
-              <li class="orario-item"><span class="orario-time">13:30</span><span class="orario-desc">Pranzo</span></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-title">☀️ Pomeriggio</div>
-            <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Gioco: Diamanti
-                  💎</span></li>
               <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
               </li>
               <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo
                   libero</span></li>
-              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa</span></li>
+              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
               <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+              <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo
+                  libero</span></li>
             </ul>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Sera — Falò finale</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
             <ul class="orario-list">
-              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Falò 🔥</span>
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Ciao Darwin</span>
               </li>
-              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera a tre
-                  cori attorno al fuoco — ogni ragazzo legge la parola sul proprio sasso e lo mette in cerchio</span>
-              </li>
+              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale
+                  in
+                  cappella. Un ragazzo della squadra in servizio di preghiera legge il segreto del sorriso. Don Riccardo
+                  fa scrivere nello spazio vuoto nel libretto delle preghiere delle riflessioni personali con delle
+                  domande-guida, ad esempio "Quand'è che ti capita di ridere? Tu sei un tipo serio, imbronciato, oppure
+                  sai sorridere? E quando sorridi? Sai sorridere con il cuore? A chi potresti sorridere di più?" Diamo a
+                  tutti un lumino a testa. Accendiamo per prima la candela del don o di un animatore che ne accenderà
+                  altre, e così tutti portiamo la luce agli altri. Un ragazzo della squadra in servizio di preghiera
+                  legge pagina 18 del libretto. Portare buon umore con un sorriso è semplice ma importante: fa bene a
+                  chi lo riceve e anche a chi lo dona. Sorridere al mattino o davanti agli altri può trasmettere gioia,
+                  serenità e calore, ed è qualcosa che si "diffonde" facilmente. Possiamo provare a regalare più sorrisi
+                  alle persone che incontriamo ogni giorno: familiari, amici, compagni, ma anche a chi ci è meno
+                  simpatico o ci mette in difficoltà. Anche nei momenti più complicati, un sorriso può essere un primo
+                  passo per creare relazioni migliori e portare un po' di luce nella giornata degli altri. Il capo campo
+                  invita tutti ad abbracciarsi. Recitiamo insieme la preghiera della sera.</span></li>
               <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- SAB 11 -->
+        <!-- GIOVEDÌ 9 LUGLIO -->
+        <div class="day-content" id="day-gio">
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 6° giorno - giovedì 9 luglio 2026 — Il lavoro.
+            Beati quelli che hanno fame e sete della giustizia, perché saranno saziati.</div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
+                  animatori</span></li>
+              <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia
+                  ragazzi</span></li>
+              <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio
+                  muscolare</span></li>
+              <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Preghiera in
+                  cappella</span></li>
+              <li class="orario-item"><span class="orario-time">08:30</span><span class="orario-desc">Colazione</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">09:00</span><span class="orario-desc">Servizi</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta Robin
+                  Hood</span></li>
+              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Attività: Cena dei
+                  popoli - variante</span></li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Diamanti</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo
+                  libero</span></li>
+              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
+              <li class="orario-item"><span class="orario-time">19:00</span><span class="orario-desc">Cena</span></li>
+              <li class="orario-item"><span class="orario-time">20:00</span><span class="orario-desc">Servizi e tempo
+                  libero</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Cena con delitto:
+                  il mistero della stanza chiusa</span></li>
+              <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">Preghiera serale
+                  in
+                  cappella. Un ragazzo della squadra in servizio di preghiera legge il segreto del lavoro. Don Riccardo
+                  fa scrivere nello spazio vuoto nel libretto delle preghiere delle riflessioni personali con delle
+                  domande-guida, ad esempio "Quali sono, secondo te, i lavori 'importanti' che possono rendere il mondo
+                  migliore? In quali situazioni mi sento più utile agli altri? Mi è mai successo di non voler fare un
+                  compito perché lo ritenevo 'inutile' o noioso? Riesco a impegnarmi anche quando un lavoro non mi
+                  piace? Cosa posso fare io, concretamente, per rendere più bello e utile il mio 'piccolo' lavoro
+                  quotidiano? ..." Un ragazzo della squadra in servizio di preghiera legge pagina 21 del libretto.
+                  Recitiamo insieme la preghiera della sera.</span></li>
+              <li class="orario-item"><span class="orario-time">22:45</span><span class="orario-desc">A letto</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- VENERDÌ 10 LUGLIO -->
+        <div class="day-content" id="day-ven">
+          <div class="beati-pill"><i class="fa-solid fa-book-open"></i> 7° giorno - venerdì 10 luglio 2026 — La fede.
+            Beati i misericordiosi, perché troveranno misericordia.</div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Mattina</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">07:30</span><span class="orario-desc">Preghiera
+                  animatori</span></li>
+              <li class="orario-item"><span class="orario-time">07:45</span><span class="orario-desc">Sveglia ragazzi -
+                  soft</span></li>
+              <li class="orario-item"><span class="orario-time">08:00</span><span class="orario-desc">Risveglio
+                  muscolare</span></li>
+              <li class="orario-item"><span class="orario-time">08:15</span><span class="orario-desc">Colazione</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">09:45</span><span class="orario-desc">Scenetta
+                  Pinocchio</span></li>
+              <li class="orario-item"><span class="orario-time">10:00</span><span class="orario-desc">Deserto</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">13:00</span><span class="orario-desc">Pranzo</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-sun"></i> Pomeriggio</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">14:30</span><span class="orario-desc">Servizi</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">15:00</span><span class="orario-desc">Diamanti</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">16:30</span><span class="orario-desc">Merenda</span>
+              </li>
+              <li class="orario-item"><span class="orario-time">17:30</span><span class="orario-desc">Docce e tempo
+                  libero</span></li>
+              <li class="orario-item"><span class="orario-time">18:30</span><span class="orario-desc">Messa per la
+                  squadra in servizio e tempo libero per gli altri</span></li>
+              <li class="orario-item"><span class="orario-time">19:30</span><span class="orario-desc">Cena</span></li>
+              <li class="orario-item"><span class="orario-time">20:30</span><span class="orario-desc">Servizi e tempo
+                  libero</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Sera — Falò</div>
+            <ul class="orario-list">
+              <li class="orario-item"><span class="orario-time">21:00</span><span class="orario-desc">Falò. Un ragazzo
+                  della squadra in servizio di preghiera legge il segreto della fede. Don Riccardo fa scrivere nello
+                  spazio vuoto nel libretto delle preghiere delle riflessioni personali con delle domande-guida, ad
+                  esempio "Cosa vuole il Signore per me? Come posso donare la mia vita agli altri? Come posso mettere a
+                  frutto i doni che il Signore mi ha dato? ..." Un animatore legge pagina 24 del libretto. Giulio ci
+                  aiuta a riflettere su quello che abbiamo vissuto questa settimana. Ora scriviamo sul libretto una o
+                  più
+                  parole che rappresentano ciò che ognuno porterà con sé. Poi ne scegliamo una e la scriviamo sul nostro
+                  sasso. A turno, chi vuole si alza in piedi e legge quello che ha scritto sul suo sasso. Se vuole può
+                  anche dire il perché. Mettiamo tutti il nostro sasso per terra per formare un cerchio intorno al
+                  fuoco.
+                  Recitiamo a tre cori la preghiera di fine campo attorno al fuoco.</span></li>
+              <li class="orario-item"><span class="orario-time">22:15</span><span class="orario-desc">Preghiera serale
+                  attorno al fuoco</span></li>
+              <li class="orario-item"><span class="orario-time">22:30</span><span class="orario-desc">A letto</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SABATO 11 LUGLIO -->
         <div class="day-content" id="day-sab2">
           <div class="card">
-            <div class="card-title">🏠 Sabato 11 luglio — Rientro</div>
+            <div class="card-title"><i class="fa-solid fa-bus-simple"></i> Sabato 11 luglio — Rientro</div>
             <p style="font-size:0.9rem;color:#374151;line-height:1.7">Giornata di rientro. Sistemazione bagagli, pulizia
               stanze, saluti e partenza verso Spinea.</p>
           </div>
         </div>
       </section>
 
-      <!-- ATTIVITÀ -->
+      <!-- ─────────────── ATTIVITÀ ─────────────── -->
       <section class="section" id="section-attivita">
+        <!-- Un pezzo del puzzle -->
         <div class="card">
           <div class="attivita-header">
-            <div class="attivita-icon">🧩</div>
+            <div class="attivita-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
             <div>
               <div class="attivita-nome">Un pezzo del puzzle</div>
-              <div class="attivita-giorno">Domenica — Responsabile: da definire</div>
+              <div class="attivita-giorno">Domenica — Responsabile: Anna</div>
             </div>
           </div>
           <div class="beati-pill">Umiltà — Beati i poveri in spirito</div>
           <div class="attivita-desc">
-            <p>I ragazzi divisi in squadre completano un puzzle ognuna al proprio tavolo. Gli animatori osservano chi
-              vuole fare tutto da solo e chi collabora.</p>
-            <p>Dopo il puzzle si legge l'estratto dal libretto <em>"Gli otto segreti"</em>: <em>"Forse ognuno di noi è
-                una piccola parte di un grande puzzle e quel pezzettino deve fare la sua parte, solo quella e
-                nient'altro di più. Insieme agli altri e con gli altri… solo allora il puzzle sarà completo."</em></p>
-            <p><strong>Domande sui fogli:</strong> 1) Sei umile? Perché sì/no? 2) In quali situazioni fai fatica a
-              lasciare spazio? 3) Cosa fare per non mettersi sempre al primo posto? 4) Cosa puoi imparare dagli altri?
-            </p>
-            <p><strong>Chiusura:</strong> ogni ragazzo scrive su un post-it un'azione concreta per vivere l'umiltà.
-              Cartellone: <em>"Ognuno è un pezzo importante del puzzle."</em> Raccogliere i fogli (con nome/cognome) e
-              portarli in cappella.</p>
+            <p>Dividere i ragazzi per squadre. Ogni squadra sta in una postazione dove c'è un tavolo e delle sedie o
+              panche. Sopra ogni tavolo c'è un puzzle. I ragazzi completano il puzzle tutti assieme. Gli animatori
+              osservano se c'è qualcuno che vuole fare tutto da solo oppure se tutti fanno una parte.</p>
+            <p>Una volta fatto il puzzle leggere questo estratto del libretto "Gli otto segreti del mio amico Luciano"
+              (pagina 37):</p>
+            <p style="font-style:italic;background:#F0FFF4;padding:12px 16px;border-radius:6px;">"Forse ognuno di noi è
+              una piccola parte di un grande puzzle e quel pezzettino deve fare la sua parte, solo quella e nient'altro
+              di più. Insieme agli altri e con gli altri... solo allora il puzzle sarà completo. Luciano aveva capito
+              che l'umiltà serve proprio a lasciare spazio agli altri e non pensare di essere noi i migliori."</p>
+            <p><strong>Domande:</strong></p>
+            <ol style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li>Secondo te, tu sei umile? Perché puoi dire di sì o di no?</li>
+              <li>In quali situazioni fai più fatica a lasciare spazio agli altri?</li>
+              <li>Che cosa fare per non mettersi sempre e solo al primo posto?</li>
+              <li>Che cosa puoi imparare dagli altri ragazzi del gruppo?</li>
+            </ol>
+            <p>Dopo aver risposto alle domande, ognuno condivide la propria riflessione durante il confronto. Gli
+              animatori possono aiutare i ragazzi a notare come, durante il puzzle, sia stato necessario collaborare,
+              ascoltarsi e lasciare spazio agli altri.</p>
+            <p>Si conclude con un piccolo gesto: ogni ragazzo scrive su un post-it un'azione concreta che vuole provare
+              a
+              fare durante il campo per vivere l'umiltà (ad esempio: ascoltare di più, lasciare parlare gli altri,
+              aiutare senza cercare riconoscimenti, accettare un compito semplice, chiedere scusa quando sbaglia...). I
+              post-it vengono raccolti e attaccati su un cartellone con la scritta: "Ognuno è un pezzo importante del
+              puzzle".</p>
+            <p>Gli animatori raccolgono i fogli con le risposte dei ragazzi (con scritti nomi e cognomi) e li mettono in
+              cappella sopra il libretto corrispondente.</p>
           </div>
         </div>
 
+        <!-- Angelo custode -->
         <div class="card">
           <div class="attivita-header">
-            <div class="attivita-icon">❤️</div>
+            <div class="attivita-icon"><i class="fa-solid fa-person-walking"></i></div>
             <div>
-              <div class="attivita-nome">Il buon samaritano in gioco</div>
-              <div class="attivita-giorno">Martedì — Responsabile: da definire</div>
+              <div class="attivita-nome">Angelo custode</div>
+              <div class="attivita-giorno">Lunedì — Responsabile: Anna</div>
             </div>
           </div>
-          <div class="beati-pill">Afflitti — Beati gli afflitti perché saranno consolati</div>
+          <div class="beati-pill">Montagna — Beati i miti</div>
           <div class="attivita-desc">
-            <p>Le squadre ruotano tra 4 stand, ognuno con un "afflitto" (interpretato da un animatore). Il compito è
-              aiutarlo concretamente <em>e</em> trovare qualcosa in più dal cuore.</p>
-            <p><strong>Stand 1 — L'anziano (voce da "vecchietto"):</strong> "Sono sempre solo… sto cercando le mie carte
-              da gioco, mi aiutate?" Le carte sono nascoste nello stand.</p>
-            <p><strong>Stand 2 — Il disabile (solo labiale):</strong> seduto su sedia con coperta. Cartello: "Non posso
-              camminare né parlare. Interpretate il labiale." Dice lentamente: <em>"Mi sono caduti gli occhiali… potete
-                prendermeli?"</em></p>
-            <p><strong>Stand 3 — Il senza fissa dimora:</strong> disteso su cartone con coperta vecchia. Cartello "Fate
-              la carità. Ho fame." Disponibili: panino, soldi, coperta pulita, abiti. Nessuna richiesta esplicita — i
-              ragazzi decidono loro.</p>
-            <p><strong>Stand 4 — La profuga (Fatima):</strong> piccola aula con banco, quaderni, colori. Animatrice con
-              hijab: <em>"Mio nome Fatima… io scappata da Siria… vorrei fare amicizia con voi."</em></p>
-            <p>Ogni "afflitto" classifica le squadre dal 3° al 1° posto. Alla fine il capo campo guida la riflessione.
-            </p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="attivita-header">
-            <div class="attivita-icon">🏗️</div>
-            <div>
-              <div class="attivita-nome">Costruiamo il futuro</div>
-              <div class="attivita-giorno">Giovedì — Responsabile: da definire</div>
-            </div>
-          </div>
-          <div class="beati-pill">Fame e sete della giustizia</div>
-          <div class="attivita-desc">
-            <p>Ogni squadra progetta qualcosa per la città (parco, chiesa, palazzo…) — ecosostenibile e utile alla
-              comunità. 10 minuti di progettazione, poi si va in giro dai personaggi.</p>
-            <p><strong>Valute:</strong> Monete del Sacrificio (MS) e Punti Cittadinanza Attiva (PCA). Ogni squadra
-              nomina un contabile. Max 3 visite a personaggio, mai due volte di fila allo stesso.</p>
-            <p><strong>Personaggi:</strong></p>
-            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
-              <li><strong>Municipio</strong> — fino a 10 domande sulla città; 1 PCA per risposta esatta</li>
-              <li><strong>Ingegnere</strong> — valuta il progetto, assegna 1–5 PCA; costo visita: 2 MS</li>
-              <li><strong>Ufficio di Collocamento</strong> — lavoro fisico (es. 10 flessioni) = 5 MS; lavoro di
-                ragioneria = 5 MS</li>
-              <li><strong>Onlus/Volontariato</strong> — offerta 2 MS → 4 PCA; portare vestiti → 5 MS; conversione 4 PCA
-                → 2 MS</li>
-              <li><strong>Spacciatore</strong> — offre 20 MS in cambio di 5 PCA. Conviene? I ragazzi decidono.</li>
-              <li><strong>Banca</strong> — si depositano MS e PCA; ogni 15 min si aggiunge 1 PCA + 1 MS ai risparmi</li>
-              <li><strong>Emporio</strong> — vende materiale per costruire il progetto in cambio di MS e PCA</li>
+            <p>A turno i ragazzi vengono divisi a coppie e viene dato un foglietto ad ognuno. In questo foglietto, al
+              termine del tempo, scriveranno 2 caratteristiche dell'altra persona.</p>
+            <p><strong>Primo turno:</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9;columns:2">
+              <li>Bonasia Simone — Di Franco Maria</li>
+              <li>Stevanato Giacomo — Enea Gabriel</li>
+              <li>Bianchetto Giada — Zennaro Noah</li>
+              <li>Vianello Riccardo — Gjolekaj Irissa</li>
+              <li>Furlan Daria — Lazzari Jacopo</li>
+              <li>Prodan Victor — Boesso Melissa</li>
+              <li>Cattarin Alessio — Saccon Miriam</li>
+              <li>Veronese Juan Carlos — Pereu Jardan Valeria</li>
+              <li>Hamdi Adam — De Ponte Michael</li>
+            </ul>
+            <p><strong>Secondo turno:</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9;columns:2">
+              <li>Bonasia Simone — Zennaro Noah</li>
+              <li>Stevanato Giacomo — De Ponte Michael</li>
+              <li>Bianchetto Giada — Hamdi Adam</li>
+              <li>Vianello Riccardo — Boesso Melissa</li>
+              <li>Furlan Daria — Veronese Juan Carlos</li>
+              <li>Prodan Victor — Saccon Miriam</li>
+              <li>Cattarin Alessio — Gjolekaj Irissa</li>
+              <li>Lazzari Jacopo — Pereu Jardan Valeria</li>
+              <li>Di Franco Maria — Enea Gabriel</li>
             </ul>
           </div>
         </div>
 
+        <!-- Il buon samaritano in gioco -->
         <div class="card">
           <div class="attivita-header">
-            <div class="attivita-icon">🏜️</div>
+            <div class="attivita-icon"><i class="fa-solid fa-heart"></i></div>
+            <div>
+              <div class="attivita-nome">Il buon samaritano in gioco</div>
+              <div class="attivita-giorno">Martedì — Responsabile: Anna</div>
+            </div>
+          </div>
+          <div class="beati-pill">Poveri — Beati gli afflitti perché saranno consolati</div>
+          <div class="attivita-desc">
+            <p>Un animatore introduce così l'attività: <em>"Quante persone afflitte, che soffrono, possiamo incontrare
+                nella vita di tutti i giorni? Il primo passo è sempre ascoltare l'altro, dedicargli il nostro tempo. Ora
+                ogni squadra passerà, a rotazione, in quattro stand: in ciascuno troverete un 'afflitto' —
+                interpretato da un animatore — che ha bisogno di voi. Il vostro compito è due cose: fare quello che vi
+                chiede, e trovare anche qualcosa in più — un gesto, una parola — che venga dal cuore. Ricordatevi del
+                buon samaritano."</em></p>
+            <p>Le squadre ruotano attraverso tutti e quattro gli stand. Nell'attesa, il capo campo raccoglie le prime
+              impressioni degli animati. Ogni "afflitto", alla fine, stilerà una classifica dal 3° al 1° posto in base
+              alla squadra che l'ha consolato meglio. La classifica finale è la somma dei punteggi ottenuti nei quattro
+              stand. Quando una squadra esce da uno stand, l'"afflitto" rimette velocemente in ordine per la squadra
+              successiva. Una volta "consolato", ogni afflitto cambia espressione e atteggiamento — sorride, si
+              trasforma — a richiamare il brutto anatroccolo che diventa cigno quando viene accolto con amore.</p>
+
+            <p><strong>Stand 1 - L'anziano (Francesco):</strong> L'animatore entra in scena camminando con difficoltà,
+              cercando qualcosa qua e là. Quando arrivano gli animati, dice con voce da "vecchietto": <em>"Grazie che
+                siete venuti a farmi visita! Sono sempre solo, nessuno viene mai a trovarmi... Sto cercando le mie carte
+                da gioco, non le trovo più, non mi ricordo dove le ho messe... Mi aiutate a ritrovarle?"</em> Le carte
+              da
+              gioco sono ben nascoste nello stand. Gli animati devono trovarle nel più breve tempo possibile, e al tempo
+              stesso pensare — consultandosi tra loro — a qualche parola o gesto in più per consolarlo davvero.</p>
+
+            <p><strong>Stand 2 - Il disabile (Carlo Alberto):</strong> L'animatore è seduto su una sedia con una coperta
+              sulle gambe. Vicino ai piedi, non immediatamente visibili, ci sono degli occhiali. In mano tiene un
+              cartello con scritto: <em>"Non posso camminare, né parlare. Per capire quello che mi serve, dovete
+                interpretare il labiale."</em> L'afflitto muove lentamente le labbra pronunciando: <em>"Mi sono caduti
+                per terra gli occhiali... potete prendermeli?"</em>. Gli animati devono capire la frase leggendo il
+              labiale, raccogliere gli occhiali e — come sempre — trovare qualcosa in più per consolarlo.</p>
+
+            <p><strong>Stand 3 - Il senza fissa dimora (Martina):</strong> L'animatore è disteso per terra sopra un
+              cartone, coperto da una coperta vecchia e sporca. Accanto ha un cartello con scritto: <em>"Fate la carità.
+                Ho fame."</em> Nello stand sono disponibili: un panino, dei soldi, una coperta pulita, degli abiti. In
+              questo caso l'afflitto non chiede nulla a parole: tocca agli animati capire da soli quali gesti e parole
+              usare per consolarlo al meglio.</p>
+
+            <p><strong>Stand 4 - La profuga (Alice):</strong> Lo stand è allestito come una piccola aula scolastica: un
+              banco con quaderni, libri, penne, colori. L'animatrice indossa un hijab. A un certo punto si rivolge agli
+              animati in un italiano approssimativo: <em>"Mio nome Fatima... io musulmana... io scappata da Siria... là
+                sempre guerra... Vorrei fare amicizia con voi..."</em> Gli animati devono semplicemente rispondere: come
+              reagiranno? Cosa diranno e faranno per iniziare a fare amicizia?</p>
+
+            <p>Quando tutte le squadre hanno completato il giro, il capo campo riunisce tutti e guida una breve
+              riflessione: Essersi messi in gioco insieme per cercare il modo migliore di consolare — cioè di amare chi
+              era nel bisogno — ha trasformato non solo gli "afflitti", ma anche il cuore di chi ha consolato: più
+              bello, perché capace di andare oltre le differenze; più felice, perché, come dice Gesù nel discorso della
+              montagna, beati sono coloro che si impegnano a consolare gli afflitti.</p>
+          </div>
+        </div>
+
+        <!-- Il sorriso della pace -->
+        <div class="card">
+          <div class="attivita-header">
+            <div class="attivita-icon"><i class="fa-solid fa-face-smile"></i></div>
+            <div>
+              <div class="attivita-nome">Il sorriso della pace</div>
+              <div class="attivita-giorno">Mercoledì — Responsabili: Martina, Alice</div>
+            </div>
+          </div>
+          <div class="beati-pill">Sorriso — Beati gli operatori di pace</div>
+          <div class="attivita-desc">
+            <p>I ragazzi si siedono per squadre. L'animatore introduce l'attività con queste parole: <em>"La pace non
+                nasce per caso e non arriva come per magia. È una scelta che facciamo ogni giorno, soprattutto nei
+                piccoli gesti. Molti litigi iniziano per cose da poco: un posto preso, un oggetto usato senza chiedere,
+                una parola detta male. Eppure basta un gesto per cambiare completamente la situazione. Oggi proveremo a
+                scoprire come un sorriso possa diventare il primo passo per trasformare un conflitto in un'occasione di
+                pace."</em></p>
+            <p>Successivamente vengono chiamati due ragazzi alla volta al centro dello spazio, mentre gli altri
+              rimangono
+              seduti in cerchio come spettatori. A ogni coppia viene assegnata una situazione di conflitto tipica della
+              loro età. Alcuni esempi:</p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li>"Mi hai preso l'astuccio senza chiedermelo."</li>
+              <li>"Mi hai rubato il posto in mensa."</li>
+              <li>"Mi hai spinto mentre eravamo in fila."</li>
+              <li>"Hai perso una mia cosa."</li>
+              <li>"Non mi fai mai giocare con voi."</li>
+              <li>"Hai raccontato un mio segreto."</li>
+              <li>"Continui a prendermi in giro."</li>
+              <li>"Hai barato durante il gioco."</li>
+            </ul>
+            <p>I due ragazzi iniziano a improvvisare la scena, mostrando il litigio in modo realistico. Dopo circa
+              trenta secondi, nel momento di maggiore tensione, l'animatore dà il comando: «Freeze!» I ragazzi devono
+              fermarsi immediatamente, rimanendo immobili nella posizione in cui si trovano. Dopo qualche secondo
+              l'animatore dice: «Attiviamo il sorriso della pace!» Senza muovere il corpo, i due ragazzi devono
+              guardarsi
+              negli occhi e sorridersi sinceramente per cinque secondi. Terminato il tempo, l'animatore dice: «Via!» La
+              scena riprende, ma con una nuova regola: non è più possibile continuare a litigare. I due ragazzi dovranno
+              trovare insieme una soluzione pacifica al problema, ascoltandosi, chiedendo scusa se necessario e
+              cercando un accordo.</p>
+            <p>L'attività viene ripetuta con quattro o cinque coppie, utilizzando ogni volta una situazione diversa,
+              così da coinvolgere il maggior numero possibile di ragazzi.</p>
+            <p><strong>Riflessione personale:</strong> Al termine dell'attività ogni ragazzo riceve un foglio sul quale
+              risponde, in silenzio, alle seguenti domande:</p>
+            <ol style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li>Ti è mai capitato di litigare per una cosa piccola? Racconta brevemente un episodio.</li>
+              <li>Quando sei arrabbiato, come reagisci di solito?</li>
+              <li>Secondo te, perché un sorriso può aiutare a far diminuire la tensione?</li>
+              <li>Qual è un gesto concreto che puoi fare questa settimana per essere un costruttore di pace?</li>
+              <li>C'è qualcuno con cui dovresti fare pace o chiedere scusa? Scrivi il suo nome (solo se lo desideri) e
+                cosa potresti fare.</li>
+            </ol>
+            <p><strong>Condivisione:</strong> Chi lo desidera può condividere una delle proprie risposte con il gruppo.
+              L'animatore guida un breve confronto, aiutando i ragazzi a capire che la pace non significa evitare i
+              problemi, ma scegliere di affrontarli con rispetto, ascolto e disponibilità al perdono.</p>
+            <p><strong>Conclusione:</strong> L'animatore conclude dicendo: <em>"Oggi abbiamo visto che basta davvero
+                poco per cambiare il clima di una situazione. Un sorriso non risolve tutti i problemi, ma può essere il
+                primo passo per aprire il dialogo e abbassare le difese. Gesù ci chiama 'operatori di pace': persone che
+                costruiscono pace ogni giorno, nelle piccole cose, con le parole, con le scelte e con il cuore. Ogni
+                volta che nascerà un litigio, ricordatevi di questo piccolo 'interruttore': fermatevi un attimo,
+                respirate e provate a regalare un sorriso. Potrebbe essere proprio quello il primo passo per ritrovare
+                la pace."</em></p>
+          </div>
+        </div>
+
+        <!-- Cena dei popoli - variante -->
+        <div class="card">
+          <div class="attivita-header">
+            <div class="attivita-icon"><i class="fa-solid fa-earth-americas"></i></div>
+            <div>
+              <div class="attivita-nome">Cena dei popoli - variante</div>
+              <div class="attivita-giorno">Giovedì — Responsabile: Anna</div>
+            </div>
+          </div>
+          <div class="beati-pill">Lavoro — Fame e sete della giustizia</div>
+          <div class="attivita-desc">
+            <p><strong>Introduzione:</strong> L'animatore introduce l'attività spiegando che nel mondo non tutti hanno
+              le
+              stesse possibilità. Ci sono persone che nascono con molte risorse a disposizione e altre che partono da
+              una situazione molto più difficile.</p>
+            <p><strong>Svolgimento:</strong> Le tre squadre rappresentano tre Paesi con risorse diverse. Ogni squadra
+              riceve (tramite estrazione casuale) una scatola con materiali differenti: una squadra avrà molti strumenti
+              e materiale; una avrà una quantità intermedia; una avrà pochi strumenti e poche risorse.</p>
+            <p>Sul cartellone sono disegnate diverse figure geometriche. Ogni figura completata vale una certa quantità
+              di denaro quando viene consegnata alla "banca". Lo scopo del gioco è guadagnare il più possibile.</p>
+            <p>Durante il gioco le squadre possono: parlare tra loro; chiedere o offrire materiali; fare accordi;
+              scegliere se collaborare oppure pensare solo ai propri interessi.</p>
+            <p>Nel corso dell'attività gli animatori introducono alcuni piccoli imprevisti per mostrare come, nella
+              vita, le situazioni possano cambiare: alcune figure valgono improvvisamente di più o di meno; una squadra
+              riceve nuovo materiale; una squadra scopre che un materiale ritenuto poco importante vale in realtà
+              molto; la banca può concedere piccoli prestiti o affittare strumenti in cambio di una parte del
+              guadagno.</p>
+            <p>Gli animatori osservano senza suggerire soluzioni, lasciando che siano i ragazzi a decidere come
+              comportarsi. Al termine si confrontano i soldi guadagnati dalle varie squadre.</p>
+            <p><strong>Riflessione finale:</strong> L'animatore guida una breve condivisione con domande come:</p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li>Come vi siete sentiti durante il gioco?</li>
+              <li>Vi è sembrato che tutti avessero le stesse possibilità?</li>
+              <li>Chi aveva meno materiale è riuscito a tenere il passo degli altri? Perché?</li>
+              <li>Avete scelto di aiutare gli altri oppure di pensare solo alla vostra squadra?</li>
+              <li>Secondo voi è giusto che chi nasce con meno possibilità debba fare molta più fatica?</li>
+              <li>Nella vita reale esistono situazioni simili? Quali?</li>
+            </ul>
+            <p>Si conclude sottolineando che Dio ci invita a costruire un mondo più giusto, dove chi ha di più non
+              sfrutta gli altri, ma condivide, aiuta e si prende cura di chi è in difficoltà. L'attività vuole far
+              comprendere che molte disuguaglianze non dipendono dall'impegno delle persone, ma dalle condizioni di
+              partenza.</p>
+            <p><strong>Indicazioni tecniche:</strong></p>
+            <ul style="padding-left:18px;font-size:0.85rem;line-height:1.8">
+              <li><strong>Paese ricco:</strong> 4 fogli A4 bianchi, 2 fogli A4 colorati, 2 forbici, 2 righelli, 2
+                matite, 1 gomma, 1 cartoncino colorato, compasso, colla</li>
+              <li><strong>Paese intermedio:</strong> 2 fogli A4 bianchi, 1 foglio A4 colorato, 1 forbice, 1 righello, 1
+                matita, 1 gomma, 1 cartoncino colorato</li>
+              <li><strong>Paese povero:</strong> 1 foglio A4 bianco, 1 matita, 2 cartoncini colorati</li>
+              <li>quadrato = 1€; rettangolo = 1€; trapezio isoscele = 3€; parallelogramma = 3€; triangolo isoscele = 2€;
+                triangolo rettangolo = 2€; rombo = 3€; cerchio = 4€; forma in cartoncino = valore della forma × 4 (solo
+                ad un certo punto del gioco)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Deserto -->
+        <div class="card">
+          <div class="attivita-header">
+            <div class="attivita-icon"><i class="fa-solid fa-sun"></i></div>
             <div>
               <div class="attivita-nome">Deserto</div>
               <div class="attivita-giorno">Venerdì — Responsabile: Don Riccardo, Germana, Giulio</div>
             </div>
           </div>
-          <div class="beati-pill">La fede — Beati i misericordiosi</div>
+          <div class="beati-pill">Fede — Beati i misericordiosi</div>
           <div class="attivita-desc">
-            <p>Attività spirituale di silenzio e riflessione. Dettagli da definire con Don Riccardo.</p>
+            <p>Attività spirituale di silenzio e riflessione. Vedi dettagli nel libretto e nella scenetta Pinocchio per
+              l'introduzione al "Deserto personale".</p>
           </div>
         </div>
       </section>
 
-      <!-- GIOCHI -->
-      <section class="section" id="section-giochi">
+      <!-- ─────────────── SCENETTE ─────────────── -->
+      <section class="section" id="section-scenette">
         <div class="card">
-          <div class="card-title">🎯 Caccia alle regole del campo <span class="badge">Sabato</span></div>
+          <div class="card-title"><i class="fa-solid fa-masks-theater"></i> Scenette — Testi completi</div>
+          <p style="font-size:0.85rem;color:var(--grigio);margin-bottom:16px">Di seguito i copioni completi delle
+            scenette del campo.</p>
+
+          <!-- Cenerentola -->
+          <div style="margin-bottom:28px;">
+            <h4 style="font-family:'Fraunces',serif;color:var(--verde);margin-bottom:8px;">Cenerentola — Beati i miti
+              (lunedì)</h4>
+            <div class="scena-block"><strong>Personaggi:</strong> Matrigna, Anastasia e Gertrude (sorellastre), Cenerentola, Postino, Fata Smemorina
+
+              <strong>Scena</strong>
+              (Le due sorellastre stanno "suonando" il flauto in modo terribilmente stonato e cantano peggio ancora. La matrigna le osserva commossa, applaudendo convinta. Sullo sfondo Cenerentola spazza il pavimento con delicatezza, sorridendo serenamente.)
+
+              <strong>Gertrude</strong> (bruscamente, dopo che ad Anastasia cade il flauto) Ma Anastasia! Hai proprio le mani di burro! (Ride prendendola in giro.)
+
+              <strong>Anastasia</strong> (tono altezzoso) Scemerentolaaaa! Vieni subito! Mi è caduto il flauto!
+
+              <strong>Cenerentola</strong> (con un sorriso) Arrivo subito! (Raccoglie con cura il flauto e glielo porge.)
+
+              (Si sente bussare alla porta.)
+
+              <strong>Matrigna</strong> (con tono autoritario) Scemerentola! Non hai sentito? Vai immediatamente ad aprire! (Cenerentola apre la porta.)
+
+              <strong>Postino</strong> (entra con una grossa borsa a tracolla) Buongiorno! C'è posta!
+
+              <strong>Cenerentola</strong> (preoccupata) Oh... se bisogna pagare non posso accettarla...
+
+              <strong>Postino</strong> (ridendo) Niente paura! È tutta pagata. Questa lettera arriva direttamente dal Principe!
+
+              <strong>Cenerentola</strong> Davvero?
+
+              <strong>Postino</strong> Certo! È l'invito al Gran Ballo Reale per tutte le fanciulle del regno!
+
+              <strong>Cenerentola</strong> Che meraviglia! Grazie! (Prende la lettera e corre felice dalla matrigna.)
+
+              (La matrigna le strappa la lettera dalle mani e la apre con impazienza.)
+
+              <strong>Matrigna</strong> Vediamo un po'... (leggendo) "Il Principe invita tutte le fanciulle del regno al Gran Ballo Reale." (rivolta alle figlie) Ragazze! È la vostra occasione! Correte a prepararvi! Il Principe dovrà assolutamente conoscervi!
+
+              (Le sorellastre saltellano entusiaste.)
+
+              <strong>Gertrude e Anastasia</strong> (in coro) Scemerentola! Portaci subito i nostri vestiti più belli! E già che ci sei... stirali! Lucida le nostre scarpe! Portaci i gioielli! E muoviti!
+
+              (Cenerentola corre avanti e indietro cercando di accontentarle tutte.) Dopo qualche istante si ferma timidamente.
+
+              <strong>Cenerentola</strong> Posso... venire anch'io? L'invito è per tutte le fanciulle del regno...
+
+              (La matrigna sorride con finta dolcezza.)
+
+              <strong>Matrigna</strong> Ma certo... Prima però dovrai: lavare le scale; pulire tutta la cucina; spolverare la casa; stendere il bucato; preparare la cena; passare di nuovo la scopa; e mettere la legna sul fuoco. Se finirai tutto... forse... potrai raggiungerci.
+
+              <strong>Cenerentola</strong> (abbassa lo sguardo, ma sorride) Va bene. Farò del mio meglio.
+
+              (Le sorellastre e la matrigna escono di scena in modo esagerato e ridicolo, salutando come principesse.)
+
+              (Cenerentola continua a lavorare. Spazza, sistema, pulisce e sospira.)
+
+              <strong>Cenerentola</strong> Che bello sarebbe poter andare anch'io a quel ballo... Ma ho ancora tantissime cose da fare... E poi... con questi vestiti... Come potrei presentarmi davanti al Principe? (Si siede sconsolata e inizia a piangere.)
+
+              (Entra la Fata in modo buffo e un po' impacciato.)
+
+              <strong>Fata Smemorina</strong> Ehi! Perché tutte queste lacrime?
+
+              (Cenerentola si soffia il naso... direttamente sul vestito della fata.)
+
+              <strong>Fata</strong> Ehi! Ma che fai?! Non sul mio vestito! L'ho lavato proprio ieri! (Si sistema il vestito e poi cambia tono.) Allora... Mi vuoi dire perché piangi?
+
+              <strong>Cenerentola</strong> Vorrei tanto andare al ballo... Ma guardami... Ho solo questo vecchio vestito tutto rattoppato.
+
+              <strong>Fata</strong> Ma questo è un problema da niente! Ci penso io! (Oppure... quasi.) (Guarda il pubblico.) Cari topolini... Ho bisogno del vostro aiuto! Siete pronti a trasformare questo vecchio vestito in un magnifico abito da ballo? Allora forza! Facciamo partire la gara... per realizzare il vestito più bello per Cenerentola!
+            </div>
+          </div>
+
+          <!-- Il brutto anatroccolo -->
+          <div style="margin-bottom:28px;">
+            <h4 style="font-family:'Fraunces',serif;color:var(--verde);margin-bottom:8px;">Il brutto anatroccolo —
+              Beati gli afflitti (martedì)</h4>
+            <div class="scena-block"><strong>Personaggi:</strong> Narratore, Brutto Anatroccolo, Mamma Anatra, Tre Cigni, Contadino (facoltativo), Squadra A, Squadra B, Squadra C, Capo Campo
+
+              <strong>Scena</strong>
+
+              <strong>Narratore:</strong> C'era una volta un brutto anatroccolo, nato in un cortile pieno di animali: oche, galline, tacchini e anatre. Era diverso da tutti gli altri e, per questo, nessuno voleva giocare con lui.
+
+              <strong>Squadra gialla</strong> (tutti insieme, con tono di presa in giro): "Sei brutto!" "Vai via!" "Che schifo!" "Nasconditi!" "Non vogliamo stare con te!" (L'anatroccolo abbassa la testa e si allontana triste.)
+
+              <strong>Narratore:</strong> Solo una persona gli voleva davvero bene: la sua mamma.
+
+              <strong>Mamma Anatra:</strong> No, figlio mio. Tu sei speciale. Ti voglio bene così come sei.
+
+              <strong>Squadra blu:</strong> "Sei bello!" "Non sei solo!" "Coraggio!" "Noi siamo con te!"
+
+              <strong>Narratore:</strong> Ma le cattiverie erano troppe. Un giorno il piccolo anatroccolo, triste e disperato, decise di lasciare il cortile. (L'anatroccolo cammina lentamente.)
+
+              <strong>Narratore:</strong> Viaggiò tanto, ma ovunque andasse veniva cacciato. Un giorno incontrò persino dei cacciatori.
+
+              <strong>Squadra rosa</strong> (Mimano gli spari e fanno i rumori dei fucili) "Pum!" "Prendetelo!"
+
+              (L'anatroccolo fugge spaventato.)
+
+              <strong>Narratore:</strong> Arrivò l'inverno. Faceva freddissimo. Lo stagno ghiacciò e il piccolo anatroccolo doveva muovere continuamente le zampe per non restare intrappolato nel ghiaccio. (L'anatroccolo trema e si accascia sulla neve.)
+
+              <strong>Narratore:</strong> Era ormai sfinito. Si sdraiò sulla neve e chiuse gli occhi. Entrò in scena però un contadino.
+
+              <strong>Contadino:</strong> "Poverino! Vieni con me." Lo portò a casa.
+
+              <strong>Narratore:</strong> Ma il piccolo anatroccolo era così abituato ad essere rifiutato che ebbe paura anche di quell'affetto e fuggì di nuovo.
+
+              <strong>Narratore:</strong> Passò l'inverno. Arrivò finalmente la primavera. L'anatroccolo aprì le ali... le batté... e iniziò a volare. Davanti a lui apparvero tre splendidi cigni.
+
+              Tre animatori agitano lentamente le "ali" e si avvicinano con eleganza.
+
+              <strong>Cigno 1:</strong> "Benvenuto!"
+
+              <strong>Cigno 2:</strong> "Ti stavamo aspettando."
+
+              <strong>Cigno 3:</strong> "Vieni con noi."
+
+              <strong>Narratore:</strong> L'anatroccolo abbassò la testa, convinto che anche loro lo avrebbero preso in
+              giro. Ma quando guardò l'acqua... (L'anatroccolo si guarda nello specchio d'acqua.) Vide il suo riflesso.
+              Non era più un brutto anatroccolo. Era diventato uno splendido cigno.
+
+              (L'anatroccolo sorride.) I tre cigni lo abbracciano e insieme escono felici.
+
+              <strong>Capo Campo:</strong> Quanti di noi, almeno una volta, si sono sentiti come il brutto anatroccolo? Magari esclusi, presi in giro, diversi dagli altri o non abbastanza bravi. A volte basta una parola cattiva per farci sentire soli. Ma questa storia ci insegna una cosa importante: il nostro valore non dipende da quello che gli altri pensano di noi. Anche quando tutti lo rifiutavano, il piccolo anatroccolo era già speciale. Doveva solo scoprire chi era davvero. Anche noi, agli occhi di Gesù, siamo preziosi così come siamo. Gesù ci è vicino nei momenti difficili. Nelle Beatitudini dice: "Beati gli afflitti, perché saranno consolati." Ma chi li consola? È Gesù stesso che ci consola attraverso la sua presenza, la sua Parola e le persone che mette accanto a noi: la famiglia, gli amici, gli educatori, chi ci vuole bene. Adesso faremo un'attività che ci aiuterà a capire proprio questo: non siamo mai soli e il Signore trova sempre un modo per starci vicino quando ne abbiamo più bisogno.
+            </div>
+          </div>
+
+          <!-- Robin Hood -->
+          <div style="margin-bottom:28px;">
+            <h4 style="font-family:'Fraunces',serif;color:var(--verde);margin-bottom:8px;">Robin Hood — Beati quelli che hanno fame e sete della giustizia (giovedì)</h4>
+            <div class="scena-block"><strong>Preparazione:</strong> Prima dell'inizio della scenetta, ad ogni ragazzo viene consegnato un "sasso di carta". L'animatore spiega: "Tenete questo sasso con voi. Tra poco vi darò un segnale: solo allora potrete lanciarlo verso un personaggio della storia. Mi raccomando... aspettate il momento giusto!"
+
+              <strong>Personaggi:</strong> Menestrello, Robin Hood, Little John, Sceriffo di Nottingham, Principe Giovanni, Due guardie, Gli animati (gli "scagnozzi")
+
+              <strong>Scena</strong>
+
+              (Parte la celebre canzone di Robin Hood. Il Menestrello entra suonando una chitarra e accompagna la musica. Robin Hood e Little John attraversano la scena scherzando, ridendo e fingendo di camminare nella foresta.)
+
+              Quando la canzone racconta dell'arrivo dello Sceriffo e dei suoi scagnozzi...
+
+              <strong>Capo campo</strong> (al pubblico) Attenzione! Ecco gli scagnozzi dello Sceriffo! Adesso!
+
+              (I ragazzi lanciano i sassi di carta verso Robin Hood e Little John, che cercano di schivarli correndo, nascondendosi e saltando dietro agli alberi.) Alla fine della musica Robin e Little John riescono a fuggire.
+
+              <strong>Menestrello</strong> Ma la storia non finisce qui... Purtroppo, qualche tempo dopo, Little John, il migliore amico di Robin Hood, viene catturato dallo Sceriffo di Nottingham. Viene accusato di essere un ladro. Secondo la legge del Principe Giovanni... la condanna è una sola. La morte. Sembra che nessuno possa salvarlo... Nessuno... tranne Robin Hood! Vediamo cosa succede...
+
+              (Entrano le guardie con Little John legato.)
+
+              <strong>Principe Giovanni</strong> Ahahah! Finalmente ti abbiamo preso! Sei un ladro! E per questo sarai condannato! Solo una cosa potrebbe salvarti... Un tesoro! Portatemi un tesoro degno di un re... e forse cambierò idea!
+
+              <strong>Little John</strong> Io non sono un ladro! Ho preso ai ricchi solo per aiutare chi non aveva niente! Tu invece continui a chiedere tasse sempre più pesanti... e fai soffrire il tuo popolo! Il vero furto è togliere ai poveri la speranza!
+
+              <strong>Principe Giovanni</strong> Basta! Portatelo in prigione! (Le guardie lo trascinano via.)
+
+              (Robin entra di corsa.)
+
+              <strong>Robin Hood</strong> Avete sentito? Che terribile ingiustizia! Little John rischia la vita... ma io da solo non posso salvarlo. Ho bisogno del vostro aiuto! Siete con me?
+
+              (Aspetta che i ragazzi rispondano "Sì!") Allora dobbiamo trovare il tesoro che il Principe vuole! Aspettate... Forse mi è venuta un'idea! (Si gira verso il punto da cui è uscito il Principe Giovanni.) Ehi! Principe Giovanni! Perché continui ad accumulare ricchezze? Non sarebbe meglio imparare a condividerle? Perché non usi quello che hai per aiutare chi è più povero? Sai una cosa? La vera felicità non nasce dal tenere tutto per sé... ma dal donare. Chi aiuta gli altri... chi difende i più deboli... chi condivide quello che ha... è davvero ricco! Provaci anche tu! Scoprirai che si è felici se... si ama e ci si prende cura degli altri!
+
+              <strong>Riflessione</strong>
+              Robin Hood cercava un tesoro per salvare il suo amico. Ma qual è il tesoro più prezioso che esista davvero? Non è fatto di oro. Non è fatto di gioielli. È l'amore. L'amore che Gesù ci ha insegnato con la sua vita. È un amore che unisce, perdona, condivide e non lascia mai solo nessuno. Gesù stesso è il nostro più grande tesoro. Per questo anche noi siamo chiamati a fare come Lui:
+              - condividere ciò che abbiamo;
+              - aiutare chi è nel bisogno;
+              - difendere chi è più debole;
+              - pregare gli uni per gli altri.
+              A volte possiamo avere paura del giudizio degli altri. Possiamo pensare che fare il bene sia difficile. Ma Gesù ci ricorda che amare è sempre la scelta più bella. Se ci affidiamo a Lui, non saremo mai soli. Ed è proprio questo il tesoro che nessuno potrà mai portarci via.
+            </div>
+          </div>
+
+          <!-- Pinocchio -->
+          <div style="margin-bottom:28px;">
+            <h4 style="font-family:'Fraunces',serif;color:var(--verde);margin-bottom:8px;">Pinocchio — Beati i misericordiosi (venerdì)</h4>
+            <div class="scena-block"><strong>Personaggi:</strong> Pinocchio (animatore che tiene in mano un burattino di Pinocchio)
+
+              <strong>Scena</strong>
+
+              (Entra Pinocchio. Tiene in mano il burattino e lo fa "parlare", muovendolo come un vero personaggio.)
+
+              <strong>Pinocchio</strong> Ciao a tutti! Io sono Pinocchio! Sono un tipo un po' monello... e, diciamolo, qualche marachella l'ho combinata! A volte preferivo divertirmi invece di andare a scuola. Altre volte prendevo la strada sbagliata. Pensavo di essere furbo... ma spesso finivo solo nei guai. Per fortuna c'era sempre qualcuno che mi voleva bene davvero. Il mio papà Geppetto. Anche quando sbagliavo... anche quando lo facevo soffrire... lui non smetteva mai di aspettarmi. Mi accoglieva sempre con un cuore pieno d'amore. È stato proprio grazie a lui che ho capito una cosa importantissima: ricevere il perdono è uno dei doni più belli che possiamo vivere. E sapete una cosa? È ancora più bello imparare a perdonare gli altri. Perché chi perdona ha un cuore grande... un cuore misericordioso! Oggi anche voi avrete la possibilità di vivere questo dono, accostandovi al sacramento della Confessione. Non abbiate paura. Gesù vi aspetta con lo stesso amore con cui il papà di Pinocchio aspettava sempre il suo bambino. Buon cammino!
+
+              <strong>Introduzione al "Deserto personale"</strong>
+              (Un animatore prende la parola.) In questi giorni abbiamo giocato, riso, camminato insieme e vissuto tante esperienze. Adesso ci fermiamo per un momento speciale. Un momento di silenzio, in cui ciascuno potrà guardarsi dentro e fare un po' il punto del proprio cammino. Don Riccardo ci aiuterà a riflettere sulla Parabola del Padre Misericordioso, una storia che ci ricorda quanto è bello sentirsi amati, accolti e perdonati da Dio. E ci insegna anche quanto è bello amare, accogliere e perdonare gli altri, proprio come ci invitano a fare le Beatitudini. Ognuno di voi riceverà una piccola traccia con alcune semplici domande. Poi sceglierà un posto tranquillo, dove fermarsi da solo per qualche minuto, leggere, riflettere e prepararsi alla Confessione. Successivamente, uno alla volta, potrete incontrare Don Riccardo per ricevere il sacramento della Riconciliazione.
+
+              <strong>Il gesto del "peso"</strong>
+              Dopo la Confessione, ciascuno riceverà un cartoncino a forma di sasso (o di peso). Quel sasso rappresenta la zavorra che, a volte, portiamo nel cuore: i nostri errori, le nostre fatiche, le cose che ci impediscono di camminare con leggerezza dietro a Gesù. In un momento di silenzio, ciascuno scriverà sul proprio sasso ciò che sente essere il peso più grande del suo cuore. Nessuno lo leggerà. Il cartoncino verrà consegnato agli animatori, che lo custodiranno con discrezione fino alla sera. Durante il falò, tutti questi "pesi" saranno bruciati insieme. Sarà un segno concreto del perdono ricevuto: Gesù ci libera da ciò che ci appesantisce e ci dona un cuore nuovo, capace di ricominciare.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────── GIOCHI ─────────────── -->
+      <section class="section" id="section-giochi">
+        <!-- Caccia alle regole -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-bullseye"></i> Caccia alle regole del campo <span
+              class="badge">Sabato</span></div>
           <span class="tag tag-verde">Responsabile: Anna</span>
           <div class="attivita-desc" style="margin-top:12px">
-            <p>I ragazzi si dividono in squadre. Ogni squadra riceve il primo indizio dagli animatori. Una volta trovato
-              il luogo, raccolgono il bigliettino colorato (del colore della squadra) con la prima regola.</p>
-            <p>Gli animatori verificano che il numero della regola corrisponda al numero dell'indizio, poi danno il
-              secondo indizio. Due squadre non hanno mai la stessa regola nello stesso posto.</p>
+            <p>I ragazzi si dividono in squadre. Gli animatori danno alla propria squadra il primo indizio. Una volta scoperto il luogo raccoglieranno il bigliettino del colore della squadra con scritta la prima regola e lo porteranno agli animatori di riferimento (gli animatori controllino che il numero della regola sia uguale al numero dell'indizio). Una volta portata la regola agli animatori essi daranno il secondo indizio, e così via. Si noti che due squadre non avranno mai la stessa regola nello stesso posto.</p>
           </div>
         </div>
 
+        <!-- Roverino -->
         <div class="card">
-          <div class="card-title">🏅 Roverino <span class="badge">Domenica</span></div>
+          <div class="card-title"><i class="fa-solid fa-medal"></i> Roverino <span class="badge">Domenica</span></div>
           <span class="tag tag-verde">Responsabile: Carlo Alberto</span>
           <div class="attivita-desc" style="margin-top:12px">
-            <p>I ragazzi si passano un anello di corda cercando di segnare infilando il roverino in un palo o facendolo
-              arrivare al ricevitore della propria squadra.</p>
-            <p>Chi ha il roverino può fare max 3 passi e tenerlo pochi secondi, poi deve passarlo o tirare. No contatti
-              fisici sul portatore. Vince la squadra con più punti.</p>
+            <p>I ragazzi si passano un anello di corda cercando di segnare infilando il roverino in un palo o facendolo arrivare al ricevitore della propria squadra. Chi ha il roverino può fare al massimo 3 passi e tenerlo per pochi secondi, poi deve passarlo o tirare. Non sono ammessi contatti fisici sul portatore e vince la squadra che realizza più punti. Ogni partita dura minuti.</p>
           </div>
         </div>
 
+        <!-- Outbreak -->
         <div class="card">
-          <div class="card-title">💎 Diamanti <span class="badge">Venerdì</span></div>
-          <span class="tag tag-giallo">Responsabile: da definire</span>
+          <div class="card-title"><i class="fa-solid fa-virus"></i> Outbreak (gioco zombie) <span
+              class="badge">Martedì</span></div>
+          <span class="tag tag-verde">Responsabile: Andrea</span>
           <div class="attivita-desc" style="margin-top:12px">
-            <p>Dettagli da definire.</p>
+            <p>Un virus misterioso ha iniziato a diffondersi nel campo, trasformando alcuni animatori in terribili
+              zombie! Fortunatamente gli scienziati stanno lavorando a una cura, ormai quasi completata... ma hanno
+              bisogno del vostro aiuto per terminarla e salvare tutti.</p>
+            <p>L'obiettivo è completare tutte le prove, ottenere l'antidoto potenziato e usarlo per guarire entrambi gli
+              zombie. La prima squadra che riesce a curare entrambi gli zombie vince!</p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>Postazione 1:</strong> prova fisica, dimostrate di avere le capacità necessarie per
+                sopravvivere all'epidemia (squat, flessioni, plank, breve percorso, etc...)</li>
+              <li><strong>Postazione 2:</strong> prova di intelletto, per trovare una cura servono anche intelligenza e
+                sangue freddo. Gli animatori porranno un indovinello oppure una semplice domanda di cultura generale.
+              </li>
+              <li><strong>Postazione 3:</strong> L'intruglio, indovinate tutti gli ingredienti necessari per completare
+                la cura.</li>
+            </ul>
+            <p>Il Medico gira nel campo e cura chi è ammalato. Dopo aver completato tutte e tre le prove, ci si reca dal
+              Medico, che preparerà un antidoto potenziato, che vi permetterà di guarire uno zombie.</p>
+            <p>Chi viene "morso" diventa infetto e non può affrontare nessuna prova; deve recarsi dal Medico per essere
+              curato prima di poter continuare il gioco.</p>
+          </div>
+        </div>
+
+        <!-- Sarabanda -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Sarabanda <span class="badge">Mercoledì</span></div>
+          <span class="tag tag-verde">Responsabile: Tutti</span>
+          <div class="attivita-desc" style="margin-top:12px">
+            <p>I ragazzi devono indovinare il titolo della canzone dopo poche note. Per aumentare la difficoltà, si
+              possono fare indovinare anche i cantanti e l'anno di uscita. Per vincere il punto, è necessario che un
+              ragazzo della squadra si alzi e batta la mano all'animatore preposto.</p>
+          </div>
+        </div>
+
+        <!-- Diamanti -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-gem"></i> Diamanti <span class="badge">Venerdì</span></div>
+          <span class="tag tag-verde">Responsabile: Francesco</span>
+          <div class="attivita-desc" style="margin-top:12px">
+            <p>Ogni squadra riceve alcuni pennarelli colorati, che rappresentano i "diamanti". Lo scopo è conquistarne
+              il maggior numero possibile andando a sfidare le altre squadre. Le squadre saranno così organizzate: 3
+              difensori in base e 3 attaccanti. Perché un attaccante riesca a rubare un diamante è obbligatorio per lui
+              vincere la sfida a scalpo con un difensore della squadra avversaria. A quel punto l'attaccante vincitore
+              riceverà un pennarello dall'animatore (che li tiene in mano).</p>
+            <p>Gli animatori presenti in ogni base sono due delle altre due squadre (ad esempio, in base gialla ci
+              saranno un animatore blu e uno rosa). Dopo un tot di tempo gli animatori si scambiano di base sempre
+              secondo lo stesso principio.</p>
+            <p>Al termine del tempo stabilito ogni squadra consegna i diamanti raccolti e viene stilata la classifica.
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- SERATE -->
+      <!-- ─────────────── SERATE ─────────────── -->
       <section class="section" id="section-serate">
+        <!-- Giochi di gruppo -->
         <div class="card">
-          <div class="card-title">🎭 Giochi di conoscenza <span class="badge">Sabato</span></div>
-          <ol style="padding-left:20px;font-size:0.87rem;line-height:2">
-            <li>Mi piacciono tutti quelli che…</li>
-            <li>Battichiama</li>
-            <li>Gioco dei semi (carte)</li>
-            <li>1 limone mezzo limone, 2 limoni mezzo limone…</li>
-            <li>Simon dice</li>
-            <li>Reazione a catena</li>
+          <div class="card-title"><i class="fa-solid fa-users"></i> Giochi di gruppo <span class="badge">Sabato</span>
+          </div>
+          <span class="tag tag-verde">Responsabile: tutti</span>
+          <ol style="padding-left:20px;font-size:0.87rem;line-height:2.2">
+            <li><strong>Mi piacciono tutti quelli che ...</strong> — spiegazione</li>
+            <li><strong>Battichiama</strong></li>
+            <li><strong>Gioco dei semi</strong> (carte)</li>
+            <li><strong>1 limone mezzo limone, 2 limoni mezzo limone, 3 limoni mezzo limone, ...</strong></li>
+            <li><strong>Simon dice</strong></li>
+            <li><strong>Reazione a catena</strong></li>
           </ol>
         </div>
 
+        <!-- Lupus in fabula -->
         <div class="card">
-          <div class="card-title">🐺 Lupus in Fabula <span class="badge">Domenica</span></div>
+          <div class="card-title"><i class="fa-solid fa-paw"></i> Lupus in Fabula <span class="badge">Domenica</span>
+          </div>
           <span class="tag tag-verde">Responsabile: Andrea, Carlo Alberto</span>
-          <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Dettagli da completare.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🎤 Campo's Got Talent <span class="badge">Mercoledì</span></div>
-          <span class="tag tag-giallo">Responsabile: da definire</span>
-          <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Dettagli da completare.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔍 Cena con delitto <span class="badge">Giovedì</span></div>
-          <span class="tag tag-verde">Responsabile: Andrea</span>
           <div class="attivita-desc" style="margin-top:12px">
-            <p><strong>Trama:</strong> Francesco (ereditiero milionario) invita quattro persone a cena: Anna (figlia),
-              Carlo (fratello), Alice (cognata), Martina (medico). Durante la notte viene trovato morto — stanza chiusa
-              dall'interno, chiave sul comodino, finestra chiusa.</p>
-            <p><strong>Personaggi:</strong> Anna (animatrice), Carlo (animatore), Alice (animatrice), Martina
-              (animatrice), Andrea = il detective. I ragazzi raccolgono indizi e interrogano i sospettati.</p>
-            <p><strong>Soluzione:</strong> <em>Alice (la cognata)</em>. Movente: Francesco aveva scoperto la sua
-              relazione segreta e il furto di denaro dall'azienda. Metodo: veleno a effetto ritardato versato nel
-              bicchiere durante la cena.</p>
-            <p><strong>Indizi chiave:</strong> ricevuta dello stesso farmaco nella stanza di Alice; assegno con firma
-              falsificata; lettera a Carlo "Dobbiamo parlare urgentemente di tua moglie."</p>
+            <p><strong>Ruoli</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>Contadini (9):</strong> Obiettivo: eliminare tutti i lupi e sopravvivere.</li>
+              <li><strong>Lupi (3):</strong> Ogni notte si risvegliano insieme e scelgono una persona da eliminare.
+                Obiettivo: eliminare tutti i contadini o raggiungere la loro superiorità numerica.</li>
+              <li><strong>Veggente (1):</strong> Ogni notte può indicare un giocatore al Narratore e scoprirne
+                l'allineamento: Lupo oppure Non Lupo.</li>
+              <li><strong>Medium (1):</strong> Ogni notte può scegliere un giocatore già morto e scoprire se era un Lupo
+                oppure Non Lupo.</li>
+              <li><strong>Lupo Mannaro (1):</strong> Si risveglia una notte ogni due (ad esempio la 2ª, 4ª, 6ª...). Può
+                eliminare un qualsiasi giocatore, compresi i Lupi normali. Obiettivo: essere l'ultimo giocatore rimasto
+                in vita.</li>
+              <li><strong>Medico (1):</strong> Ogni notte può proteggere un giocatore dall'attacco dei lupi, compreso sé
+                stesso.</li>
+              <li><strong>Amanti (2):</strong> Due giocatori vengono scelti come Amanti all'inizio della partita. Se uno
+                dei due muore, l'altro muore immediatamente per il dolore.</li>
+            </ul>
+            <p><strong>Svolgimento della partita</strong></p>
+            <ol style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>Notte:</strong> Tutti i giocatori chiudono gli occhi. Il Narratore chiama i ruoli nell'ordine
+                stabilito: Lupi, Lupo Mannaro (solo ogni due notti), Medico, Veggente, Medium.</li>
+              <li><strong>Giorno:</strong> Il Narratore annuncia chi è stato eliminato durante la notte. I giocatori
+                discutono tra loro per cercare di individuare i lupi. Al termine della discussione possono votare per
+                eliminare un giocatore sospetto.</li>
+            </ol>
+            <p><strong>Condizioni di vittoria:</strong> Contadini vincono quando tutti i Lupi sono stati eliminati. Lupi
+              vincono quando il loro numero è pari o superiore a quello dei Contadini rimasti. Lupo Mannaro vince solo
+              se rimane l'unico giocatore vivo. Amanti seguono la condizione di vittoria del proprio ruolo, ma se uno
+              muore, anche l'altro viene eliminato.</p>
           </div>
         </div>
 
+        <!-- Pubblicità -->
         <div class="card">
-          <div class="card-title">🔥 Falò <span class="badge">Venerdì</span></div>
-          <span class="tag tag-verde">Responsabile: Giulio</span>
-          <p style="font-size:0.87rem;margin-top:8px;color:#6B7280">Ogni ragazzo legge la parola sul sasso e lo
-            posiziona in cerchio attorno al fuoco. Preghiera finale a tre cori.</p>
+          <div class="card-title"><i class="fa-solid fa-tv"></i> Pubblicità <span class="badge">Martedì</span></div>
+          <span class="tag tag-verde">Responsabile: Anna</span>
+          <div class="attivita-desc" style="margin-top:12px">
+            <p>Ogni squadra, a turno, riceve un oggetto reale messo a disposizione dagli animatori. Ha 5 minuti di
+              preparazione per inventare e provare uno spot pubblicitario di massimo 2 minuti, in cui deve "vendere"
+              quell'oggetto in modo creativo, esagerato e divertente. Possono aggiungere slogan, testimonial, mini
+              scenetta, jingle, uso creativo dell'oggetto (anche assurdo). L'obiettivo è far ridere e convincere la
+              giuria che quell'oggetto è "indispensabile".</p>
+            <p>Viene assegnato un punteggio da 1 a 5 per: Originalità, Divertimento, Uso dell'oggetto, Collaborazione,
+              Interpretazione, "Effetto pubblicità" (quanto convince).</p>
+            <p>Per rendere il gioco ancora più divertente, dopo ogni pubblicità la giuria può fare una domanda "scomoda"
+              agli inventori del prodotto, come farebbe un giornalista: "Funziona anche sott'acqua?", "Ci sono effetti
+              collaterali?", "Quanto costa?", "Esiste in altri colori?", "Cosa succede se si rompe?", "Perché dovrei
+              comprarlo invece di quello della concorrenza?"</p>
+            <p><strong>Oggetti da dare alle squadre:</strong> carta igienica, scatola da scarpe, chiave, bicchiere di
+              plastica, coperchio pentola, ...</p>
+          </div>
+        </div>
+
+        <!-- Ciao Darwin -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-crown"></i> Ciao Darwin <span class="badge">Mercoledì</span>
+          </div>
+          <span class="tag tag-verde">Responsabile: Andrea</span>
+          <div class="attivita-desc" style="margin-top:12px">
+            <p>I ragazzi saranno divisi nelle tre squadre e si sfideranno in una serie di prove divertenti e originali
+              per conquistare il favore della giuria. Al termine di ogni prova verranno assegnati dei punti e, alla fine
+              della serata, sarà decretata la squadra vincitrice.</p>
+            <p><strong>1. Prova di moda:</strong> Ogni squadra sceglie un ragazzo e una ragazza che sfileranno come
+              modelli. Con l'aiuto dei compagni dovranno creare un outfit originale, utilizzando sia i propri vestiti
+              sia gli accessori messi a disposizione dagli animatori. La giuria valuterà creatività, originalità e
+              presentazione.</p>
+            <p><strong>2. Prova Karaoke:</strong> Ogni squadra sceglie una canzone da interpretare in modalità karaoke.
+              La giuria assegnerà i punti tenendo conto dell'entusiasmo, della partecipazione del gruppo e
+              dell'interpretazione, senza dare troppo peso alle capacità canore.</p>
+            <p><strong>3. Prova Just Dance:</strong> Le squadre si cimenteranno in una coreografia seguendo un video di
+              Just Dance. Verranno premiati il coinvolgimento, il ritmo e la voglia di divertirsi insieme.</p>
+            <p><strong>4. Il viaggio nel tempo:</strong> Ultima sfida della serata: un quiz a tema storico. Le squadre
+              dovranno rispondere a domande riguardanti l'epoca romana, mettendo alla prova memoria, intuito e spirito
+              di squadra.</p>
+          </div>
+        </div>
+
+        <!-- Cena con delitto -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Cena con delitto: il mistero della stanza
+            chiusa <span class="badge">Giovedì</span></div>
+          <span class="tag tag-verde">Responsabile: Andrea</span>
+          <div class="attivita-desc" style="margin-top:12px">
+            <p><strong>Trama:</strong> Un famoso ereditiero milionario, Francesco, invita nella sua villa quattro
+              persone per una cena di famiglia: sua figlia maggiore Alice, suo fratello Carlo, sua cognata Martina (la
+              moglie di Carlo), e Anna, il suo medico personale, considerato ormai parte della famiglia. Durante la
+              cena emergono vecchi rancori e segreti nascosti. Le discussioni diventano sempre più accese e la serata
+              termina in un clima di forte tensione. Nel cuore della notte, però, accade l'impensabile. Francesco viene
+              trovato morto nella sua camera. La situazione è però inspiegabile: la porta era chiusa dall'interno, la
+              chiave si trovava sul comodino accanto al letto e la finestra era chiusa. Nessuno sembra essere potuto
+              entrare o uscire dalla stanza. Un detective viene chiamato sul posto. Con l'aiuto dei ragazzi dovrà
+              scoprire il colpevole, il movente e il metodo utilizzato per compiere il delitto.</p>
+
+            <p><strong>Personaggi:</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>L'ereditiero (Francesco):</strong> Vittima del delitto. Viene trovato morto nella propria
+                stanza. La porta è chiusa a chiave dall'interno e la chiave è sul comodino. La finestra è chiusa e la
+                stanza si trova al piano superiore della villa.</li>
+              <li><strong>La figlia maggiore (Alice):</strong> Era convinta di essere la futura erede dell'azienda di
+                famiglia. Durante la cena il padre le comunica che non le lascerà la gestione dell'impresa perché la
+                ritiene incapace di amministrarla correttamente.</li>
+              <li><strong>Carlo (fratello dell'ereditiero):</strong> È sommerso dai debiti. Poco prima della cena chiede
+                un nuovo aiuto economico al fratello, che però gli comunica di voler interrompere ogni sostegno
+                finanziario.</li>
+              <li><strong>La cognata (Martina):</strong> Moglie di Carlo. Francesco ha scoperto che intrattiene una
+                relazione segreta con un altro uomo. Inoltre ha scoperto che sta sottraendo denaro dall'azienda per
+                scopi personali. La vittima minaccia di rivelare tutto al marito.</li>
+              <li><strong>Il medico personale (Anna):</strong> Lavora da molti anni per l'ereditiero. Si scopre che una
+                parte molto consistente dell'eredità sarebbe destinata a lei, nonostante non faccia parte della
+                famiglia.</li>
+              <li><strong>Il detective (Andrea):</strong> Arriva dopo la scoperta del cadavere. Fornisce ai ragazzi una
+                prima ricostruzione dei fatti. I partecipanti possono rivolgergli una sola domanda riguardante uno dei
+                sospettati.</li>
+            </ul>
+
+            <p><strong>Soluzione del caso:</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>Assassino:</strong> La cognata.</li>
+              <li><strong>Movente:</strong> L'ereditiero aveva scoperto la sua relazione extraconiugale e il furto di
+                denaro dall'azienda. Temendo di essere smascherata e di perdere tutto, decide di eliminarlo.</li>
+              <li><strong>Arma del delitto:</strong> Veleno a effetto ritardato. Durante la cena versa il veleno nel
+                bicchiere dell'ereditiero mentre distribuisce il vino. L'uomo beve senza accorgersi di nulla e muore più
+                tardi, una volta rientrato nella propria stanza. Per questo motivo la camera risulta chiusa
+                dall'interno: l'assassina non ha mai dovuto entrarvi.</li>
+            </ul>
+
+            <p><strong>Indizi:</strong></p>
+            <ul style="padding-left:18px;font-size:0.87rem;line-height:1.9">
+              <li><strong>Indizi contro il medico:</strong> Nelle sue tasche viene trovata una ricevuta per l'acquisto
+                dello stesso farmaco usato nel veleno. Il testamento trovato nella stanza assegna a lui/lei l'intera
+                eredità.</li>
+              <li><strong>Indizi contro la cognata:</strong> Nella sua stanza viene trovata una ricevuta per lo stesso
+                farmaco. Viene rinvenuto un assegno con la firma falsificata dell'ereditiero.</li>
+              <li><strong>Indizi contro Carlo:</strong> Alcuni testimoni hanno sentito lui e il fratello litigare
+                violentemente per questioni economiche.</li>
+              <li><strong>Indizi contro la figlia:</strong> Durante la cena ha avuto una discussione molto accesa con il
+                padre riguardo al futuro dell'azienda.</li>
+              <li><strong>Altri indizi:</strong> Sulla scrivania dell'ereditiero c'è una lettera indirizzata a Carlo in
+                cui scrive: "Dobbiamo parlare urgentemente di tua moglie". La figlia racconta di aver sentito il padre
+                discutere con una donna poco prima della cena. L'uomo diceva: "So quello che stai facendo e non posso
+                permetterlo". Nella stanza della vittima vengono trovate piccole tracce di sangue dovute a una caduta
+                avvenuta prima della morte.</li>
+            </ul>
+
+            <p><strong>Svolgimento:</strong> Prima della cena gli ospiti iniziano ad arrivare alla villa di Francesco.
+              Poco prima che la cena abbia inizio, Carlo chiede al fratello un nuovo aiuto economico per far fronte ai
+              suoi debiti. Francesco però si rifiuta categoricamente di concedergli altro denaro. I due hanno una
+              discussione accesa che viene sentita da alcune persone presenti nella villa. Subito dopo, Anna sente
+              Francesco discutere animatamente con una donna. Non riesce a capire chi sia, ma sente chiaramente suo
+              padre dire: "So quello che stai facendo e non posso permetterlo". Durante la cena, tra la prima e la
+              seconda portata, Alice si offre di servire il vino agli ospiti. Approfittando di un momento di
+              distrazione generale, versa nel bicchiere di Francesco una dose di veleno a effetto ritardato. Poco dopo,
+              durante la seconda portata, Anna affronta il padre riguardo al futuro dell'azienda di famiglia. Francesco
+              le comunica che non intende affidarle la gestione dell'impresa, ritenendola inadatta al ruolo. La
+              discussione degenera rapidamente e tutti i presenti assistono al litigio. La cena termina in un clima di
+              forte tensione. Dopo la cena gli ospiti si ritirano nelle rispettive stanze. Francesco sale nella propria
+              camera e si chiude dentro. Qualche tempo dopo il veleno comincia a fare effetto e l'uomo muore senza che
+              nessuno sia presente nella stanza. Più tardi, Carlo decide di parlare nuovamente con il fratello per
+              cercare di convincerlo a cambiare idea riguardo all'aiuto economico. Raggiunge la sua camera e bussa alla
+              porta, ma non riceve alcuna risposta. Nota che la luce è ancora accesa e prova più volte a chiamarlo.
+              Preoccupato, fa chiamare il detective Andrea. Il detective arriva rapidamente e, dopo aver aperto la
+              stanza, scopre il corpo senza vita di Francesco. La porta era chiusa dall'interno, la chiave si trovava
+              sul comodino e la finestra era chiusa. Tutto fa pensare a un misterioso delitto impossibile. Durante il
+              primo sopralluogo vengono rinvenuti il testamento e altri elementi sospetti. A questo punto inizia
+              l'indagine: i ragazzi dovranno raccogliere gli indizi, interrogare i sospettati e individuare il
+              colpevole, il movente e il metodo utilizzato per commettere il delitto.</p>
+          </div>
         </div>
       </section>
 
-      <!-- MATERIALE -->
+      <!-- ─────────────── MATERIALE ─────────────── -->
       <section class="section" id="section-materiale">
         <div class="card">
-          <div class="card-title">🎒 Lista materiale completa</div>
+          <div class="card-title"><i class="fa-solid fa-backpack"></i> Lista materiale completa</div>
           <div class="materiale-grid">
             <div class="materiale-item">Braccialetti (gialli, blu, rosa)</div>
-            <div class="materiale-item">Bigliettini colorati per squadre</div>
+            <div class="materiale-item">Bigliettini colorati per squadre con nomi e cognomi</div>
             <div class="materiale-item">Oggetti presentazione animatori</div>
             <div class="materiale-item">Materiale caccia al tesoro</div>
-            <div class="materiale-item">1 copia soluzioni caccia</div>
-            <div class="materiale-item">4 copie regole da tagliare</div>
-            <div class="materiale-item">Carte da gioco francesi</div>
+            <div class="materiale-item">Carte da gioco (francesi)</div>
             <div class="materiale-item">4 puzzle</div>
             <div class="materiale-item">Post-it</div>
             <div class="materiale-item">Semini piante</div>
-            <div class="materiale-item">Sagome di carta (cuori)</div>
+            <div class="materiale-item">Film Oceania</div>
+            <div class="materiale-item">Sagome di carta di cuori</div>
             <div class="materiale-item">Bastone (stand anziano)</div>
-            <div class="materiale-item">Vestiti / occhiali disabile</div>
-            <div class="materiale-item">Coperta stand disabile</div>
-            <div class="materiale-item">Cartello labiale</div>
-            <div class="materiale-item">Vestiti senza fissa dimora</div>
-            <div class="materiale-item">Cartone + coperta vecchia</div>
-            <div class="materiale-item">Cartello "Fate la carità"</div>
-            <div class="materiale-item">Panino, soldi, coperta pulita</div>
-            <div class="materiale-item">Abiti per stand</div>
-            <div class="materiale-item">Vestiti profuga + hijab</div>
-            <div class="materiale-item">Banco, quaderni, libri, penne</div>
+            <div class="materiale-item">Vestiti disabile: occhiali, coperta, cartello "Non posso camminare, né parlare.
+              Per capire quello che mi serve, dovete interpretare il labiale"</div>
+            <div class="materiale-item">Vestiti senza fissa dimora: cartone, coperta vecchia e sporca, cartello "Fate la
+              carità. Ho fame.", panino, soldi, coperta pulita, abiti</div>
+            <div class="materiale-item">Vestiti profuga: banco, quaderni, libri, penne, colori, hijab</div>
             <div class="materiale-item">30 lumini</div>
             <div class="materiale-item">Chiave stanza</div>
             <div class="materiale-item">Scalpi</div>
             <div class="materiale-item">Diamanti (pennarelli)</div>
-            <div class="materiale-item">Monete del Sacrificio (MS)</div>
-            <div class="materiale-item">Punti Cittadinanza (PCA)</div>
+            <div class="materiale-item">Foglietti Messa domenica</div>
+            <div class="materiale-item">Cartoleria: forbici, colla, matite, pennarelli, cartelloni vuoti, ecc...</div>
+            <div class="materiale-item">3 forbici, 3 righelli, 1 compasso, 2 gomme, 3 colle</div>
+            <div class="materiale-item">Monete del Sacrificio (MS) — attività Cena dei popoli</div>
+            <div class="materiale-item">Punti Cittadinanza Attiva (PCA) — attività Cena dei popoli</div>
           </div>
         </div>
       </section>
 
-      <!-- PREGHIERE -->
+      <!-- ─────────────── PREGHIERE ─────────────── -->
       <section class="section" id="section-preghiere">
         <div class="days-tabs" id="preghiere-tabs">
           <button class="day-tab active" data-pregh="sab">Sabato</button>
@@ -1416,9 +2252,10 @@
           <button class="day-tab" data-pregh="ven">Venerdì</button>
         </div>
 
+        <!-- SABATO -->
         <div class="day-content active" id="pregh-sab">
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Sabato</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Sabato</div>
             <div class="preghiera-block">Gesù, accompagna con la tua presenza
               questo nostro campo estivo:
               apri le nostre orecchie alla tua Parola
@@ -1438,9 +2275,10 @@
           </div>
         </div>
 
+        <!-- DOMENICA -->
         <div class="day-content" id="pregh-dom">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Domenica</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Domenica</div>
             <div class="preghiera-block">Ti adoro mio Dio,
               e ti amo con tutto il cuore.
               Ti ringrazio di avermi creato,
@@ -1454,7 +2292,7 @@
               Amen.</div>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Domenica</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Domenica</div>
             <div class="preghiera-block">Gesù,
               oggi ho provato cose nuove,
               alcune facili, altre difficili.
@@ -1467,9 +2305,10 @@
           </div>
         </div>
 
+        <!-- LUNEDÌ -->
         <div class="day-content" id="pregh-lun">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Lunedì</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Lunedì</div>
             <div class="preghiera-block">Signore, tu ci affidi il giorno, ogni giorno.
               Lo deponi nelle nostre mani affinché noi
               lo rendiamo bello, utile, ricco.
@@ -1483,7 +2322,7 @@
               perché ogni giorno possiamo ringraziarti.</div>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Lunedì</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Lunedì</div>
             <div class="preghiera-block">Padre dei cieli,
               con profondo stupore guardo incantato
               i fiori, i campi, il mare,
@@ -1497,9 +2336,10 @@
           </div>
         </div>
 
+        <!-- MARTEDÌ -->
         <div class="day-content" id="pregh-mar">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Martedì</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Martedì</div>
             <div class="preghiera-block">Signore, resta con me in questo giorno.
               Custodisci le mie mani
               perché non si allunghino per fare il male,
@@ -1514,7 +2354,7 @@
               Amen.</div>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Martedì</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Martedì</div>
             <div class="preghiera-block">Grazie, Gesù, per chi oggi mi ha consolato e,
               così facendo, mi ha reso felice.
               Grazie anche per la felicità che ho provato
@@ -1525,9 +2365,10 @@
           </div>
         </div>
 
+        <!-- MERCOLEDÌ -->
         <div class="day-content" id="pregh-mer">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Mercoledì</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Mercoledì</div>
             <div class="preghiera-block">Ti ringrazio, Padre,
               per questo nuovo giorno.
               Aiutami a viverlo in amicizia
@@ -1539,7 +2380,7 @@
               Amen.</div>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Mercoledì</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Mercoledì</div>
             <div class="preghiera-block">Gesù, insegnaci a donarci agli altri
               con semplicità e gioia.
               Fa' che il nostro sorriso sia un segno di amicizia,
@@ -1552,9 +2393,10 @@
           </div>
         </div>
 
+        <!-- GIOVEDÌ -->
         <div class="day-content" id="pregh-gio">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Giovedì</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Giovedì</div>
             <div class="preghiera-block">Gesù, oggi, come ogni giorno,
               con i compagni di campo, con gli amici,
               con gli animatori e i capi-campo,
@@ -1567,7 +2409,7 @@
               Amen.</div>
           </div>
           <div class="card">
-            <div class="card-title">🌙 Preghiera della sera — Giovedì</div>
+            <div class="card-title"><i class="fa-solid fa-moon"></i> Preghiera della sera — Giovedì</div>
             <div class="preghiera-block">Signore, questa sera penso a cosa ho fatto oggi:
               quando ho sorriso, quando ho aiutato, ma anche
               quando ho fatto fatica a voler bene agli altri.
@@ -1576,9 +2418,10 @@
           </div>
         </div>
 
+        <!-- VENERDÌ -->
         <div class="day-content" id="pregh-ven">
           <div class="card">
-            <div class="card-title">🌅 Preghiera del mattino — Venerdì</div>
+            <div class="card-title"><i class="fa-solid fa-mountain-sun"></i> Preghiera del mattino — Venerdì</div>
             <div class="preghiera-block">All'inizio del giorno accetta, o Padre, la nostra offerta.
               Ti offriamo il nostro gioco, il nostro lavoro,
               il nostro impegno, i nostri pensieri buoni,
@@ -1591,7 +2434,7 @@
               il tuo Vangelo.</div>
           </div>
           <div class="card">
-            <div class="card-title">🔥 Preghiera del falò — Venerdì sera</div>
+            <div class="card-title"><i class="fa-solid fa-fire"></i> Preghiera del falò — Venerdì sera</div>
             <div class="preghiera-block">Signore Gesù, questa sera, sotto le stelle e attorno a
               questo fuoco, con il cuore pieno di emozioni, ci
               fermiamo un momento per dirti GRAZIE.
@@ -1626,10 +2469,10 @@
         </div>
       </section>
 
-      <!-- CANTI -->
+      <!-- ─────────────── CANTI ─────────────── -->
       <section class="section" id="section-canti">
         <div class="card">
-          <div class="card-title">🎵 La canzone di Luciano</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> La canzone di Luciano</div>
           <div class="canto-block">Fa' Signore
             che io riesca a consumare
             la mia vita per gli altri
@@ -1658,7 +2501,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 È bello lodarti</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> È bello lodarti</div>
           <div class="canto-block"><span class="canto-ritornello">È bello cantare il tuo amore,
               è bello lodare il tuo nome,
               è bello cantare il tuo amore,
@@ -1679,7 +2522,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 Resta accanto a me</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> Resta accanto a me</div>
           <div class="canto-block"><span class="canto-ritornello">Ora vado sulla mia strada
               con l'amore tuo che mi guida,
               oh Signore ovunque io vada
@@ -1701,7 +2544,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 Camminerò</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> Camminerò</div>
           <div class="canto-block"><span class="canto-ritornello">Camminerò, camminerò
               nella tua strada, Signor.
               Dammi la mano, voglio restar
@@ -1719,7 +2562,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 Ti ringrazio mio Signore</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> Ti ringrazio mio Signore</div>
           <div class="canto-block">Amatevi l'un l'altro come lui ha amato noi,
             e siate per sempre suoi amici;
             e quello che farete al più piccolo tra voi,
@@ -1736,7 +2579,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 Acqua siamo noi</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> Acqua siamo noi</div>
           <div class="canto-block">Acqua siamo noi, dall'antica sorgente veniamo,
             fiumi siamo noi se i ruscelli si mettono insieme,
             mari siamo noi se i torrenti si danno la mano,
@@ -1752,7 +2595,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">🎵 Ecco quel che abbiamo</div>
+          <div class="card-title"><i class="fa-solid fa-music"></i> Ecco quel che abbiamo</div>
           <div class="canto-block">Ecco quel che abbiamo,
             nulla ci appartiene ormai.
             Ecco i frutti della terra,
@@ -1771,12 +2614,288 @@
             e il miracolo del pane in terra
             si ripeterà.</div>
         </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Accogli Signore i nostri doni</div>
+          <div class="canto-block">Accogli Signore i nostri doni
+            in questo misterioso incontro
+            tra la nostra povertà e la tua grandezza.
+
+            Noi ti offriamo le cose
+            che tu stesso ci ha dato
+            e tu in cambio donaci, donaci te stesso.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Come ti ama Dio</div>
+          <div class="canto-block">Io vorrei saperti amare come Dio,
+            che ti prende per mano, ma ti lascia anche andare.
+            Vorrei saperti amare senza farti mai domande,
+            felice perché esisti,
+            e così io posso darti il meglio di me.
+
+            <span class="canto-ritornello">Con la forza del mare, l'eternità dei giorni,
+              la gioia dei voli, la pace della sera,
+              l'immensità del cielo: come ti ama Dio.</span>
+
+            Io vorrei saperti amare come ti ama Dio,
+            che ti conosce e ti accetta come sei.
+            Tenerti tra le mani come voli nell'azzurro,
+            felice perché esisti,
+            e così io posso darti il meglio di me.
+
+            Io vorrei saperti amare come Dio,
+            che ti fa migliore con l'amore che ti dona.
+            Seguirti tra la gente con la gioia che hai dentro.
+            Felice perché esisti
+            e così io posso darti il meglio di me.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Vieni Santo Spirito di Dio</div>
+          <div class="canto-block"><span class="canto-ritornello">Vieni, Santo Spirito di Dio,
+              come vento soffia sulla chiesa!
+              Vieni come fuoco, ardi in noi,
+              e con te saremo veri testimoni di Gesù.</span>
+
+            Sei vento: spazza il cielo dalle nubi del timore,
+            sei fuoco sciogli il gelo e accendi il nostro ardore.
+            Spirito creatore, scendi su di noi!</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Benedirò il Signore</div>
+          <div class="canto-block">Benedirò il Signore in ogni tempo,
+            sulla mia bocca la sua lode sempre avrò,
+            nel mio canto do gloria al Signore,
+            si rallegra il mio cuore in umiltà.
+
+            <span class="canto-ritornello">Ti benedirò, Signore in ogni tempo,
+              canterò per te senza fine.
+              Se sarai con me più nulla temerò
+              ed avrò nel cuore la gioia.</span>
+
+            Benedirò il Signore in ogni tempo,
+            il nome suo in eterno canterò.
+            Io l'ho cercato e lui mi ha risposto,
+            dall'angoscia lui mi libererà.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Grandi cose</div>
+          <div class="canto-block"><span class="canto-ritornello">Grandi cose ha fatto il Signore per noi,
+              ha fatto germogliare i fiori tra le rocce.
+              Grandi cose ha fatto il Signore per noi,
+              ci ha riportati liberi alla nostra terra.
+              Ed ora possiamo cantare, possiamo gridare
+              l'amore che Dio ha versato su noi.</span>
+
+            Tu che sai strappare dalla morte,
+            hai sollevato il nostro viso dalla polvere.
+            Tu che hai sentito il nostro pianto,
+            nel nostro cuore hai messo un seme di felicità.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Osanna eh!</div>
+          <div class="canto-block">Santo, Santo, Osanna.
+
+            <span class="canto-ritornello">Osanna eh, Osanna eh! Osanna a Cristo Signor!</span>
+
+            I cieli e la terra o Signore, sono pieni di Te!
+            Benedetto colui che viene, nel nome tuo Signor!
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Nel tuo silenzio</div>
+          <div class="canto-block">Nel tuo silenzio accolgo il mistero
+            venuto a vivere dentro di me.
+            Sei tu che vieni, o forse è più vero
+            che tu mi accogli in te, Gesù.
+
+            Sorgente viva che nasce nel cuore:
+            è questo dono che abita in me.
+            La tua presenza è un fuoco d'amore.
+            Che avvolge l'anima mia, Gesù.
+
+            Ora il tuo Spirito in me dice: "Padre",
+            non sono io a parlare, sei Tu.
+            Nell'infinito oceano di pace,
+            Tu vivi in me, io in te, Gesù.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Servo per amore</div>
+          <div class="canto-block">Una notte di sudore
+            sulla barca in mezzo al mare
+            e mentre il cielo si imbianca già,
+            tu guardi le tue reti vuote.
+            Ma la voce che ti chiama
+            un altro mare ti mostrerà
+            e sulle rive di ogni cuore,
+            le tue reti getterai.
+
+            <span class="canto-ritornello">Offri la vita tua
+              come Maria
+              ai piedi della croce
+              e sarai servo
+              di ogni uomo,
+              servo per amore,
+              sacerdote dell'umanità.</span>
+
+            Avanzavi nel silenzio
+            fra le lacrime e speravi
+            che il seme sparso davanti a Te
+            cadesse sulla buona terra.
+            Ora il cuore tuo è in festa
+            perché il grano biondeggia ormai,
+            è maturato sotto il sole,
+            puoi riporlo nei granai.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Chiamati per nome</div>
+          <div class="canto-block"><span class="canto-ritornello">Veniamo da te,
+              chiamati per nome.
+              Che festa, Signore, tu cammini con noi.
+              Ci parli di te,
+              per noi spezzi il pane,
+              ti riconosciamo e il cuore arde: sei Tu!
+              E noi tuo popolo
+              siamo qui.</span>
+
+            Siamo come terra ed argilla
+            e la tua Parola ci plasmerà,
+            brace pronta per la scintilla
+            e il tuo Spirito soffierà, c'infiammerà.
+
+            Siamo come semi nel solco,
+            come vigna che il suo frutto darà,
+            grano del Signore risorto,
+            la tua messe che fiorirà d'eternità.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Frutto della nostra terra</div>
+          <div class="canto-block">Frutto della nostra terra,
+            del lavoro di ogni uomo,
+            pane della nostra vita,
+            cibo della quotidianità.
+            Tu che lo prendevi un giorno,
+            lo spezzavi per i tuoi,
+            oggi vieni in questo pane,
+            cibo vero dell'umanità.
+
+            <span class="canto-ritornello">E sarò pane, e sarò vino,
+              nella mia vita, nelle tue mani,
+              ti accoglierò dentro di me,
+              farò di me un'offerta viva,
+              un sacrificio gradito a te.</span>
+
+            Frutto della nostra terra,
+            del lavoro di ogni uomo,
+            vino delle nostre vigne
+            sulla mensa dei fratelli tuoi.
+            Tu che lo prendevi un giorno,
+            lo bevevi con i tuoi,
+            oggi vieni in questo vino
+            e ti doni per la vita mia.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Andate per le strade</div>
+          <div class="canto-block"><span class="canto-ritornello">Andate per le strade in tutto il mondo,
+              chiamate i miei amici per far festa:
+              c'è un posto per ciascuno alla mia mensa.</span>
+
+            Nel vostro cammino annunciate il Vangelo,
+            dicendo: "E' vicino il Regno dei cieli".
+            Guarite i malati, mondate i lebbrosi,
+            rendete la vita a chi l'ha perduta.
+
+            Vi è stato donato con amore gratuito:
+            ugualmente donate con gioia ed amore.
+            Con voi non prendete né oro né argento
+            perché l'operaio ha diritto al suo cibo.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> È un giorno di festa</div>
+          <div class="canto-block"><span class="canto-ritornello">È un giorno di festa, è il giorno per noi,
+              cantare l'amore che viene da Lui.
+              È un giorno di gioia, la gioia per noi,
+              scoprirsi suoi figli amati da Lui.</span>
+
+            Tu ci chiami, Signore,
+            alla mensa che accoglie.
+            Sei parola, pane del nostro cammino,
+            fonte d'eternità.
+
+            Noi veniamo, Signore,
+            per trovarti e amarti.
+            Noi fratelli, noi una sola famiglia,
+            un corpo solo in te.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Incontro a Te</div>
+          <div class="canto-block">Ristorati dal tuo pane,
+            dissetati dal tuo vino,
+            rafforzati dalla tua parola.
+            Proseguiamo nel domani,
+            tutti uniti nel tuo corpo,
+            fonte inesauribile di pace.
+
+            <span class="canto-ritornello">Incontro a Te, noi camminiamo
+              e dentro a noi crescerà,
+              la libertà nel mondo che amiamo,
+              porteremo la speranza,
+              dei figli tuoi, figli del tuo amore.</span>
+
+            Nella gioia e nel dolore,
+            nel lavoro e nel riposo,
+            nella solitudine del cuore.
+            Sei compagno del cammino,
+            tenerezza immensa e vera,
+            mano che accompagna tutti noi.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Alleluia, la nostra festa</div>
+          <div class="canto-block"><span class="canto-ritornello">Alleluia alleluia, alleluia alleluia, alleluia
+              alleluia, alleluia!</span>
+
+            La nostra festa non deve finire,
+            non deve finire e non finirà.
+            Perché la festa siamo noi, che camminiamo verso Te.
+            Perché la festa siamo noi che cantiamo così.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-music"></i> Se m'accogli</div>
+          <div class="canto-block">Tra le mani non ho niente, spero che mi accoglierai,
+            chiedo solo di restare accanto a te.
+            Sono ricco solamente dell'amore che mi dai:
+            è per quelli che non l'hanno avuto mai.
+
+            <span class="canto-ritornello">Se m'accogli, mio Signore, altro non ti chiederò,
+              e per sempre la tua strada la mia strada resterà,
+              nella gioia e nel dolore, fino a quando tu vorrai
+              con la mano nella tua camminerò.</span>
+          </div>
+        </div>
       </section>
 
-      <!-- BEATITUDINI -->
+      <!-- ─────────────── BEATITUDINI ─────────────── -->
       <section class="section" id="section-beatitudini">
         <div class="card">
-          <div class="card-title">📖 Discorso della montagna — Mt 5,1-12a</div>
+          <div class="card-title"><i class="fa-solid fa-book-open"></i> Discorso della montagna — Mt 5,1-12a</div>
           <p style="font-size:0.9rem;line-height:1.7;margin-bottom:16px;color:#374151">Vedendo le folle, Gesù salì sulla
             montagna e, messosi a sedere, gli si avvicinarono i suoi discepoli. Prendendo allora la parola, li
             ammaestrava dicendo:</p>
@@ -1784,30 +2903,37 @@
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#DBEAFE,#EFF6FF);border-color:#93C5FD;color:#1E3A5F">
               <strong>Beati i poveri in spirito,</strong> perché di essi è il regno dei cieli. <em
-                style="font-size:0.8rem;opacity:0.7">→ Domenica: Umiltà</em></div>
+                style="font-size:0.8rem;opacity:0.7">→ Domenica: Umiltà</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#D1FAE5,#ECFDF5);border-color:#6EE7B7;color:#064E3B">
               <strong>Beati gli afflitti,</strong> perché saranno consolati. <em style="font-size:0.8rem;opacity:0.7">→
-                Martedì: Poveri</em></div>
+                Martedì: Poveri vicini e lontani</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#FEF3C7,#FFFBEB);border-color:#FCD34D;color:#78350F">
               <strong>Beati i miti,</strong> perché erediteranno la terra. <em style="font-size:0.8rem;opacity:0.7">→
-                Lunedì: Montagna</em></div>
+                Lunedì: Montagna</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#FCE7F3,#FDF2F8);border-color:#F9A8D4;color:#831843">
               <strong>Beati quelli che hanno fame e sete della giustizia,</strong> perché saranno saziati. <em
-                style="font-size:0.8rem;opacity:0.7">→ Giovedì: Lavoro</em></div>
+                style="font-size:0.8rem;opacity:0.7">→ Giovedì: Lavoro</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#EDE9FE,#F5F3FF);border-color:#C4B5FD;color:#4C1D95">
               <strong>Beati i misericordiosi,</strong> perché troveranno misericordia. <em
-                style="font-size:0.8rem;opacity:0.7">→ Venerdì: Fede</em></div>
+                style="font-size:0.8rem;opacity:0.7">→ Venerdì: Fede</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#CCFBF1,#F0FDFA);border-color:#5EEAD4;color:#134E4A">
-              <strong>Beati i puri di cuore,</strong> perché vedranno Dio.</div>
+              <strong>Beati i puri di cuore,</strong> perché vedranno Dio.
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#FFF7ED,#FFFBEB);border-color:#FCA5A5;color:#7F1D1D">
               <strong>Beati gli operatori di pace,</strong> perché saranno chiamati figli di Dio. <em
-                style="font-size:0.8rem;opacity:0.7">→ Mercoledì: Sorriso</em></div>
+                style="font-size:0.8rem;opacity:0.7">→ Mercoledì: Sorriso</em>
+            </div>
             <div class="beati-pill"
               style="background:linear-gradient(135deg,#F0FDF4,#D8F3DC);border-color:#86EFAC;color:#14532D">
               <strong>Beati i perseguitati per causa della giustizia,</strong> perché di essi è il regno dei cieli.
@@ -1816,18 +2942,18 @@
         </div>
       </section>
 
-      <!-- NOTE -->
+      <!-- ─────────────── NOTE ─────────────── -->
       <section class="section" id="section-note">
         <div class="card">
-          <div class="card-title">📝 Note condivise per giornata</div>
+          <div class="card-title"><i class="fa-solid fa-note-sticky"></i> Note condivise per giornata</div>
           <p style="font-size:0.85rem;color:var(--grigio);margin-bottom:16px">Le note vengono salvate sul server e sono
             visibili a tutti gli animatori.</p>
           <div id="note-container"></div>
         </div>
       </section>
 
-    </div>
-  </div>
+    </div><!-- /.content -->
+  </div><!-- /#main -->
 
   <script>
     // ── NAVIGATION ──
@@ -1842,12 +2968,29 @@
       attivita: 'Attività',
       giochi: 'Giochi',
       serate: 'Serate',
+      scenette: 'Scenette',
       materiale: 'Materiale',
       preghiere: 'Preghiere',
       canti: 'Canti',
       beatitudini: 'Beatitudini',
       note: 'Note condivise'
     };
+
+    function closeSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+      sidebar.style.display = '';
+    }
+
+    function openSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      sidebar.classList.add('open');
+      overlay.classList.add('active');
+      sidebar.style.display = 'flex';
+    }
 
     function showSection(name) {
       sections.forEach(s => s.classList.remove('active'));
@@ -1858,19 +3001,41 @@
       if (navTarget) navTarget.classList.add('active');
       document.getElementById('topbar-title').textContent = sectionTitles[name] || name;
       if (name === 'note') loadNotes();
+      if (window.innerWidth <= 768) closeSidebar();
     }
 
     navItems.forEach(item => {
       item.addEventListener('click', () => {
         showSection(item.dataset.section);
-        if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
       });
     });
 
     // ── HAMBURGER ──
-    document.getElementById('hamburger').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('open');
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    hamburger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
     });
+
+    document.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        const isClickInsideSidebar = sidebar.contains(e.target);
+        const isClickOnHamburger = hamburger.contains(e.target);
+        if (!isClickInsideSidebar && !isClickOnHamburger && sidebar.classList.contains('open')) {
+          closeSidebar();
+        }
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) closeSidebar();
+    });
+
+    document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
 
     // ── DAY TABS (programma) ──
     document.querySelectorAll('[data-day]').forEach(btn => {
@@ -1882,6 +3047,7 @@
         btn.classList.add('active');
         const target = document.getElementById('day-' + btn.dataset.day);
         if (target) target.classList.add('active');
+        closeSidebar();
       });
     });
 
@@ -1893,12 +3059,15 @@
         btn.classList.add('active');
         const target = document.getElementById('pregh-' + btn.dataset.pregh);
         if (target) target.classList.add('active');
+        closeSidebar();
       });
     });
 
     // ── DATE ──
     const days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-    const months = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+    const months = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre',
+      'ottobre', 'novembre', 'dicembre'
+    ];
     const now = new Date();
     document.getElementById('topbar-date').textContent =
       days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
@@ -1930,7 +3099,7 @@
       <div class="note-actions">
         <button class="btn btn-primary" onclick="saveNote('${key}')">Salva</button>
         <button class="btn btn-ghost" onclick="clearNote('${key}')">Cancella</button>
-        <span class="note-saved" id="saved-${key}">✓ Salvato</span>
+        <span class="note-saved" id="saved-${key}"><i class="fa-solid fa-check"></i> Salvato</span>
         ${saved.updatedAt ? `<span style="font-size:0.72rem;color:var(--grigio);margin-left:auto">Aggiornato: ${new Date(saved.updatedAt).toLocaleString('it-IT')}</span>` : ''}
       </div>`;
         container.appendChild(div);
@@ -1951,6 +3120,11 @@
       if (!confirm('Cancellare le note per questa giornata?')) return;
       await fetch('/api/notes/' + key, { method: 'DELETE' });
       document.getElementById('ta-' + key).value = '';
+    }
+
+    // Se la sezione note è attiva al caricamento, carica le note
+    if (document.getElementById('section-note').classList.contains('active')) {
+      loadNotes();
     }
   </script>
 </body>
